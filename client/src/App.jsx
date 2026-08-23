@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -13,13 +14,16 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* Day 1 */}
+        {/* Landing Page */}
         <Route path="/" element={<Landing />} />
 
-        {/* Day 2 */}
+        {/* Sonam's Home Page */}
+        <Route path="/home" element={<Home />} />
+
+        {/* Register Page */}
         <Route path="/register" element={<Register />} />
 
-        {/* Day 3 */}
+        {/* Login Page */}
         <Route path="/login" element={<Login />} />
       </Routes>
 

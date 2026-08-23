@@ -12,7 +12,7 @@ const Navbar = () => {
 
         <div className="navbar-links">
 
-          <Link to="/" className="navbar-link">
+          <Link to="/home" className="navbar-link">
             Home
           </Link>
 
@@ -29,6 +29,7 @@ const Navbar = () => {
           </Link>
 
         </div>
+
       </div>
     </nav>
   );
