@@ -7,6 +7,7 @@ import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Discover from "./pages/Discover";
 
 function App() {
   return (
@@ -16,9 +17,10 @@ function App() {
       <Routes>
         {/* Landing Page */}
         <Route path="/" element={<Landing />} />
-
-        {/* Sonam's Home Page */}
+        {/* Home Page */}
         <Route path="/home" element={<Home />} />
+        {/* Discover Page */}
+        <Route path="/discover" element={<Discover />} />
 
         {/* Register Page */}
         <Route path="/register" element={<Register />} />
