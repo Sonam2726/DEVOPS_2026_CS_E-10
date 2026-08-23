@@ -1,0 +1,53 @@
+.discover{
+    padding:60px 8%;
+    background:#f8f9fc;
+    min-height:100vh;
+}
+
+.discover h1{
+    text-align:center;
+    margin-bottom:30px;
+    color:#172554;
+}
+
+.discover input,
+.discover select{
+    width:100%;
+    padding:12px;
+    margin-bottom:15px;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
+
+.skill-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+    gap:25px;
+    margin-top:30px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,.08);
+}
+
+.card h3{
+    color:#5b2cff;
+}
+
+.category{
+    color:#5b2cff;
+    font-weight:bold;
+}
+
+.card button{
+    margin-top:15px;
+    background:#5b2cff;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
