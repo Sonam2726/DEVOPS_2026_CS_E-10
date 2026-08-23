@@ -1,42 +1,53 @@
 .navbar {
   width: 100%;
-  height: 64px;
+
   background: #ffffff;
+
   border-bottom: 1px solid #e5e7eb;
+
   position: relative;
-  z-index: 100;
+  z-index: 10;
 }
 
 .navbar-container {
-  width: 100%;
-  max-width: 1200px;
-  height: 100%;
+  max-width: 900px;
+
   margin: 0 auto;
-  padding: 0 32px;
+
+  height: 72px;
+
+  padding: 0 20px;
 
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  box-sizing: border-box;
 }
 
 .navbar-logo {
-  text-decoration: none;
   color: #6d28d9;
-  font-size: 22px;
+
+  font-size: 20px;
   font-weight: 700;
+
+  text-decoration: none;
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 28px;
+  gap: 26px;
 }
 
 .navbar-link {
-  text-decoration: none;
-  color: #172033;
-  font-size: 15px;
+  color: #111827;
+
+  font-size: 13px;
   font-weight: 500;
+
+  text-decoration: none;
+
   transition: color 0.2s ease;
 }
 
@@ -45,62 +56,41 @@
 }
 
 .navbar-button {
-  text-decoration: none;
+  padding: 9px 16px;
+
+  border-radius: 6px;
+
   background: #6d28d9;
   color: #ffffff;
 
-  padding: 9px 16px;
-  border-radius: 7px;
-
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
 
-  transition: all 0.2s ease;
+  text-decoration: none;
+
+  transition: background 0.2s ease;
 }
 
 .navbar-button:hover {
   background: #5b21b6;
-  transform: translateY(-1px);
 }
 
-/* Tablet */
-
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   .navbar-container {
-    padding: 0 20px;
+    height: auto;
+    min-height: 68px;
   }
 
   .navbar-links {
-    gap: 16px;
+    gap: 12px;
   }
 
   .navbar-link {
-    font-size: 14px;
+    font-size: 12px;
   }
 
   .navbar-button {
     padding: 8px 12px;
-    font-size: 13px;
-  }
-}
-
-/* Small Mobile */
-
-@media (max-width: 480px) {
-  .navbar {
-    height: auto;
-  }
-
-  .navbar-container {
-    padding: 14px 16px;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .navbar-links {
-    width: 100%;
-    justify-content: center;
-    gap: 14px;
-    flex-wrap: wrap;
+    font-size: 12px;
   }
 }
