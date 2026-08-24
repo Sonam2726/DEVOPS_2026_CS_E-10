@@ -6,6 +6,7 @@ import Footer from "./components/Footer";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
@@ -21,6 +22,8 @@ function App() {
 
         {/* Day 3 */}
         <Route path="/login" element={<Login />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
 
       <Footer />
