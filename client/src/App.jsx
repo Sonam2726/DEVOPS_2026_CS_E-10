@@ -6,6 +6,8 @@ import Footer from "./components/Footer";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Discover from "./pages/Discover";
 import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
