@@ -1,110 +1,179 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import Input from "../components/Input";
 import Button from "../components/Button";
 
+import "./Login.css";
+
 function Login() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setError("");
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.email || !formData.password) {
+      setError("Please enter your email and password.");
+      return;
+    }
+
+    const savedUser = localStorage.getItem(
+      "skillbridgeUser"
+    );
+
+    if (!savedUser) {
+      setError(
+        "No account found. Please create an account first."
+      );
+      return;
+    }
+
+    const user = JSON.parse(savedUser);
+
+    if (
+      formData.email !== user.email ||
+      formData.password !== user.password
+    ) {
+      setError("Invalid email or password.");
+      return;
+    }
+
+    if (rememberMe) {
+      localStorage.setItem(
+        "skillbridgeRememberMe",
+        "true"
+      );
+    } else {
+      localStorage.removeItem(
+        "skillbridgeRememberMe"
+      );
+    }
+
+    localStorage.setItem(
+      "skillbridgeLoggedIn",
+      "true"
+    );
+
+    navigate("/");
+  };
+
   return (
-    <div className="min-h-[calc(100vh-73px)] bg-slate-50 px-6 py-12">
+    <main className="login-page">
 
-      <div className="mx-auto grid max-w-5xl overflow-hidden rounded-2xl bg-white shadow-lg md:grid-cols-2">
+      <div className="login-container">
 
-        {/* Left Side */}
-        <div className="hidden bg-gradient-to-br from-indigo-600 to-violet-600 p-10 text-white md:block">
+        <div className="login-card">
 
-          <div className="flex h-full flex-col justify-center">
+          <div className="login-header">
 
-            <h1 className="text-4xl font-bold">
-              Welcome Back!
-            </h1>
-
-            <p className="mt-4 text-indigo-100">
-              Continue your learning journey with SkillBridge AI.
+            <p className="login-tagline">
+              Welcome back
             </p>
 
-            <div className="mt-8 space-y-4">
+            <h1 className="login-title">
+              Login to SkillBridge AI
+            </h1>
 
-              <p>✓ Find people with complementary skills</p>
-              <p>✓ Learn directly from peers</p>
-              <p>✓ Share the skills you know</p>
-              <p>✓ Build meaningful learning connections</p>
-
-            </div>
+            <p className="login-description">
+              Continue your learning and skill journey.
+            </p>
 
           </div>
 
-        </div>
+          <form
+            className="login-form"
+            onSubmit={handleSubmit}
+          >
 
-        {/* Right Side */}
-        <div className="p-8 sm:p-10">
+            <Input
+              label="Email Address"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
 
-          <div className="mx-auto max-w-md">
+            <Input
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Enter your password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
 
-            <h2 className="text-3xl font-bold text-slate-900">
-              Login
-            </h2>
+            <div className="login-options">
 
-            <p className="mt-2 text-sm text-slate-500">
-              Welcome back! Please enter your details.
-            </p>
-
-            <form className="mt-8 space-y-5">
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Email
-                </label>
-
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Password
-                </label>
+              <label className="remember-option">
 
                 <input
-                  type="password"
-                  placeholder="Enter your password"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) =>
+                    setRememberMe(e.target.checked)
+                  }
                 />
-              </div>
 
-              <div className="flex items-center justify-between text-sm">
+                <span>
+                  Remember Me
+                </span>
 
-                <label className="flex items-center gap-2 text-slate-600">
-                  <input type="checkbox" />
-                  Remember me
-                </label>
-
-                <button
-                  type="button"
-                  className="font-medium text-indigo-600 hover:text-indigo-700"
-                >
-                  Forgot password?
-                </button>
-
-              </div>
-
-              <Button type="submit" className="w-full">
-                Login
-              </Button>
-
-            </form>
-
-            <p className="mt-6 text-center text-sm text-slate-500">
-
-              Don't have an account?{" "}
+              </label>
 
               <Link
-                to="/register"
-                className="font-semibold text-indigo-600 hover:text-indigo-700"
+                to="/forgot-password"
+                className="forgot-link"
               >
-                Create account
+                Forgot Password?
               </Link>
 
+            </div>
+
+            {error && (
+              <p className="form-error">
+                {error}
+              </p>
+            )}
+
+            <Button
+              type="submit"
+              variant="primary"
+              className="login-submit"
+            >
+              Login
+            </Button>
+
+          </form>
+
+          <div className="login-footer">
+
+            <p>
+              Don't have an account?{" "}
+              <Link to="/register">
+                Create Account
+              </Link>
             </p>
 
           </div>
@@ -113,7 +182,7 @@ function Login() {
 
       </div>
 
-    </div>
+    </main>
   );
 }
 

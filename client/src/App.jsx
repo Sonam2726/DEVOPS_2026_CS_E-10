@@ -3,23 +3,33 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Login from "./pages/Login";
+import Landing from "./pages/Landing";
 import Register from "./pages/Register";
-
+import Login from "./pages/Login";
+import Home from "./pages/Home";
+import Discover from "./pages/Discover";
+import ForgotPassword from "./pages/ForgotPassword";
 
 function App() {
   return (
     <BrowserRouter>
-
       <Navbar />
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/login" element={<Login />} />
+        {/* Landing Page */}
+        <Route path="/" element={<Landing />} />
+        {/* Home Page */}
+        <Route path="/home" element={<Home />} />
+        {/* Discover Page */}
+        <Route path="/discover" element={<Discover />} />
+
+        {/* Register Page */}
         <Route path="/register" element={<Register />} />
+
+        {/* Login Page */}
+        <Route path="/login" element={<Login />} />
+
+        <Route path="/forgot-password" element={<ForgotPassword />} />
       </Routes>
 
       <Footer />

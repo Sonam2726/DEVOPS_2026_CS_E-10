@@ -1,161 +1,176 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import Input from "../components/Input";
 import Button from "../components/Button";
 
+import "./Register.css";
+
 function Register() {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    setErrors((prev) => ({
+      ...prev,
+      [name]: "",
+    }));
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.name.trim()) {
+      newErrors.name = "Full name is required.";
+    }
+
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email.";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "Password is required.";
+    } else if (formData.password.length < 6) {
+      newErrors.password =
+        "Password must be at least 6 characters.";
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword =
+        "Please confirm your password.";
+    } else if (
+      formData.password !== formData.confirmPassword
+    ) {
+      newErrors.confirmPassword =
+        "Passwords do not match.";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const validationErrors = validateForm();
+
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
+    console.log("Register form submitted:", formData);
+
+    alert("Account created successfully!");
+
+    navigate("/login");
+  };
+
   return (
-    <div className="min-h-[calc(100vh-73px)] bg-slate-50 px-6 py-12">
+    <main className="register-page">
+      <div className="register-container">
 
-      <div className="mx-auto grid max-w-5xl overflow-hidden rounded-2xl bg-white shadow-lg md:grid-cols-2">
+        <div className="register-card">
 
-        {/* Left Side */}
-        <div className="hidden bg-gradient-to-br from-indigo-600 to-violet-600 p-10 text-white md:block">
+          <div className="register-header">
+            <p className="register-tagline">
+              Join SkillBridge AI
+            </p>
 
-          <div className="flex h-full flex-col justify-center">
-
-            <h1 className="text-4xl font-bold">
-              Join SkillBridge
+            <h1 className="register-title">
+              Create your account
             </h1>
 
-            <p className="mt-4 text-indigo-100">
-              Connect with people who can teach what you want to
-              learn and learn from what you already know.
+            <p className="register-description">
+              Start learning, teaching and connecting with people
+              through SkillBridge AI.
             </p>
-
-            <div className="mt-8 space-y-4">
-
-              <p>✓ Share the skills you already know</p>
-              <p>✓ Discover skills you want to learn</p>
-              <p>✓ Connect with compatible learners</p>
-              <p>✓ Grow through peer-to-peer learning</p>
-
-            </div>
-
           </div>
 
-        </div>
+          <form
+            className="register-form"
+            onSubmit={handleSubmit}
+            noValidate
+          >
+            <Input
+              label="Full Name"
+              name="name"
+              type="text"
+              placeholder="Enter your full name"
+              value={formData.name}
+              onChange={handleChange}
+              error={errors.name}
+              required
+            />
 
-        {/* Right Side */}
-        <div className="p-8 sm:p-10">
+            <Input
+              label="Email Address"
+              name="email"
+              type="email"
+              placeholder="Enter your email"
+              value={formData.email}
+              onChange={handleChange}
+              error={errors.email}
+              required
+            />
 
-          <div className="mx-auto max-w-md">
+            <Input
+              label="Password"
+              name="password"
+              type="password"
+              placeholder="Create a password"
+              value={formData.password}
+              onChange={handleChange}
+              error={errors.password}
+              required
+            />
 
-            <h2 className="text-3xl font-bold text-slate-900">
+            <Input
+              label="Confirm Password"
+              name="confirmPassword"
+              type="password"
+              placeholder="Confirm your password"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              error={errors.confirmPassword}
+              required
+            />
+
+            <Button
+              type="submit"
+              variant="primary"
+              className="register-submit"
+            >
               Create Account
-            </h2>
+            </Button>
+          </form>
 
-            <p className="mt-2 text-sm text-slate-500">
-              Create your SkillBridge account to get started.
+          <div className="register-footer">
+            <p>
+              Already have an account?
+              <Link to="/login"> Login</Link>
             </p>
-
-            <form className="mt-8 space-y-5">
-
-              {/* Full Name */}
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Full Name
-                </label>
-
-                <input
-                  type="text"
-                  placeholder="Enter your full name"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              {/* Email */}
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Email
-                </label>
-
-                <input
-                  type="email"
-                  placeholder="you@example.com"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              {/* Password */}
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Password
-                </label>
-
-                <input
-                  type="password"
-                  placeholder="Create a password"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              {/* Confirm Password */}
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Confirm Password
-                </label>
-
-                <input
-                  type="password"
-                  placeholder="Confirm your password"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              {/* Skills */}
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Skills I Can Teach
-                </label>
-
-                <input
-                  type="text"
-                  placeholder="e.g. React, Python, SQL"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              <div>
-                <label className="mb-2 block text-sm font-medium text-slate-700">
-                  Skills I Want to Learn
-                </label>
-
-                <input
-                  type="text"
-                  placeholder="e.g. AWS, Machine Learning"
-                  className="w-full rounded-lg border border-slate-300 px-4 py-3 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-                />
-              </div>
-
-              {/* Submit */}
-              <Button
-                type="submit"
-                className="w-full"
-              >
-                Create Account
-              </Button>
-
-            </form>
-
-            <p className="mt-6 text-center text-sm text-slate-500">
-
-              Already have an account?{" "}
-
-              <Link
-                to="/login"
-                className="font-semibold text-indigo-600 hover:text-indigo-700"
-              >
-                Login
-              </Link>
-
-            </p>
-
           </div>
 
         </div>
-
       </div>
-
-    </div>
+    </main>
   );
 }
 
