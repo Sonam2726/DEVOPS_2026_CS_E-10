@@ -14,13 +14,17 @@ function App() {
       <Navbar />
 
       <Routes>
-        {/* Day 1 */}
+        {/* Landing Page */}
         <Route path="/" element={<Landing />} />
+        {/* Home Page */}
+        <Route path="/home" element={<Home />} />
+        {/* Discover Page */}
+        <Route path="/discover" element={<Discover />} />
 
-        {/* Day 2 */}
+        {/* Register Page */}
         <Route path="/register" element={<Register />} />
 
-        {/* Day 3 */}
+        {/* Login Page */}
         <Route path="/login" element={<Login />} />
 
         <Route path="/forgot-password" element={<ForgotPassword />} />
