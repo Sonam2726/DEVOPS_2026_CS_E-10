@@ -103,19 +103,22 @@ Generated automatically by Jenkins.
     }
     }
 
-    post {
-        always {
-            junit 'client/test-results.xml'
+   post {
+    always {
+        junit 'client/test-results.xml'
 
-            echo "Build completed with status: ${currentBuild.currentResult}"
-        }
+        archiveArtifacts artifacts: 'feedback/test-feedback.md',
+                         fingerprint: true
 
-        success {
-            echo 'SkillBridge AI build successful!'
-        }
-
-        failure {
-            echo 'SkillBridge AI build failed!'
-        }
+        echo "Build completed with status: ${currentBuild.currentResult}"
     }
+
+    success {
+        echo 'SkillBridge AI build successful!'
+    }
+
+    failure {
+        echo 'SkillBridge AI build failed!'
+    }
+}
 }
