@@ -101,7 +101,7 @@ Generated automatically by Jenkins.
         '''
     }
     }
-            stage('Push Feedback to GitHub') {
+       stage('Push Feedback to GitHub') {
     steps {
         withCredentials([
             string(
@@ -113,14 +113,11 @@ Generated automatically by Jenkins.
                 git config user.name "Jenkins"
                 git config user.email "jenkins@skillbridge.local"
 
-                git fetch origin ci-feedback
-                git checkout -B ci-feedback origin/ci-feedback
-
                 git add feedback/test-feedback.md
 
                 git commit -m "Update automated test feedback" 2>$null
 
-                git push https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git ci-feedback
+                git push https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git HEAD:refs/heads/ci-feedback
             '''
         }
     }
