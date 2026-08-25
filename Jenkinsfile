@@ -111,9 +111,9 @@ Generated automatically by Jenkins.
 
     steps {
         withCredentials([
-            gitUsernamePassword(
+            string(
                 credentialsId: 'projectSkillBridge-GitHub-PAT',
-                gitToolName: 'Default'
+                variable: 'GITHUB_TOKEN'
             )
         ]) {
 
@@ -130,7 +130,7 @@ Generated automatically by Jenkins.
 
                 if ($LASTEXITCODE -ne 0) {
                     git commit -m "Update automated test feedback"
-                    git push origin ci-feedback
+                    git push https://%GITHUB_TOKEN%@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git ci-feedback
                 }
                 else {
                     Write-Host "No feedback changes to commit."
