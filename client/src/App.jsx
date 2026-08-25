@@ -19,6 +19,7 @@ import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import SkillDetails from "./pages/SkillDetails";
 
+
 function AppContent() {
   const location = useLocation();
 
@@ -27,7 +28,7 @@ function AppContent() {
 
   return (
     <>
-      {/* Navbar is hidden on Dashboard */}
+      {/* Navbar is hide on Dashboard */}
       {!isDashboard && <Navbar />}
 
       <Routes>
