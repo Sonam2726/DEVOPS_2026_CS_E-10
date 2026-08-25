@@ -16,7 +16,13 @@ pipeline {
                 }
             }
         }
-
+        stage('Run Tests') {
+        steps {
+            dir('client') {
+                bat 'npm test -- --reporter=verbose --reporter=junit --outputFile=test-results.xml'
+            }
+        }
+    }
         stage('Build') {
             steps {
                 dir('client') {
