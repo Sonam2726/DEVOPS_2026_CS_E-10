@@ -594,7 +594,8 @@
 
         align-items: flex-start;
 
-        gap: 5px;
+        gap: 5px; 
+        /* //update */
     }
 
 }
