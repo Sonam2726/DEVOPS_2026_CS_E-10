@@ -16,13 +16,15 @@ pipeline {
                 }
             }
         }
+
         stage('Run Tests') {
-        steps {
-            dir('client') {
-                bat 'npm test -- --reporter=verbose --reporter=junit --outputFile=test-results.xml'
+            steps {
+                dir('client') {
+                    bat 'npm test -- --reporter=verbose --reporter=junit --outputFile=test-results.xml'
+                }
             }
         }
-    }
+
         stage('Build') {
             steps {
                 dir('client') {
@@ -33,16 +35,18 @@ pipeline {
     }
 
     post {
+        always {
+            junit 'client/test-results.xml'
+
+            echo "Build completed with status: ${currentBuild.currentResult}"
+        }
+
         success {
             echo 'SkillBridge AI build successful!'
         }
 
         failure {
             echo 'SkillBridge AI build failed!'
-        }
-
-        always {
-            echo "Build completed with status: ${currentBuild.currentResult}"
         }
     }
 }
