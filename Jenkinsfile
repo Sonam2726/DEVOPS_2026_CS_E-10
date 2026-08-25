@@ -101,14 +101,7 @@ Generated automatically by Jenkins.
         '''
     }
     }
-    stage('Push Feedback to GitHub') {
-
-    when {
-        not {
-            branch 'ci-feedback'
-        }
-    }
-
+            stage('Push Feedback to GitHub') {
     steps {
         withCredentials([
             string(
@@ -116,25 +109,18 @@ Generated automatically by Jenkins.
                 variable: 'GITHUB_TOKEN'
             )
         ]) {
-
             powershell '''
                 git config user.name "Jenkins"
                 git config user.email "jenkins@skillbridge.local"
 
                 git fetch origin ci-feedback
-                git checkout ci-feedback
+                git checkout -B ci-feedback origin/ci-feedback
 
                 git add feedback/test-feedback.md
 
-                git diff --cached --quiet
+                git commit -m "Update automated test feedback" 2>$null
 
-                if ($LASTEXITCODE -ne 0) {
-                    git commit -m "Update automated test feedback"
-                    git push https://%GITHUB_TOKEN%@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git ci-feedback
-                }
-                else {
-                    Write-Host "No feedback changes to commit."
-                }
+                git push https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git ci-feedback
             '''
         }
     }
