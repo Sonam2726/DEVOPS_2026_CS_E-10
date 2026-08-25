@@ -7,6 +7,7 @@ import {
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Search from "./pages/Search";
 
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
@@ -41,6 +42,8 @@ function AppContent() {
           path="/home"
           element={<Home />}
         />
+        {/* Search Page */}
+        <Route path="/search" element={<Search />} />
 
         {/* Discover Page */}
         <Route
