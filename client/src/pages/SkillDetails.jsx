@@ -1,5 +1,5 @@
 import React from "react";
-import "./skill-details.css";
+import "./SkillDetails.css";
 
 function SkillDetails() {
     const handleRequest = () => {
