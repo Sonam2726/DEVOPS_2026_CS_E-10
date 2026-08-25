@@ -101,7 +101,7 @@ Generated automatically by Jenkins.
         '''
     }
     }
-       stage('Push Feedback to GitHub') {
+     stage('Push Feedback to GitHub') {
     steps {
         withCredentials([
             string(
@@ -116,6 +116,10 @@ Generated automatically by Jenkins.
                 git add feedback/test-feedback.md
 
                 git commit -m "Update automated test feedback" 2>$null
+
+                git fetch https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git ci-feedback
+
+                git rebase FETCH_HEAD
 
                 git push https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git HEAD:refs/heads/ci-feedback
             '''
