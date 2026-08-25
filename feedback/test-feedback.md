@@ -14,9 +14,9 @@
 ## Build Information
 
 - Jenkins Job: SkillBridge-AI/feature%2Ftashu
-- Build Number: 12
+- Build Number: 13
 - Branch: feature/tashu
-- Commit: dcbcf62a4fdd47b71da8d50f60bcea87ec55ce13
+- Commit: 9731ab9f9e0f1757815297cc4aa194726f91ee24
 
 ## Test Report
 
