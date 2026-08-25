@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Input from "../components/Input";
 import Button from "../components/Button";
@@ -8,13 +8,19 @@ import "./ForgotPassword.css";
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [message, setMessage] = useState("");
+
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!email) {
-      setMessage("Please enter your email address.");
+    setError("");
+    setMessage("");
+
+    if (!email.trim()) {
+      setError("Please enter your email address.");
       return;
     }
 
@@ -23,15 +29,17 @@ function ForgotPassword() {
     );
   };
 
+  const handleDemoReset = () => {
+    navigate("/reset-password");
+  };
+
   return (
     <main className="forgot-page">
-
       <div className="forgot-container">
 
         <div className="forgot-card">
 
           <div className="forgot-header">
-
             <p className="forgot-tagline">
               Account Recovery
             </p>
@@ -44,30 +52,44 @@ function ForgotPassword() {
               Enter your email address and we'll help
               you recover your account.
             </p>
-
           </div>
 
           <form
             className="forgot-form"
             onSubmit={handleSubmit}
           >
-
             <Input
               label="Email Address"
               name="email"
               type="email"
               placeholder="Enter your email"
               value={email}
-              onChange={(e) =>
-                setEmail(e.target.value)
-              }
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setError("");
+                setMessage("");
+              }}
               required
             />
 
-            {message && (
-              <p className="forgot-message">
-                {message}
+            {error && (
+              <p className="forgot-error">
+                {error}
               </p>
+            )}
+
+            {message && (
+              <div className="forgot-success">
+                <p>{message}</p>
+
+                <button
+                  type="button"
+                  className="forgot-demo-link"
+                  onClick={handleDemoReset}
+                >
+                  Continue to Reset Password
+                </button>
+              </div>
             )}
 
             <Button
@@ -77,7 +99,6 @@ function ForgotPassword() {
             >
               Send Reset Link
             </Button>
-
           </form>
 
           <div className="forgot-footer">
@@ -89,7 +110,6 @@ function ForgotPassword() {
         </div>
 
       </div>
-
     </main>
   );
 }
