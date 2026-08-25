@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -10,56 +10,83 @@ import Home from "./pages/Home";
 import Discover from "./pages/Discover";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
+import SkillDetails from "./pages/SkillDetails";
 
-// NEW: Skill Details
-import SkillDetails from "./pages/skill-details";
+function AppContent() {
+  const location = useLocation();
 
+  const isDashboard =
+    location.pathname.toLowerCase() === "/dashboard";
 
-function App() {
   return (
-    <BrowserRouter>
-
-      <Navbar />
+    <>
+      {/* Navbar is hidden on Dashboard */}
+      {!isDashboard && <Navbar />}
 
       <Routes>
-
         {/* Landing Page */}
-        <Route path="/" element={<Landing />} />
+        <Route
+          path="/"
+          element={<Landing />}
+        />
 
         {/* Home Page */}
-        <Route path="/home" element={<Home />} />
+        <Route
+          path="/home"
+          element={<Home />}
+        />
 
         {/* Discover Page */}
-        <Route path="/discover" element={<Discover />} />
+        <Route
+          path="/discover"
+          element={<Discover />}
+        />
 
-        {/* Register Page */}
-        <Route path="/register" element={<Register />} />
+        {/* Authentication Pages */}
+        <Route
+          path="/register"
+          element={<Register />}
+        />
 
-        {/* Login Page */}
-        <Route path="/login" element={<Login />} />
+        <Route
+          path="/login"
+          element={<Login />}
+        />
 
-        {/* Forgot Password Page */}
         <Route
           path="/forgot-password"
           element={<ForgotPassword />}
         />
 
-        {/* Reset Password Page */}
         <Route
           path="/reset-password"
           element={<ResetPassword />}
         />
 
-        {/* NEW: Skill Details Page */}
+        {/* Dashboard */}
+        <Route
+          path="/dashboard"
+          element={<Dashboard />}
+        />
+
+        {/* Skill Details */}
         <Route
           path="/skill-details"
           element={<SkillDetails />}
         />
-
       </Routes>
 
-      <Footer />
+      {/* Footer is hidden on Dashboard */}
+      {!isDashboard && <Footer />}
+    </>
+  );
+}
 
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
     </BrowserRouter>
   );
 }
