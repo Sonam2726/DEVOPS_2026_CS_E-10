@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./Search.css";
 
 function Search() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [level, setLevel] = useState("All");
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const skills = [
     {
@@ -79,7 +88,7 @@ function Search() {
 
       {/* Header */}
       <section className="search-header">
-        <p>DISCOVER</p>
+        <p className="search-eyebrow">DISCOVER</p>
 
         <h1>Find Your Next Skill</h1>
 
@@ -92,7 +101,7 @@ function Search() {
       <section className="search-controls">
 
         <div className="search-box">
-          <span>🔍</span>
+          <span className="search-icon">🔍</span>
 
           <input
             type="text"
@@ -103,6 +112,7 @@ function Search() {
         </div>
 
         <div className="filter-group">
+
           <label>Category</label>
 
           <select
@@ -115,9 +125,11 @@ function Search() {
               </option>
             ))}
           </select>
+
         </div>
 
         <div className="filter-group">
+
           <label>Level</label>
 
           <select
@@ -129,15 +141,18 @@ function Search() {
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
           </select>
+
         </div>
 
       </section>
 
       {/* Categories */}
       <section className="category-section">
+
         <h2>Browse Categories</h2>
 
         <div className="category-list">
+
           {categories.map((item) => (
             <button
               key={item}
@@ -151,58 +166,45 @@ function Search() {
               {item}
             </button>
           ))}
+
         </div>
+
       </section>
 
       {/* Results */}
       <section className="results-section">
 
         <div className="results-header">
+
           <h2>Available Skills</h2>
 
-          <span>
-            {filteredSkills.length} skill
-            {filteredSkills.length !== 1 ? "s" : ""} found
-          </span>
+          {!loading && (
+            <span>
+              {filteredSkills.length} Skill
+              {filteredSkills.length !== 1 ? "s" : ""} Found
+            </span>
+          )}
+
         </div>
 
-        {filteredSkills.length > 0 ? (
-          <div className="results-grid">
+        {loading ? (
 
-            {filteredSkills.map((skill) => (
-              <div className="result-card" key={skill.id}>
+          <div className="loading-state">
 
-                <div className="result-icon">
-                  ★
-                </div>
+            <div className="loader"></div>
 
-                <div className="result-content">
-                  <h3>{skill.title}</h3>
-
-                  <p>
-                    Learn from <strong>{skill.teacher}</strong>
-                  </p>
-
-                  <div className="skill-tags">
-                    <span>{skill.category}</span>
-                    <span>{skill.level}</span>
-                  </div>
-
-                  <button className="view-skill-btn">
-                    View Skill
-                  </button>
-                </div>
-
-              </div>
-            ))}
+            <p>Loading skills...</p>
 
           </div>
-        ) : (
+
+        ) : filteredSkills.length === 0 ? (
+
           <div className="no-results">
-            <h3>No skills found</h3>
+
+            <h3>No Skills Found</h3>
 
             <p>
-              Try another skill name or change your filters.
+              Try another skill name or change filters.
             </p>
 
             <button
@@ -215,7 +217,49 @@ function Search() {
             >
               Reset Filters
             </button>
+
           </div>
+
+        ) : (
+
+          <div className="results-grid">
+
+            {filteredSkills.map((skill) => (
+
+              <div className="result-card" key={skill.id}>
+
+                <div className="result-icon">
+                  ★
+                </div>
+
+                <div className="result-content">
+
+                  <h3>{skill.title}</h3>
+
+                  <p>
+                    Learn from <strong>{skill.teacher}</strong>
+                  </p>
+
+                  <div className="skill-tags">
+
+                    <span>{skill.category}</span>
+
+                    <span>{skill.level}</span>
+
+                  </div>
+
+                  <button className="view-skill-btn">
+                    View Skill
+                  </button>
+
+                </div>
+
+              </div>
+
+            ))}
+
+          </div>
+
         )}
 
       </section>
