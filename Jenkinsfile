@@ -101,6 +101,44 @@ Generated automatically by Jenkins.
         '''
     }
     }
+    stage('Push Feedback to GitHub') {
+
+    when {
+        not {
+            branch 'ci-feedback'
+        }
+    }
+
+    steps {
+        withCredentials([
+            gitUsernamePassword(
+                credentialsId: 'projectSkillBridge-GitHub-PAT',
+                gitToolName: 'Default'
+            )
+        ]) {
+
+            powershell '''
+                git config user.name "Jenkins"
+                git config user.email "jenkins@skillbridge.local"
+
+                git fetch origin ci-feedback
+                git checkout ci-feedback
+
+                git add feedback/test-feedback.md
+
+                git diff --cached --quiet
+
+                if ($LASTEXITCODE -ne 0) {
+                    git commit -m "Update automated test feedback"
+                    git push origin ci-feedback
+                }
+                else {
+                    Write-Host "No feedback changes to commit."
+                }
+            '''
+        }
+    }
+}
     }
 
    post {
