@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./Search.css";
 
 function Search() {
@@ -248,9 +249,12 @@ function Search() {
 
                   </div>
 
-                  <button className="view-skill-btn">
-                    View Skill
-                  </button>
+                  <Link
+                    to={`/skill/${skill.id}`}
+                      className="view-skill-btn"
+                              >
+                            View Skill
+                    </Link>
 
                 </div>
 
