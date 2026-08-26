@@ -1,0 +1,214 @@
+.skill-details {
+  min-height: 100vh;
+  background: #f8f9fc;
+  color: #172554;
+  padding: 40px 0 80px;
+}
+
+.details-container {
+  max-width: 1100px;
+  margin: auto;
+  padding: 0 30px;
+}
+
+.back-link {
+  color: #5b2cff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.skill-main {
+  margin-top: 25px;
+  background: white;
+  border-radius: 15px;
+  padding: 50px;
+  border: 1px solid #e2e8f0;
+}
+
+.skill-main-content {
+  max-width: 750px;
+}
+
+.skill-category {
+  display: inline-block;
+  padding: 7px 14px;
+  border-radius: 20px;
+  background: #eee9ff;
+  color: #5b2cff;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.skill-main h1 {
+  font-size: 42px;
+  margin: 18px 0;
+}
+
+.skill-description {
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+.skill-info {
+  display: flex;
+  gap: 30px;
+  margin: 25px 0;
+  color: #64748b;
+}
+
+.skill-info strong {
+  color: #172554;
+}
+
+.request-button {
+  padding: 13px 25px;
+  border: none;
+  border-radius: 8px;
+  background: #5b2cff;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+
+/* Topics */
+
+.topics-section {
+  margin-top: 45px;
+}
+
+.topics-section h2 {
+  margin-bottom: 20px;
+}
+
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.topic-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.topic-number {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+
+  background: #eee9ff;
+  color: #5b2cff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+}
+
+
+/* Teacher */
+
+.teacher-section {
+  margin-top: 45px;
+  background: #172554;
+  color: white;
+  border-radius: 14px;
+  padding: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.teacher-avatar {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+
+  background: #5b2cff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.teacher-section h2 {
+  margin: 5px 0;
+}
+
+.teacher-section p {
+  color: #cbd5e1;
+}
+
+.teacher-label {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+}
+
+
+/* Not Found */
+
+.not-found {
+  max-width: 600px;
+  margin: 100px auto;
+  text-align: center;
+  background: white;
+  padding: 50px;
+  border-radius: 12px;
+}
+
+.back-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 11px 20px;
+
+  background: #5b2cff;
+  color: white;
+
+  text-decoration: none;
+  border-radius: 7px;
+}
+
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+  .details-container {
+    padding: 0 5%;
+  }
+
+  .skill-main {
+    padding: 30px;
+  }
+
+  .skill-main h1 {
+    font-size: 32px;
+  }
+
+  .skill-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .topics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .teacher-section {
+    align-items: flex-start;
+  }
+}
