@@ -480,3 +480,44 @@ Automated tests were executed using Vitest through Jenkins CI.
 ---
 
 
+---
+
+## Build #1
+
+**Date:** 2026-08-26 16:39:29  
+**Jenkins Job:** SkillBridge-AI/PR-29  
+**Branch:** PR-29  
+**Commit:** 97f1d8ef7bafed9c29da6325edb0bb291b0074ae  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
