@@ -487,14 +487,14 @@ This file contains the automated test results of Jenkins builds.
 
                         Write-Host "Appending new build feedback..."
 
-                        // $newFeedback = Get-Content `
-                        //     $newFeedbackFile `
-                        //     -Raw
+                        $newFeedback = Get-Content `
+                            $newFeedbackFile `
+                            -Raw
 
-                        // Add-Content `
-                        //     -Path $feedbackFile `
-                        //     -Value $newFeedback `
-                        //     -Encoding utf8
+                        Add-Content `
+                            -Path $feedbackFile `
+                            -Value $newFeedback `
+                            -Encoding utf8
                         
                         
 
