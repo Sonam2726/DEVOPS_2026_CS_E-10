@@ -504,7 +504,7 @@ This file contains the automated test results of Jenkins builds.
 
                         $newFeedback = Get-Content $newFeedbackFile -Raw
 
-                        $combined = @"
+                        $combined =@"
                         $oldContent
 
                         $newFeedback
