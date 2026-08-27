@@ -36,9 +36,7 @@ function Login() {
       return;
     }
 
-    const savedUser = localStorage.getItem(
-      "skillbridgeUser"
-    );
+    const savedUser = localStorage.getItem("skillbridgeUser");
 
     if (!savedUser) {
       setError(
@@ -78,13 +76,11 @@ function Login() {
 
   return (
     <main className="login-page">
-
       <div className="login-container">
 
         <div className="login-card">
 
           <div className="login-header">
-
             <p className="login-tagline">
               Welcome back
             </p>
@@ -96,14 +92,12 @@ function Login() {
             <p className="login-description">
               Continue your learning and skill journey.
             </p>
-
           </div>
 
           <form
             className="login-form"
             onSubmit={handleSubmit}
           >
-
             <Input
               label="Email Address"
               name="email"
@@ -127,7 +121,6 @@ function Login() {
             <div className="login-options">
 
               <label className="remember-option">
-
                 <input
                   type="checkbox"
                   checked={rememberMe}
@@ -136,10 +129,7 @@ function Login() {
                   }
                 />
 
-                <span>
-                  Remember Me
-                </span>
-
+                <span>Remember Me</span>
               </label>
 
               <Link
@@ -164,24 +154,20 @@ function Login() {
             >
               Login
             </Button>
-
           </form>
 
           <div className="login-footer">
-
             <p>
               Don't have an account?{" "}
               <Link to="/register">
                 Create Account
               </Link>
             </p>
-
           </div>
 
         </div>
 
       </div>
-
     </main>
   );
 }

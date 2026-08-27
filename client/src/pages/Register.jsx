@@ -65,22 +65,31 @@ function Register() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+const handleSubmit = (e) => {
+  e.preventDefault();
 
-    const validationErrors = validateForm();
+  const validationErrors = validateForm();
 
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+  if (Object.keys(validationErrors).length > 0) {
+    setErrors(validationErrors);
+    return;
+  }
 
-    console.log("Register form submitted:", formData);
-
-    alert("Account created successfully!");
-
-    navigate("/login");
+  const user = {
+    name: formData.name,
+    email: formData.email,
+    password: formData.password,
   };
+
+  localStorage.setItem(
+    "skillbridgeUser",
+    JSON.stringify(user)
+  );
+
+  alert("Account created successfully!");
+
+  navigate("/login");
+};
 
   return (
     <main className="register-page">
@@ -98,8 +107,8 @@ function Register() {
             </h1>
 
             <p className="register-description">
-              Start learning, teaching and connecting with people
-              through SkillBridge AI.
+              Start learning, teaching and connecting
+              with people through SkillBridge AI.
             </p>
           </div>
 
@@ -163,12 +172,15 @@ function Register() {
 
           <div className="register-footer">
             <p>
-              Already have an account?
-              <Link to="/login"> Login</Link>
+              Already have an account?{" "}
+              <Link to="/login">
+                Login
+              </Link>
             </p>
           </div>
 
         </div>
+
       </div>
     </main>
   );
