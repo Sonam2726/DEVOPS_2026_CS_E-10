@@ -495,6 +495,7 @@ This file contains the automated test results of Jenkins builds.
                         //     -Path $feedbackFile `
                         //     -Value $newFeedback `
                         //     -Encoding utf8
+                        //changes
                         $oldContent = ""
 
                         if (Test-Path $feedbackFile) {
