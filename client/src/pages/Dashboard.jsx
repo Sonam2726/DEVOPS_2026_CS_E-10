@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
@@ -30,6 +31,33 @@ function Dashboard() {
       title: "Skills Shared",
       value: "5",
       description: "Skills added",
+    },
+  ];
+
+  const quickActions = [
+    {
+      icon: "🔍",
+      title: "Explore Skills",
+      description: "Discover new skills and learning opportunities.",
+      path: "/discover",
+    },
+    {
+      icon: "🤝",
+      title: "Find Connections",
+      description: "Search for learners and skill partners.",
+      path: "/search",
+    },
+    {
+      icon: "🔔",
+      title: "View Notifications",
+      description: "Check your latest updates and activities.",
+      path: "/notifications",
+    },
+    {
+      icon: "⚙️",
+      title: "Update Profile",
+      description: "Manage your profile and account settings.",
+      path: "/settings",
     },
   ];
 
@@ -106,7 +134,7 @@ function Dashboard() {
 
           </div>
 
-          {/* Overview cards */}
+          {/* Overview */}
           <div className="dashboard-section-header">
 
             <div>
@@ -157,6 +185,59 @@ function Dashboard() {
             ))}
 
           </div>
+
+          {/* Quick Actions */}
+          <section className="quick-actions">
+
+            <div className="quick-actions-header">
+
+              <div>
+                <p className="dashboard-section-eyebrow">
+                  Quick Actions
+                </p>
+
+                <h2>
+                  What would you like to do?
+                </h2>
+              </div>
+
+            </div>
+
+            <div className="quick-actions-grid">
+
+              {quickActions.map((action) => (
+                <NavLink
+                  key={action.title}
+                  to={action.path}
+                  className="quick-action-card"
+                >
+
+                  <div className="quick-action-icon">
+                    {action.icon}
+                  </div>
+
+                  <div className="quick-action-content">
+
+                    <h3>
+                      {action.title}
+                    </h3>
+
+                    <p>
+                      {action.description}
+                    </p>
+
+                  </div>
+
+                  <span className="quick-action-arrow">
+                    →
+                  </span>
+
+                </NavLink>
+              ))}
+
+            </div>
+
+          </section>
 
           {/* Recent Activity */}
           <section className="recent-activity">
