@@ -7,6 +7,8 @@ import {
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import Search from "./pages/Search";
+import SkillPreview from "./pages/SkillPreview";
 
 import Search from "./pages/Search";
 import Landing from "./pages/Landing";
@@ -54,6 +56,10 @@ function AppContent() {
           path="/search"
           element={<Search />}
         />
+
+
+          {/* Preview page */}
+        <Route path="/skill/:id" element={<SkillPreview />} />
 
         {/* Discover Page */}
         <Route
