@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Search from "./pages/Search";
 import SkillPreview from "./pages/SkillPreview";
 
+import Search from "./pages/Search";
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -19,20 +20,25 @@ import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
 import SkillDetails from "./pages/SkillDetails";
-
+import Notifications from "./pages/Notifications";
+import Settings from "./pages/Settings";
 
 function AppContent() {
   const location = useLocation();
 
-  const isDashboard =
-    location.pathname.toLowerCase() === "/dashboard";
+  const isWorkspacePage = [
+    "/dashboard",
+    "/notifications",
+    "/settings",
+  ].includes(location.pathname.toLowerCase());
 
   return (
     <>
-      {/* Navbar is hide on Dashboard */}
-      {!isDashboard && <Navbar />}
+      {/* Main Navbar is hidden on Dashboard, Notifications and Settings */}
+      {!isWorkspacePage && <Navbar />}
 
       <Routes>
+
         {/* Landing Page */}
         <Route
           path="/"
@@ -44,8 +50,12 @@ function AppContent() {
           path="/home"
           element={<Home />}
         />
+
         {/* Search Page */}
-        <Route path="/search" element={<Search />} />
+        <Route
+          path="/search"
+          element={<Search />}
+        />
 
 
           {/* Preview page */}
@@ -89,10 +99,23 @@ function AppContent() {
           path="/skill-details"
           element={<SkillDetails />}
         />
+
+        {/* Notifications */}
+        <Route
+          path="/notifications"
+          element={<Notifications />}
+        />
+
+        {/* Settings */}
+        <Route
+          path="/settings"
+          element={<Settings />}
+        />
+
       </Routes>
 
-      {/* Footer is hidden on Dashboard */}
-      {!isDashboard && <Footer />}
+      {/* Footer is hidden on workspace pages */}
+      {!isWorkspacePage && <Footer />}
     </>
   );
 }

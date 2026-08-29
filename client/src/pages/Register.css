@@ -21,15 +21,13 @@
   max-width: 440px;
 
   background: #ffffff;
-
   border: 1px solid #e2e8f0;
-  border-radius: 12px;
+  border-radius: 14px;
 
   padding: 42px 40px;
-
   box-sizing: border-box;
 
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.07);
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.07);
 }
 
 .register-header {
@@ -40,30 +38,30 @@
 .register-tagline {
   margin: 0 0 8px;
 
+  color: #6d28d9;
   font-size: 13px;
   font-weight: 600;
-
-  color: #6d28d9;
+  letter-spacing: 0.2px;
 }
 
 .register-title {
   margin: 0;
 
+  color: #111827;
   font-size: 30px;
   line-height: 1.25;
-
-  color: #111827;
+  font-weight: 700;
+  letter-spacing: -0.5px;
 }
 
 .register-description {
+  max-width: 330px;
+
   margin: 10px auto 0;
 
-  max-width: 320px;
-
+  color: #64748b;
   font-size: 14px;
   line-height: 1.6;
-
-  color: #64748b;
 }
 
 .register-form {
@@ -71,8 +69,10 @@
 }
 
 .register-submit {
-  margin-top: 8px;
+  width: 100%;
   min-height: 48px;
+
+  margin-top: 10px;
 }
 
 .register-footer {
@@ -87,12 +87,13 @@
 .register-footer p {
   margin: 0;
 
-  font-size: 13px;
   color: #64748b;
+  font-size: 13px;
 }
 
 .register-footer a {
   color: #6d28d9;
+
   font-weight: 600;
   text-decoration: none;
 }
@@ -101,16 +102,37 @@
   text-decoration: underline;
 }
 
-@media (max-width: 500px) {
+/* Tablet */
+
+@media (max-width: 600px) {
   .register-page {
-    padding: 40px 16px;
+    min-height: calc(100vh - 120px);
+    padding: 48px 16px;
   }
 
   .register-card {
-    padding: 32px 24px;
+    max-width: 420px;
+    padding: 36px 28px;
+  }
+}
+
+/* Mobile */
+
+@media (max-width: 480px) {
+  .register-page {
+    padding: 36px 16px;
+  }
+
+  .register-card {
+    padding: 32px 22px;
+    border-radius: 12px;
   }
 
   .register-title {
     font-size: 26px;
+  }
+
+  .register-description {
+    font-size: 13px;
   }
 }

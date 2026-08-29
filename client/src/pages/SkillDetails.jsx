@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import "./SkillDetails.css";
 
 function SkillDetails() {
+    const [requestSent, setRequestSent] = useState(false);
+
     const handleRequest = () => {
-        alert("Learning request sent successfully!");
+        setRequestSent(true);
     };
 
     return (
@@ -62,42 +65,33 @@ function SkillDetails() {
                             hands-on coding.
                         </p>
 
-
                         <div className="skill-info">
 
                             <div className="info-item">
-
                                 <span>📊</span>
 
                                 <div>
                                     <small>Skill Level</small>
                                     <strong>Intermediate</strong>
                                 </div>
-
                             </div>
 
-
                             <div className="info-item">
-
                                 <span>⏱️</span>
 
                                 <div>
                                     <small>Duration</small>
                                     <strong>4 - 6 Weeks</strong>
                                 </div>
-
                             </div>
 
-
                             <div className="info-item">
-
                                 <span>👥</span>
 
                                 <div>
                                     <small>Learners</small>
                                     <strong>24 Learners</strong>
                                 </div>
-
                             </div>
 
                         </div>
@@ -105,7 +99,7 @@ function SkillDetails() {
                     </div>
 
 
-                    {/* ================= DAY 2 - AVAILABILITY ================= */}
+                    {/* ================= AVAILABILITY ================= */}
 
                     <div className="skill-card">
 
@@ -115,7 +109,6 @@ function SkillDetails() {
                             <span></span>
                             Available
                         </div>
-
 
                         <div className="availability-list">
 
@@ -139,7 +132,7 @@ function SkillDetails() {
                     </div>
 
 
-                    {/* ================= DAY 2 - SKILL LEVEL ================= */}
+                    {/* ================= SKILL LEVEL ================= */}
 
                     <div className="skill-card">
 
@@ -148,35 +141,27 @@ function SkillDetails() {
                         <div className="levels">
 
                             <div className="level">
-
                                 <div className="level-circle">
                                     1
                                 </div>
 
                                 <p>Beginner</p>
-
                             </div>
 
-
                             <div className="level active">
-
                                 <div className="level-circle">
                                     2
                                 </div>
 
                                 <p>Intermediate</p>
-
                             </div>
 
-
                             <div className="level">
-
                                 <div className="level-circle">
                                     3
                                 </div>
 
                                 <p>Advanced</p>
-
                             </div>
 
                         </div>
@@ -184,7 +169,7 @@ function SkillDetails() {
                     </div>
 
 
-                    {/* ================= DAY 2 - RELATED SKILLS ================= */}
+                    {/* ================= RELATED SKILLS ================= */}
 
                     <div className="skill-card">
 
@@ -193,11 +178,8 @@ function SkillDetails() {
                         <div className="related-skills">
 
                             <button>C++</button>
-
                             <button>Python</button>
-
                             <button>JavaScript</button>
-
                             <button>Data Structures</button>
 
                         </div>
@@ -205,7 +187,7 @@ function SkillDetails() {
                     </div>
 
 
-                    {/* ---------- WHAT YOU WILL LEARN ---------- */}
+                    {/* ================= WHAT YOU WILL LEARN ================= */}
 
                     <div className="skill-card">
 
@@ -214,13 +196,9 @@ function SkillDetails() {
                         <div className="learning-list">
 
                             <p>✓ Java fundamentals and syntax</p>
-
                             <p>✓ Object-Oriented Programming</p>
-
                             <p>✓ Collections and Exception Handling</p>
-
                             <p>✓ File Handling</p>
-
                             <p>✓ Practical Java Projects</p>
 
                         </div>
@@ -228,7 +206,7 @@ function SkillDetails() {
                     </div>
 
 
-                    {/* ---------- TEACHER INFORMATION ---------- */}
+                    {/* ================= TEACHER ================= */}
 
                     <div className="skill-card">
 
@@ -272,26 +250,58 @@ function SkillDetails() {
 
                 <div className="right-section">
 
-                    {/* ---------- CTA ---------- */}
+                    {/* ---------- REQUEST CARD ---------- */}
 
                     <div className="request-card">
 
-                        <h2>
-                            Want to Learn This Skill?
-                        </h2>
+                        {!requestSent ? (
+                            <>
+                                <h2>
+                                    Want to Learn This Skill?
+                                </h2>
 
-                        <p>
-                            Send a learning request to the teacher
-                            and start your skill exchange journey.
-                        </p>
+                                <p>
+                                    Send a learning request to the teacher
+                                    and start your skill exchange journey.
+                                </p>
 
-                        <button onClick={handleRequest}>
-                            Request to Learn
-                        </button>
+                                <button onClick={handleRequest}>
+                                    Request to Learn
+                                </button>
 
-                        <small>
-                            🔒 Your request will be visible to the teacher
-                        </small>
+                                <small>
+                                    🔒 Your request will be visible to the teacher
+                                </small>
+                            </>
+                        ) : (
+                            <>
+                                <div className="request-success-icon">
+                                    ✓
+                                </div>
+
+                                <h2>
+                                    Request Sent
+                                </h2>
+
+                                <p>
+                                    Your learning request has been sent
+                                    successfully. The teacher will be
+                                    notified about your request.
+                                </p>
+
+                                <button
+                                    className="request-sent-button"
+                                    disabled
+                                >
+                                    ✓ Request Sent
+                                </button>
+
+                                <small>
+                                    🔔 You will receive a notification when
+                                    the teacher responds.
+                                </small>
+                            </>
+                        )}
 
                     </div>
 
