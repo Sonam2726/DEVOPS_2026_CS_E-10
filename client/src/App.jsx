@@ -9,8 +9,9 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import Search from "./pages/Search";
 import SkillPreview from "./pages/SkillPreview";
+import Requests from "./pages/Requests"; 
 
-import Search from "./pages/Search";
+
 import Landing from "./pages/Landing";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
@@ -22,6 +23,7 @@ import Dashboard from "./pages/Dashboard";
 import SkillDetails from "./pages/SkillDetails";
 import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
+
 
 function AppContent() {
   const location = useLocation();
@@ -49,6 +51,12 @@ function AppContent() {
         <Route
           path="/home"
           element={<Home />}
+
+        />
+        {/*Request Page */}
+        <Route
+          path="/requests"
+          element={<Requests />}
         />
 
         {/* Search Page */}
