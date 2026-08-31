@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Search from "./pages/Search";
 import SkillPreview from "./pages/SkillPreview";
 import Requests from "./pages/Requests"; 
+import Profile from "./pages/Profile";
 
 
 import Landing from "./pages/Landing";
@@ -57,6 +58,11 @@ function AppContent() {
         <Route
           path="/requests"
           element={<Requests />}
+        />
+        {/*Profile Page*/}
+        <Route
+          path="/profile"
+          element={<Profile />}
         />
 
         {/* Search Page */}
