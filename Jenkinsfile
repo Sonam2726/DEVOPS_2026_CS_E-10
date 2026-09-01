@@ -147,14 +147,13 @@ Automated tests were executed using Vitest through Jenkins CI.
         stage('Push Feedback to GitHub') {
             steps {
                 withCredentials([
-                    usernamePassword(
+                    string(
                         credentialsId: 'projectSkillBridge-GitHub-PAT',
-                        usernameVariable: 'GITHUB_USER',
-                        passwordVariable: 'GITHUB_TOKEN'
+                        variable: 'GITHUB_TOKEN'
                     )
                 ]) {
                     powershell '''
-                        $repo = "https://$env:GITHUB_USER`:$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git"
+                        $repo = "https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git"
                         $publishDir = "feedback-publish"
 
                         if (Test-Path $publishDir) {
