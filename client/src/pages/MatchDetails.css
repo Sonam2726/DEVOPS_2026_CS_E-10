@@ -1,0 +1,609 @@
+
+/* =========================================
+   MATCH DETAILS PAGE
+========================================= */
+
+.match-details-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    padding: 40px 6%;
+}
+
+
+/* =========================================
+   BACK BUTTON
+========================================= */
+
+.back-btn {
+    border: none;
+    background: transparent;
+    color: #6366f1;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 5px 0;
+}
+
+.back-btn:hover {
+    color: #4f46e5;
+}
+
+
+/* =========================================
+   PROFILE HEADER
+========================================= */
+
+.match-profile-header {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+
+    display: flex;
+    align-items: center;
+    gap: 22px;
+
+    margin-bottom: 25px;
+}
+
+
+.large-avatar {
+    width: 90px;
+    height: 90px;
+
+    border-radius: 50%;
+
+    background: #6366f1;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    flex-shrink: 0;
+}
+
+
+.profile-main-info {
+    flex: 1;
+}
+
+
+.profile-label {
+    display: inline-block;
+
+    background: #eef2ff;
+    color: #6366f1;
+
+    padding: 5px 12px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+
+.profile-main-info h1 {
+    margin: 10px 0 4px;
+
+    color: #111827;
+
+    font-size: 28px;
+}
+
+
+.profile-main-info p {
+    margin: 0 0 12px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+}
+
+
+.profile-meta {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+.available-text {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+
+    color: #16a34a;
+    font-weight: 600;
+}
+
+
+.green-dot {
+    width: 8px;
+    height: 8px;
+
+    background: #16a34a;
+
+    border-radius: 50%;
+}
+
+
+.big-match-badge {
+    width: 105px;
+    height: 105px;
+
+    border-radius: 50%;
+
+    background: #eef2ff;
+
+    border: 8px solid #e0e7ff;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #6366f1;
+
+    flex-shrink: 0;
+}
+
+
+.big-match-badge strong {
+    font-size: 25px;
+}
+
+
+.big-match-badge small {
+    font-size: 10px;
+    color: #6b7280;
+
+    text-align: center;
+}
+
+
+/* =========================================
+   TWO COLUMN LAYOUT
+========================================= */
+
+.match-details-content {
+    display: grid;
+
+    grid-template-columns: 2fr 1fr;
+
+    gap: 25px;
+
+    align-items: start;
+}
+
+
+/* =========================================
+   DETAILS CARD
+========================================= */
+
+.details-card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 16px;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.04);
+
+    margin-bottom: 20px;
+}
+
+
+.details-card h2 {
+    margin: 0 0 10px;
+
+    color: #111827;
+
+    font-size: 20px;
+}
+
+
+.card-description {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================================
+   COMPATIBILITY
+========================================= */
+
+.compatibility-box {
+    display: flex;
+
+    align-items: center;
+
+    gap: 30px;
+
+    background: #f8fafc;
+
+    padding: 20px;
+
+    border-radius: 12px;
+}
+
+
+.compatibility-score {
+    display: flex;
+
+    flex-direction: column;
+
+    min-width: 120px;
+}
+
+
+.compatibility-score strong {
+    color: #6366f1;
+
+    font-size: 32px;
+}
+
+
+.compatibility-score span {
+    color: #6b7280;
+
+    font-size: 12px;
+}
+
+
+.compatibility-progress {
+    flex: 1;
+}
+
+
+.progress-bar {
+    width: 100%;
+
+    height: 12px;
+
+    background: #e5e7eb;
+
+    border-radius: 20px;
+
+    overflow: hidden;
+}
+
+
+.progress-fill {
+    width: 95%;
+
+    height: 100%;
+
+    background: #6366f1;
+
+    border-radius: 20px;
+}
+
+
+.progress-labels {
+    display: flex;
+
+    justify-content: space-between;
+
+    margin-top: 7px;
+
+    color: #9ca3af;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   COMMON SKILLS
+========================================= */
+
+.common-skills {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 12px;
+}
+
+
+.common-skill {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    background: #f0fdf4;
+
+    color: #374151;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+}
+
+
+.common-skill span {
+    width: 20px;
+    height: 20px;
+
+    border-radius: 50%;
+
+    background: #dcfce7;
+
+    color: #16a34a;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* =========================================
+   SKILL TAGS
+========================================= */
+
+.skill-tags {
+    display: flex;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+
+.skill-tags span {
+    background: #eef2ff;
+
+    color: #6366f1;
+
+    padding: 8px 14px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: 500;
+}
+
+
+/* =========================================
+   ABOUT
+========================================= */
+
+.about-text {
+    color: #6b7280;
+
+    font-size: 14px;
+
+    line-height: 1.8;
+
+    margin: 0;
+}
+
+
+/* =========================================
+   REQUEST CARD
+========================================= */
+
+.request-match-card {
+    background: #6366f1;
+
+    color: white;
+
+    padding: 25px;
+
+    border-radius: 16px;
+
+    margin-bottom: 20px;
+}
+
+
+.request-icon {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.18);
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+
+    margin-bottom: 15px;
+}
+
+
+.request-match-card h2 {
+    margin: 0 0 10px;
+
+    font-size: 20px;
+}
+
+
+.request-match-card p {
+    color: #e0e7ff;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+.request-match-card button {
+    width: 100%;
+
+    padding: 13px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: white;
+
+    color: #6366f1;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+
+.request-match-card button:hover {
+    background: #f3f4f6;
+
+    transform: translateY(-2px);
+}
+
+
+.request-match-card small {
+    display: block;
+
+    text-align: center;
+
+    color: #e0e7ff;
+
+    margin-top: 12px;
+
+    font-size: 11px;
+}
+
+
+/* =========================================
+   QUICK INFORMATION
+========================================= */
+
+.quick-details h2 {
+    margin-bottom: 15px;
+}
+
+
+.quick-row {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    font-size: 13px;
+}
+
+
+.quick-row:last-child {
+    border-bottom: none;
+}
+
+
+.quick-row span {
+    color: #6b7280;
+}
+
+
+.quick-row strong {
+    color: #374151;
+}
+
+
+.available-value {
+    color: #16a34a !important;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 850px) {
+
+    .match-details-content {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .match-details-page {
+        padding: 25px 4%;
+    }
+
+
+    .match-profile-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .big-match-badge {
+        width: 90px;
+        height: 90px;
+    }
+
+
+    .profile-meta {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 8px;
+    }
+
+
+    .compatibility-box {
+        flex-direction: column;
+
+        align-items: flex-start;
+    }
+
+
+    .compatibility-progress {
+        width: 100%;
+    }
+
+
+    .common-skills {
+        grid-template-columns: 1fr;
+    }
+
+}
+
