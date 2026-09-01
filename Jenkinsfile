@@ -42,6 +42,10 @@ pipeline {
                 powershell '''
                     New-Item -ItemType Directory -Force -Path "feedback" | Out-Null
 
+                    if (-not (Test-Path "client/test-results.xml")) {
+                        throw "JUnit test report was not generated."
+                    }
+
                     [xml]$report = Get-Content "client/test-results.xml"
 
                     $total = [int]$report.testsuites.tests
@@ -67,6 +71,11 @@ pipeline {
                         foreach ($test in $suite.testcase) {
 
                             $testName = [string]$test.name
+
+                            if ([string]::IsNullOrWhiteSpace($testName)) {
+                                $testName = "Unnamed Test"
+                            }
+
                             $testStatus = "PASS"
 
                             if ($null -ne $test.failure -or $null -ne $test.error) {
@@ -122,7 +131,7 @@ Automated tests were executed using Vitest through Jenkins CI.
 
                     Write-Host ""
                     Write-Host "======================================"
-                    Write-Host "        TEST FEEDBACK SUMMARY"
+                    Write-Host "       TEST FEEDBACK SUMMARY"
                     Write-Host "======================================"
                     Write-Host "Total   : $total"
                     Write-Host "Passed  : $passed"
@@ -135,111 +144,116 @@ Automated tests were executed using Vitest through Jenkins CI.
             }
         }
 
-      stage('Push Feedback to GitHub') {
-    steps {
-        withCredentials([
-            usernamePassword(
-                credentialsId: 'projectSkillBridge-GitHub-PAT',
-                usernameVariable: 'GITHUB_USER',
-                passwordVariable: 'GITHUB_TOKEN'
-            )
-        ]) {
-            powershell '''
-                $repo = "https://$env:GITHUB_USER`:$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git"
-                $publishDir = "feedback-publish"
+        stage('Push Feedback to GitHub') {
+            steps {
+                withCredentials([
+                    usernamePassword(
+                        credentialsId: 'projectSkillBridge-GitHub-PAT',
+                        usernameVariable: 'GITHUB_USER',
+                        passwordVariable: 'GITHUB_TOKEN'
+                    )
+                ]) {
+                    powershell '''
+                        $repo = "https://$env:GITHUB_USER`:$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git"
+                        $publishDir = "feedback-publish"
 
-                if (Test-Path $publishDir) {
-                    Remove-Item -Recurse -Force $publishDir
-                }
+                        if (Test-Path $publishDir) {
+                            Remove-Item -Recurse -Force $publishDir
+                        }
 
-                Write-Host "Cloning ci-feedback branch..."
+                        Write-Host "Cloning ci-feedback branch..."
 
-                git clone --branch ci-feedback $repo $publishDir
+                        git clone --branch ci-feedback $repo $publishDir
 
-                if ($LASTEXITCODE -ne 0) {
-                    throw "Unable to clone ci-feedback branch."
-                }
+                        if ($LASTEXITCODE -ne 0) {
+                            throw "Unable to clone ci-feedback branch."
+                        }
 
-                $feedbackFile = Join-Path $publishDir "feedback/test-feedback.md"
-                $newFeedbackFile = "feedback/current-build-feedback.md"
+                        $feedbackFile = Join-Path $publishDir "feedback/test-feedback.md"
+                        $newFeedbackFile = "feedback/current-build-feedback.md"
 
-                if (-not (Test-Path $newFeedbackFile)) {
-                    throw "Generated feedback file was not found."
-                }
+                        if (-not (Test-Path $newFeedbackFile)) {
+                            throw "Generated feedback file was not found."
+                        }
 
-                $feedbackDirectory = Split-Path $feedbackFile
+                        $feedbackDirectory = Split-Path $feedbackFile
 
-                if (-not (Test-Path $feedbackDirectory)) {
-                    New-Item -ItemType Directory -Force -Path $feedbackDirectory | Out-Null
-                }
+                        if (-not (Test-Path $feedbackDirectory)) {
+                            New-Item `
+                                -ItemType Directory `
+                                -Force `
+                                -Path $feedbackDirectory | Out-Null
+                        }
 
-                if (-not (Test-Path $feedbackFile)) {
+                        if (-not (Test-Path $feedbackFile)) {
 
-                    Write-Host "Creating feedback history file..."
+                            Write-Host "Creating feedback history file..."
 
-                    $header = @"
+                            $header = @"
 # SkillBridge AI - Automated Test Feedback History
 
 This file contains the automated test results of Jenkins builds.
 
 "@
 
-                    Set-Content `
-                        -Path $feedbackFile `
-                        -Value $header `
-                        -Encoding utf8
+                            Set-Content `
+                                -Path $feedbackFile `
+                                -Value $header `
+                                -Encoding utf8
+                        }
+
+                        Write-Host "Appending new build feedback..."
+
+                        $newFeedback = Get-Content `
+                            -Path $newFeedbackFile `
+                            -Raw
+
+                        Add-Content `
+                            -Path $feedbackFile `
+                            -Value $newFeedback `
+                            -Encoding utf8
+
+                        Set-Location $publishDir
+
+                        git config user.name "Jenkins"
+                        git config user.email "jenkins@skillbridge.local"
+
+                        git add feedback/test-feedback.md
+
+                        git diff --cached --quiet
+
+                        if ($LASTEXITCODE -ne 0) {
+
+                            git commit -m "Update automated test feedback"
+
+                            if ($LASTEXITCODE -ne 0) {
+                                throw "Git commit failed."
+                            }
+
+                            git push origin ci-feedback
+
+                            if ($LASTEXITCODE -ne 0) {
+                                throw "Git push failed."
+                            }
+
+                            Write-Host "Feedback successfully pushed to ci-feedback."
+                        }
+                        else {
+                            Write-Host "No feedback changes to commit."
+                        }
+
+                        Set-Location ..
+
+                        Remove-Item `
+                            -Recurse `
+                            -Force `
+                            $publishDir
+                    '''
                 }
-
-                Write-Host "Appending new build feedback..."
-
-                $newFeedback = Get-Content `
-                    -Path $newFeedbackFile `
-                    -Raw
-
-                Add-Content `
-                    -Path $feedbackFile `
-                    -Value $newFeedback `
-                    -Encoding utf8
-
-                Set-Location $publishDir
-
-                git config user.name "Jenkins"
-                git config user.email "jenkins@skillbridge.local"
-
-                git add feedback/test-feedback.md
-
-                git diff --cached --quiet
-
-                if ($LASTEXITCODE -ne 0) {
-
-                    git commit -m "Update automated test feedback"
-
-                    if ($LASTEXITCODE -ne 0) {
-                        throw "Git commit failed."
-                    }
-
-                    git push origin ci-feedback
-
-                    if ($LASTEXITCODE -ne 0) {
-                        throw "Git push failed."
-                    }
-
-                    Write-Host "Feedback successfully pushed to ci-feedback."
-                }
-                else {
-                    Write-Host "No feedback changes to commit."
-                }
-
-                Set-Location ..
-
-                Remove-Item `
-                    -Recurse `
-                    -Force `
-                    $publishDir
-            '''
+            }
         }
     }
-}
+
     post {
 
         always {
