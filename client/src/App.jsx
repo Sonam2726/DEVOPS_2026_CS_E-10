@@ -15,6 +15,7 @@ import OfferSkill from "./pages/OfferSkill";
 
 
 import Landing from "./pages/Landing";
+import Matching from "./pages/Matching";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -54,6 +55,11 @@ function AppContent() {
           path="/home"
           element={<Home />}
 
+        />
+        {/* Matching Page - Day 3 */}
+        <Route
+        path="/matching"
+        element={<Matching />}
         />
         {/*Request Page */}
         <Route
