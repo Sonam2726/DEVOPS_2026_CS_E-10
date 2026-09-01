@@ -1,0 +1,367 @@
+
+/* =========================================
+   MATCHING PAGE
+========================================= */
+
+.matching-page {
+    min-height: 100vh;
+    background: #f5f7fb;
+    padding: 40px 6%;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.matching-header {
+    background: white;
+    padding: 40px;
+    border-radius: 18px;
+    border: 1px solid #e5e7eb;
+    margin-bottom: 35px;
+}
+
+.page-label {
+    display: inline-block;
+    color: #6366f1;
+    background: #eef2ff;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.matching-header h1 {
+    margin: 15px 0 10px;
+    color: #111827;
+    font-size: 34px;
+}
+
+.matching-header h1 span {
+    color: #6366f1;
+}
+
+.matching-header p {
+    margin: 0;
+    color: #6b7280;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* =========================================
+   SECTION
+========================================= */
+
+.matching-section {
+    margin-bottom: 45px;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-label {
+    color: #6366f1;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.section-heading h2 {
+    margin: 5px 0 0;
+    color: #111827;
+    font-size: 24px;
+}
+
+
+/* =========================================
+   VIEW ALL BUTTON
+========================================= */
+
+.view-all-btn {
+    background: white;
+    border: 1px solid #d1d5db;
+    color: #4b5563;
+    padding: 9px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.view-all-btn:hover {
+    background: #6366f1;
+    color: white;
+    border-color: #6366f1;
+}
+
+
+/* =========================================
+   CARDS
+========================================= */
+
+.cards-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 22px;
+}
+
+
+/* =========================================
+   MATCH CARD
+========================================= */
+
+.match-card {
+    background: white;
+    padding: 22px;
+    border-radius: 16px;
+    border: 1px solid #e5e7eb;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
+    transition: 0.25s;
+}
+
+.match-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+}
+
+
+/* =========================================
+   CARD HEADER
+========================================= */
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: #6366f1;
+    color: white;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+
+/* =========================================
+   MATCH BADGE
+========================================= */
+
+.match-badge {
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+
+    background: #eef2ff;
+    color: #6366f1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.match-badge strong {
+    font-size: 15px;
+}
+
+.match-badge small {
+    font-size: 9px;
+    margin-top: 2px;
+}
+
+
+/* =========================================
+   PERSON INFO
+========================================= */
+
+.person-info h3 {
+    margin: 0 0 5px;
+    color: #111827;
+    font-size: 18px;
+}
+
+.role {
+    margin: 0 0 8px;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.rating {
+    color: #f59e0b;
+    font-size: 13px;
+}
+
+
+/* =========================================
+   AVAILABILITY
+========================================= */
+
+.availability {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+
+    margin: 15px 0;
+
+    color: #16a34a;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #16a34a;
+    border-radius: 50%;
+}
+
+
+/* =========================================
+   LEARNER LEVEL
+========================================= */
+
+.learner-level {
+    display: inline-block;
+
+    background: #f3f4f6;
+    color: #4b5563;
+
+    padding: 7px 10px;
+    border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    margin: 12px 0;
+}
+
+
+/* =========================================
+   SKILLS
+========================================= */
+
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin: 15px 0 20px;
+}
+
+.skills span {
+    background: #eef2ff;
+    color: #6366f1;
+
+    padding: 6px 10px;
+
+    border-radius: 15px;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =========================================
+   BUTTONS
+========================================= */
+
+.card-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.card-buttons button {
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.profile-btn {
+    background: white;
+    color: #6366f1;
+    border: 1px solid #6366f1;
+}
+
+.profile-btn:hover {
+    background: #eef2ff;
+}
+
+.connect-btn {
+    background: #6366f1;
+    color: white;
+    border: 1px solid #6366f1;
+}
+
+.connect-btn:hover {
+    background: #4f46e5;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 1000px) {
+
+    .cards-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .matching-page {
+        padding: 25px 4%;
+    }
+
+    .matching-header {
+        padding: 25px;
+    }
+
+    .matching-header h1 {
+        font-size: 26px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .section-heading h2 {
+        font-size: 20px;
+    }
+
+    .cards-container {
+        grid-template-columns: 1fr;
+    }
+
+    .card-buttons {
+        grid-template-columns: 1fr;
+    }
+
+}
+
