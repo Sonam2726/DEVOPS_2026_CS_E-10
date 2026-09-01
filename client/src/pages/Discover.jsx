@@ -1,10 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Discover.css";
 import skills from "../data/skills";
 
 function Discover() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
+
+  const navigate = useNavigate();
 
   const filteredSkills = skills.filter((skill) => {
     const matchesSearch = skill.title
@@ -42,8 +45,10 @@ function Discover() {
       </select>
 
       <div className="skill-grid">
+
         {filteredSkills.map((skill) => (
           <div className="card" key={skill.id}>
+
             <h3>{skill.title}</h3>
 
             <p>
@@ -54,11 +59,19 @@ function Discover() {
               <strong>Level:</strong> {skill.level}
             </p>
 
-            <p className="category">{skill.category}</p>
+            <p className="category">
+              {skill.category}
+            </p>
 
-            <button>View Details</button>
+            <button
+              onClick={() => navigate("/skill-details")}
+            >
+              View Details
+            </button>
+
           </div>
         ))}
+
       </div>
 
     </div>

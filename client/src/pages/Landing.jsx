@@ -1,14 +1,21 @@
+import { NavLink } from "react-router-dom";
 import "./Landing.css";
 import heroImage from "../assets/skillbridge-hero.svg";
 
 const Landing = () => {
   return (
     <main className="landing-page">
+
       <section className="landing-hero">
+
         <div className="landing-container">
+
           <div className="hero-content">
 
+            {/* ================= HERO TEXT ================= */}
+
             <div className="hero-text">
+
               <p className="hero-tagline">
                 Learn. Teach. Connect.
               </p>
@@ -24,27 +31,44 @@ const Landing = () => {
               </p>
 
               <div className="hero-actions">
-                <button className="hero-btn hero-btn-primary">
-                  Get Started
-                </button>
 
-                <button className="hero-btn hero-btn-secondary">
+                <NavLink
+                  to="/login"
+                  className="hero-btn hero-btn-primary"
+                >
+                  Get Started
+                </NavLink>
+
+                <NavLink
+                  to="/discover"
+                  className="hero-btn hero-btn-secondary"
+                >
                   Explore Skills
-                </button>
+                </NavLink>
+
               </div>
+
             </div>
 
+
+            {/* ================= HERO IMAGE ================= */}
+
             <div className="hero-image-wrapper">
+
               <img
                 src={heroImage}
-                alt="SkillBridge AI"
+                alt="People learning and sharing skills"
                 className="hero-image"
               />
+
             </div>
 
           </div>
+
         </div>
+
       </section>
+
     </main>
   );
 };

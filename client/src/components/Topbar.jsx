@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 import "./Topbar.css";
 
 function Topbar({ onMenuClick }) {
@@ -46,12 +48,13 @@ function Topbar({ onMenuClick }) {
 
         </nav>
 
-        <button
+        <NavLink
+          to="/notifications"
           className="topbar-notification"
           aria-label="Notifications"
         >
           🔔
-        </button>
+        </NavLink>
 
         <div className="topbar-user">
 
