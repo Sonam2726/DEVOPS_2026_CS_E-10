@@ -11,6 +11,7 @@ import Search from "./pages/Search";
 import SkillPreview from "./pages/SkillPreview";
 import Requests from "./pages/Requests"; 
 import Profile from "./pages/Profile";
+import OfferSkill from "./pages/OfferSkill";
 
 
 import Landing from "./pages/Landing";
@@ -58,6 +59,11 @@ function AppContent() {
         <Route
           path="/requests"
           element={<Requests />}
+        />
+        {/* Offer skill page */}
+        <Route
+          path="/offer-skill"
+          element={<OfferSkill />}
         />
         {/*Profile Page*/}
         <Route
