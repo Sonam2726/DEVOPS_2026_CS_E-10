@@ -26,6 +26,7 @@ import Dashboard from "./pages/Dashboard";
 import SkillDetails from "./pages/SkillDetails";
 import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
+import MatchDetails from "./pages/MatchDetails";
 
 
 function AppContent() {
@@ -137,6 +138,11 @@ function AppContent() {
           path="/settings"
           element={<Settings />}
         />
+        {/* Day 4 - Match Details */}
+<Route
+  path="/match-details"
+  element={<MatchDetails />}
+/>
 
       </Routes>
 
