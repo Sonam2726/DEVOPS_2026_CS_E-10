@@ -17,7 +17,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 36px 30px 50px;
+  box-sizing: border-box;
 }
+
 
 /* =========================
    INTRO
@@ -26,28 +28,23 @@
 .settings-intro {
   margin-bottom: 32px;
   padding: 28px 30px;
-
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 14px;
-
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
 }
 
 .settings-eyebrow {
   margin: 0 0 8px;
-
   color: #6d28d9;
   font-size: 12px;
   font-weight: 700;
-
   text-transform: uppercase;
   letter-spacing: 0.6px;
 }
 
 .settings-intro h1 {
   margin: 0;
-
   color: #0f172a;
   font-size: 27px;
   line-height: 1.3;
@@ -56,11 +53,11 @@
 
 .settings-intro p:last-child {
   margin: 10px 0 0;
-
   color: #64748b;
   font-size: 14px;
   line-height: 1.6;
 }
+
 
 /* =========================
    SETTINGS SECTION
@@ -76,18 +73,15 @@
 
 .settings-section-eyebrow {
   margin: 0 0 5px;
-
   color: #6d28d9;
   font-size: 11px;
   font-weight: 700;
-
   text-transform: uppercase;
   letter-spacing: 0.7px;
 }
 
 .settings-section-header h2 {
   margin: 0;
-
   color: #0f172a;
   font-size: 21px;
   font-weight: 700;
@@ -96,11 +90,11 @@
 .settings-section-header p:last-child {
   max-width: 700px;
   margin: 7px 0 0;
-
   color: #64748b;
   font-size: 12px;
   line-height: 1.5;
 }
+
 
 /* =========================
    COMMON CARD
@@ -108,13 +102,21 @@
 
 .settings-card {
   padding: 24px 26px;
-
   background: #ffffff;
   border: 1px solid #e2e8f0;
   border-radius: 14px;
-
   box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+  box-sizing: border-box;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
+
+.settings-card:hover {
+  border-color: #d8dce5;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.045);
+}
+
 
 /* =========================
    PROFILE
@@ -124,33 +126,27 @@
   display: flex;
   align-items: center;
   gap: 14px;
-
   padding-bottom: 22px;
   margin-bottom: 22px;
-
   border-bottom: 1px solid #f1f5f9;
 }
 
 .profile-avatar {
   width: 52px;
   height: 52px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
+  flex-shrink: 0;
   background: #6d28d9;
   color: #ffffff;
-
   border-radius: 50%;
-
   font-size: 18px;
   font-weight: 700;
 }
 
 .profile-user-info h3 {
   margin: 0;
-
   color: #0f172a;
   font-size: 15px;
   font-weight: 700;
@@ -158,10 +154,10 @@
 
 .profile-user-info p {
   margin: 4px 0 0;
-
   color: #94a3b8;
   font-size: 12px;
 }
+
 
 /* =========================
    FORM
@@ -188,30 +184,45 @@
 .form-group input {
   width: 100%;
   min-height: 42px;
-
   padding: 0 12px;
-
   box-sizing: border-box;
-
   background: #f8fafc;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
-
   color: #475569;
   font-size: 13px;
-
   outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
+
+.form-group input:hover {
+  border-color: #cbd5e1;
+}
+
+.form-group input:focus {
+  background: #ffffff;
+  border-color: #a78bfa;
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.08);
+}
+
+
+/* =========================
+   CARD FOOTER
+========================= */
 
 .settings-card-footer {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
-
+  gap: 14px;
   margin-top: 22px;
   padding-top: 18px;
-
   border-top: 1px solid #f1f5f9;
 }
+
 
 /* =========================
    BUTTONS
@@ -219,41 +230,100 @@
 
 .settings-primary-button,
 .settings-secondary-button {
-  border: none;
   border-radius: 8px;
-
   font-size: 12px;
   font-weight: 600;
-
   cursor: pointer;
-
   transition:
     background 0.2s ease,
-    transform 0.2s ease;
+    border-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease,
+    opacity 0.2s ease;
 }
 
 .settings-primary-button {
+  min-height: 40px;
   padding: 10px 18px;
-
+  border: 1px solid #6d28d9;
   background: #6d28d9;
   color: #ffffff;
 }
 
-.settings-primary-button:hover {
+.settings-primary-button:hover:not(:disabled) {
   background: #5b21b6;
+  border-color: #5b21b6;
   transform: translateY(-1px);
+}
+
+.settings-primary-button:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
 }
 
 .settings-secondary-button {
   padding: 9px 14px;
-
+  border: 1px solid #ddd6fe;
   background: #f3e8ff;
   color: #6d28d9;
 }
 
 .settings-secondary-button:hover {
   background: #e9d5ff;
+  border-color: #c4b5fd;
 }
+
+
+/* =========================
+   LOADING STATE
+========================= */
+
+.button-loading {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-spinner {
+  width: 13px;
+  height: 13px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: settings-spin 0.7s linear infinite;
+}
+
+@keyframes settings-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================
+   SUCCESS STATE
+========================= */
+
+.settings-success-message {
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 600;
+  animation: settings-fade-in 0.2s ease;
+}
+
+@keyframes settings-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(3px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* =========================
    PREFERENCES
@@ -265,16 +335,26 @@
 
 .settings-option {
   min-height: 76px;
-
   display: flex;
   align-items: center;
-  gap: 20px;
-
+  gap: 14px;
   border-bottom: 1px solid #f1f5f9;
 }
 
 .settings-option:last-child {
   border-bottom: none;
+}
+
+.settings-option-icon {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #f3e8ff;
+  border-radius: 9px;
+  font-size: 16px;
 }
 
 .settings-option-content {
@@ -284,7 +364,6 @@
 
 .settings-option-content h3 {
   margin: 0;
-
   color: #0f172a;
   font-size: 14px;
   font-weight: 600;
@@ -292,11 +371,11 @@
 
 .settings-option-content p {
   margin: 5px 0 0;
-
   color: #64748b;
   font-size: 12px;
   line-height: 1.5;
 }
+
 
 /* =========================
    TOGGLE
@@ -304,35 +383,26 @@
 
 .settings-toggle {
   position: relative;
-
   width: 44px;
   height: 24px;
-
   flex-shrink: 0;
-
   padding: 0;
-
   background: #cbd5e1;
   border: none;
   border-radius: 999px;
-
   cursor: pointer;
-
   transition: background 0.2s ease;
 }
 
 .settings-toggle span {
   position: absolute;
-
   top: 3px;
   left: 3px;
-
   width: 18px;
   height: 18px;
-
   background: #ffffff;
   border-radius: 50%;
-
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.15);
   transition: transform 0.2s ease;
 }
 
@@ -344,6 +414,12 @@
   transform: translateX(20px);
 }
 
+.settings-toggle:focus-visible {
+  outline: 3px solid rgba(109, 40, 217, 0.15);
+  outline-offset: 2px;
+}
+
+
 /* =========================
    SECURITY
 ========================= */
@@ -352,23 +428,18 @@
   display: flex;
   align-items: center;
   gap: 16px;
-
   min-height: 62px;
 }
 
 .security-icon {
   width: 42px;
   height: 42px;
-
   flex-shrink: 0;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #f3e8ff;
   border-radius: 10px;
-
   font-size: 18px;
 }
 
@@ -379,7 +450,6 @@
 
 .security-content h3 {
   margin: 0;
-
   color: #0f172a;
   font-size: 14px;
   font-weight: 600;
@@ -387,7 +457,6 @@
 
 .security-content p {
   margin: 5px 0 0;
-
   color: #64748b;
   font-size: 12px;
   line-height: 1.5;
@@ -395,23 +464,106 @@
 
 .security-divider {
   margin: 20px 0;
-
   border-top: 1px solid #f1f5f9;
 }
 
 .security-status {
   flex-shrink: 0;
-
   padding: 6px 10px;
-
   background: #f0fdf4;
   color: #15803d;
-
   border-radius: 999px;
-
   font-size: 11px;
   font-weight: 600;
 }
+
+
+/* =========================
+   ERROR STATE
+========================= */
+
+.settings-error-state {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 9px;
+  color: #9a3412;
+  animation: settings-fade-in 0.2s ease;
+}
+
+.settings-error-state .state-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #fb923c;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.settings-error-state strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.settings-error-state p {
+  margin: 3px 0 0;
+  color: #9a3412;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   INFO / EMPTY STATE
+========================= */
+
+.settings-info-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 6px;
+  padding: 18px 20px;
+  background: #ffffff;
+  border: 1px dashed #d8b4fe;
+  border-radius: 12px;
+}
+
+.settings-info-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  background: #f3e8ff;
+  border-radius: 10px;
+  font-size: 17px;
+}
+
+.settings-info-card h3 {
+  margin: 0;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.settings-info-card p {
+  margin: 4px 0 0;
+  color: #64748b;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
 
 /* =========================
    SIDEBAR OVERLAY
@@ -421,11 +573,13 @@
   display: none;
 }
 
+
 /* =========================
    TABLET
 ========================= */
 
 @media (max-width: 1000px) {
+
   .settings-form {
     grid-template-columns: 1fr 1fr;
   }
@@ -433,9 +587,16 @@
   .form-group:last-child {
     grid-column: span 2;
   }
+
 }
 
+
+/* =========================
+   TABLET / SMALL DESKTOP
+========================= */
+
 @media (max-width: 900px) {
+
   .settings-main {
     margin-left: 0;
   }
@@ -443,13 +604,16 @@
   .settings-content {
     padding: 28px 24px 40px;
   }
+
 }
+
 
 /* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 768px) {
+
   .settings-content {
     padding: 24px 18px 40px;
   }
@@ -481,7 +645,21 @@
   }
 
   .settings-option {
-    gap: 12px;
+    gap: 10px;
+  }
+
+  .settings-option-icon {
+    width: 34px;
+    height: 34px;
+    font-size: 15px;
+  }
+
+  .settings-option-content h3 {
+    font-size: 13px;
+  }
+
+  .settings-option-content p {
+    font-size: 11px;
   }
 
   .security-option {
@@ -497,22 +675,44 @@
     margin-left: 58px;
   }
 
+  .settings-secondary-button {
+    margin-left: 58px;
+  }
+
+  .settings-card-footer {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .settings-success-message {
+    text-align: center;
+  }
+
+  .settings-primary-button {
+    width: 100%;
+  }
+
+  .settings-info-card {
+    align-items: flex-start;
+  }
+
   .sidebar-overlay {
     position: fixed;
     inset: 0;
     z-index: 999;
-
     display: block;
-
     background: rgba(15, 23, 42, 0.35);
   }
+
 }
+
 
 /* =========================
    SMALL MOBILE
 ========================= */
 
 @media (max-width: 480px) {
+
   .settings-content {
     padding: 20px 14px 30px;
   }
@@ -535,6 +735,10 @@
 
   .settings-options {
     padding: 4px 18px;
+  }
+
+  .settings-option {
+    min-height: 72px;
   }
 
   .settings-option-content h3 {
@@ -561,11 +765,8 @@
     margin-left: 54px;
   }
 
-  .settings-card-footer {
-    justify-content: stretch;
+  .settings-info-card {
+    padding: 16px;
   }
 
-  .settings-primary-button {
-    width: 100%;
-  }
 }

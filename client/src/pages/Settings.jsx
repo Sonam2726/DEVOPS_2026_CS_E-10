@@ -12,8 +12,33 @@ function Settings() {
   const [learningReminders, setLearningReminders] = useState(true);
   const [profileVisibility, setProfileVisibility] = useState(true);
 
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveStatus, setSaveStatus] = useState("");
+
+  const [passwordStatus, setPasswordStatus] = useState("");
+
   const closeSidebar = () => {
     setSidebarOpen(false);
+  };
+
+  // Save profile
+  const handleSaveProfile = () => {
+    setIsSaving(true);
+    setSaveStatus("");
+
+    setTimeout(() => {
+      setIsSaving(false);
+      setSaveStatus("success");
+    }, 1000);
+  };
+
+  // Password action
+  const handleChangePassword = () => {
+    setPasswordStatus("error");
+
+    setTimeout(() => {
+      setPasswordStatus("");
+    }, 3500);
   };
 
   return (
@@ -42,7 +67,10 @@ function Settings() {
 
         <section className="settings-content">
 
-          {/* Page intro */}
+          {/* =========================
+              PAGE INTRO
+          ========================= */}
+
           <div className="settings-intro">
 
             <div>
@@ -61,7 +89,11 @@ function Settings() {
 
           </div>
 
-          {/* Profile Section */}
+
+          {/* =========================
+              PROFILE SECTION
+          ========================= */}
+
           <section className="settings-section">
 
             <div className="settings-section-header">
@@ -76,14 +108,17 @@ function Settings() {
                 </h2>
 
                 <p>
-                  Manage the information associated with your SkillBridge AI profile.
+                  Manage the information associated with your SkillBridge AI
+                  profile.
                 </p>
               </div>
 
             </div>
 
+
             <div className="settings-card">
 
+              {/* Profile header */}
               <div className="profile-header">
 
                 <div className="profile-avatar">
@@ -91,6 +126,7 @@ function Settings() {
                 </div>
 
                 <div className="profile-user-info">
+
                   <h3>
                     Tashu
                   </h3>
@@ -98,10 +134,13 @@ function Settings() {
                   <p>
                     Student
                   </p>
+
                 </div>
 
               </div>
 
+
+              {/* Profile form */}
               <div className="settings-form">
 
                 <div className="form-group">
@@ -119,6 +158,7 @@ function Settings() {
 
                 </div>
 
+
                 <div className="form-group">
 
                   <label htmlFor="email">
@@ -133,6 +173,7 @@ function Settings() {
                   />
 
                 </div>
+
 
                 <div className="form-group">
 
@@ -151,10 +192,34 @@ function Settings() {
 
               </div>
 
+
+              {/* Save footer */}
               <div className="settings-card-footer">
 
-                <button className="settings-primary-button">
-                  Save profile
+                {saveStatus === "success" && (
+                  <span className="settings-success-message">
+                    ✓ Profile saved successfully
+                  </span>
+                )}
+
+                <button
+                  type="button"
+                  className={`settings-primary-button ${
+                    isSaving ? "button-loading" : ""
+                  }`}
+                  onClick={handleSaveProfile}
+                  disabled={isSaving}
+                >
+
+                  {isSaving ? (
+                    <>
+                      <span className="button-spinner" />
+                      Saving...
+                    </>
+                  ) : (
+                    "Save profile"
+                  )}
+
                 </button>
 
               </div>
@@ -163,12 +228,17 @@ function Settings() {
 
           </section>
 
-          {/* Preferences Section */}
+
+          {/* =========================
+              PREFERENCES SECTION
+          ========================= */}
+
           <section className="settings-section">
 
             <div className="settings-section-header">
 
               <div>
+
                 <p className="settings-section-eyebrow">
                   Preferences
                 </p>
@@ -178,16 +248,23 @@ function Settings() {
                 </h2>
 
                 <p>
-                  Choose how you want to receive updates and manage your profile visibility.
+                  Choose how you want to receive updates and manage your
+                  profile visibility.
                 </p>
+
               </div>
 
             </div>
+
 
             <div className="settings-card settings-options">
 
               {/* Email notifications */}
               <div className="settings-option">
+
+                <div className="settings-option-icon">
+                  🔔
+                </div>
 
                 <div className="settings-option-content">
 
@@ -217,8 +294,13 @@ function Settings() {
 
               </div>
 
+
               {/* Learning reminders */}
               <div className="settings-option">
+
+                <div className="settings-option-icon">
+                  📚
+                </div>
 
                 <div className="settings-option-content">
 
@@ -248,8 +330,13 @@ function Settings() {
 
               </div>
 
+
               {/* Profile visibility */}
               <div className="settings-option">
+
+                <div className="settings-option-icon">
+                  👤
+                </div>
 
                 <div className="settings-option-content">
 
@@ -283,12 +370,17 @@ function Settings() {
 
           </section>
 
-          {/* Security Section */}
+
+          {/* =========================
+              SECURITY SECTION
+          ========================= */}
+
           <section className="settings-section">
 
             <div className="settings-section-header">
 
               <div>
+
                 <p className="settings-section-eyebrow">
                   Security
                 </p>
@@ -300,12 +392,15 @@ function Settings() {
                 <p>
                   Manage your password and keep your account secure.
                 </p>
+
               </div>
 
             </div>
 
+
             <div className="settings-card">
 
+              {/* Password */}
               <div className="security-option">
 
                 <div className="security-icon">
@@ -327,14 +422,41 @@ function Settings() {
                 <button
                   type="button"
                   className="settings-secondary-button"
+                  onClick={handleChangePassword}
                 >
                   Change password
                 </button>
 
               </div>
 
+
+              {/* Password error state */}
+              {passwordStatus === "error" && (
+                <div className="settings-error-state">
+
+                  <span className="state-icon">
+                    !
+                  </span>
+
+                  <div>
+                    <strong>
+                      Password update unavailable
+                    </strong>
+
+                    <p>
+                      Password management will be available once account
+                      authentication is connected.
+                    </p>
+                  </div>
+
+                </div>
+              )}
+
+
               <div className="security-divider" />
 
+
+              {/* Account protection */}
               <div className="security-option">
 
                 <div className="security-icon">
@@ -358,6 +480,32 @@ function Settings() {
                 </span>
 
               </div>
+
+            </div>
+
+          </section>
+
+
+          {/* =========================
+              SETTINGS INFO / EMPTY STATE
+          ========================= */}
+
+          <section className="settings-info-card">
+
+            <div className="settings-info-icon">
+              ⚙️
+            </div>
+
+            <div>
+
+              <h3>
+                More settings coming soon
+              </h3>
+
+              <p>
+                Additional account and learning preferences will appear here
+                as new SkillBridge AI features are added.
+              </p>
 
             </div>
 
