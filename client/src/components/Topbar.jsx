@@ -17,9 +17,7 @@ function Topbar({ onMenuClick }) {
 
       {/* Page title */}
       <div className="topbar-brand">
-        <span>
-          SkillBridge AI
-        </span>
+        Dashboard
       </div>
 
       {/* Right section */}
@@ -27,24 +25,24 @@ function Topbar({ onMenuClick }) {
 
         <nav className="topbar-links">
 
-          <a href="/home">
+          <NavLink to="/home">
             Home
-          </a>
+          </NavLink>
 
-          <a href="/about">
+          <NavLink to="/about">
             About
-          </a>
+          </NavLink>
 
-          <a href="/login">
+          <NavLink to="/login">
             Login
-          </a>
+          </NavLink>
 
-          <a
-            href="/register"
+          <NavLink
+            to="/register"
             className="topbar-get-started"
           >
             Get Started
-          </a>
+          </NavLink>
 
         </nav>
 
