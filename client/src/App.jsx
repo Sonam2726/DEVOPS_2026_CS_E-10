@@ -10,9 +10,12 @@ import Footer from "./components/Footer";
 import Search from "./pages/Search";
 import SkillPreview from "./pages/SkillPreview";
 import Requests from "./pages/Requests"; 
+import Profile from "./pages/Profile";
+import OfferSkill from "./pages/OfferSkill";
 
 
 import Landing from "./pages/Landing";
+import Matching from "./pages/Matching";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
@@ -23,6 +26,7 @@ import Dashboard from "./pages/Dashboard";
 import SkillDetails from "./pages/SkillDetails";
 import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
+import MatchDetails from "./pages/MatchDetails";
 
 
 function AppContent() {
@@ -53,10 +57,25 @@ function AppContent() {
           element={<Home />}
 
         />
+        {/* Matching Page - Day 3 */}
+        <Route
+        path="/matching"
+        element={<Matching />}
+        />
         {/*Request Page */}
         <Route
           path="/requests"
           element={<Requests />}
+        />
+        {/* Offer skill page */}
+        <Route
+          path="/offer-skill"
+          element={<OfferSkill />}
+        />
+        {/*Profile Page*/}
+        <Route
+          path="/profile"
+          element={<Profile />}
         />
 
         {/* Search Page */}
@@ -119,6 +138,11 @@ function AppContent() {
           path="/settings"
           element={<Settings />}
         />
+        {/* Day 4 - Match Details */}
+<Route
+  path="/match-details"
+  element={<MatchDetails />}
+/>
 
       </Routes>
 
