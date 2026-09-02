@@ -12,6 +12,7 @@ import SkillPreview from "./pages/SkillPreview";
 import Requests from "./pages/Requests"; 
 import Profile from "./pages/Profile";
 import OfferSkill from "./pages/OfferSkill";
+import Reviews from "./pages/Reviews";
 
 
 import Landing from "./pages/Landing";
@@ -57,6 +58,10 @@ function AppContent() {
           element={<Home />}
 
         />
+        {/* Reviews Page */}
+         <Route path="/reviews"
+          element={<Reviews />}
+           />
         {/* Matching Page - Day 3 */}
         <Route
         path="/matching"
