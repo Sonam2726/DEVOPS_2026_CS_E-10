@@ -1,65 +1,10 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import "./Search.css";
 
 function Search() {
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [level, setLevel] = useState("All");
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 1200);
-
-    return () => clearTimeout(timer);
-  }, []);
-
-  const skills = [
-    {
-      id: 1,
-      title: "React Development",
-      category: "Programming",
-      level: "Intermediate",
-      teacher: "Aarav",
-    },
-    {
-      id: 2,
-      title: "Python Programming",
-      category: "Programming",
-      level: "Beginner",
-      teacher: "Riya",
-    },
-    {
-      id: 3,
-      title: "UI/UX Design",
-      category: "Design",
-      level: "Intermediate",
-      teacher: "Karan",
-    },
-    {
-      id: 4,
-      title: "Machine Learning",
-      category: "Data Science",
-      level: "Advanced",
-      teacher: "Ananya",
-    },
-    {
-      id: 5,
-      title: "Digital Marketing",
-      category: "Marketing",
-      level: "Beginner",
-      teacher: "Rahul",
-    },
-    {
-      id: 6,
-      title: "English Speaking",
-      category: "Languages",
-      level: "Beginner",
-      teacher: "Sneha",
-    },
-  ];
 
   const categories = [
     "All",
@@ -70,26 +15,12 @@ function Search() {
     "Languages",
   ];
 
-  const filteredSkills = skills.filter((skill) => {
-    const matchesSearch = skill.title
-      .toLowerCase()
-      .includes(search.toLowerCase());
-
-    const matchesCategory =
-      category === "All" || skill.category === category;
-
-    const matchesLevel =
-      level === "All" || skill.level === level;
-
-    return matchesSearch && matchesCategory && matchesLevel;
-  });
-
   return (
     <main className="search-page">
 
       {/* Header */}
       <section className="search-header">
-        <p className="search-eyebrow">DISCOVER</p>
+        <p>DISCOVER</p>
 
         <h1>Find Your Next Skill</h1>
 
@@ -98,11 +29,12 @@ function Search() {
         </span>
       </section>
 
-      {/* Search Controls */}
+
+      {/* Search & Filters */}
       <section className="search-controls">
 
         <div className="search-box">
-          <span className="search-icon">🔍</span>
+          <span>🔍</span>
 
           <input
             type="text"
@@ -112,11 +44,14 @@ function Search() {
           />
         </div>
 
-        <div className="filter-group">
 
-          <label>Category</label>
+        <div className="filter-group">
+          <label htmlFor="category">
+            Category
+          </label>
 
           <select
+            id="category"
             value={category}
             onChange={(e) => setCategory(e.target.value)}
           >
@@ -126,14 +61,16 @@ function Search() {
               </option>
             ))}
           </select>
-
         </div>
 
-        <div className="filter-group">
 
-          <label>Level</label>
+        <div className="filter-group">
+          <label htmlFor="level">
+            Level
+          </label>
 
           <select
+            id="level"
             value={level}
             onChange={(e) => setLevel(e.target.value)}
           >
@@ -142,21 +79,30 @@ function Search() {
             <option value="Intermediate">Intermediate</option>
             <option value="Advanced">Advanced</option>
           </select>
-
         </div>
 
       </section>
 
+
       {/* Categories */}
       <section className="category-section">
 
-        <h2>Browse Categories</h2>
+        <div className="category-heading">
+          <h2>Browse Categories</h2>
+
+          <span>
+            {category === "All"
+              ? "All skills"
+              : `${category} selected`}
+          </span>
+        </div>
 
         <div className="category-list">
 
           {categories.map((item) => (
             <button
               key={item}
+              type="button"
               className={
                 category === item
                   ? "category-btn active"
@@ -172,99 +118,40 @@ function Search() {
 
       </section>
 
-      {/* Results */}
-      <section className="results-section">
 
-        <div className="results-header">
+      {/* Result Information */}
+      <section className="search-result-info">
 
-          <h2>Available Skills</h2>
+        <div className="result-icon">
+          🔎
+        </div>
 
-          {!loading && (
-            <span>
-              {filteredSkills.length} Skill
-              {filteredSkills.length !== 1 ? "s" : ""} Found
-            </span>
+        <div>
+
+          {search ? (
+            <>
+              <h3>
+                Search results
+              </h3>
+
+              <p>
+                Showing results for{" "}
+                <strong>"{search}"</strong>
+              </p>
+            </>
+          ) : (
+            <>
+              <h3>
+                Ready to explore?
+              </h3>
+
+              <p>
+                Start searching to discover new skills.
+              </p>
+            </>
           )}
 
         </div>
-
-        {loading ? (
-
-          <div className="loading-state">
-
-            <div className="loader"></div>
-
-            <p>Loading skills...</p>
-
-          </div>
-
-        ) : filteredSkills.length === 0 ? (
-
-          <div className="no-results">
-
-            <h3>No Skills Found</h3>
-
-            <p>
-              Try another skill name or change filters.
-            </p>
-
-            <button
-              className="reset-btn"
-              onClick={() => {
-                setSearch("");
-                setCategory("All");
-                setLevel("All");
-              }}
-            >
-              Reset Filters
-            </button>
-
-          </div>
-
-        ) : (
-
-          <div className="results-grid">
-
-            {filteredSkills.map((skill) => (
-
-              <div className="result-card" key={skill.id}>
-
-                <div className="result-icon">
-                  ★
-                </div>
-
-                <div className="result-content">
-
-                  <h3>{skill.title}</h3>
-
-                  <p>
-                    Learn from <strong>{skill.teacher}</strong>
-                  </p>
-
-                  <div className="skill-tags">
-
-                    <span>{skill.category}</span>
-
-                    <span>{skill.level}</span>
-
-                  </div>
-
-                  <Link
-                    to={`/skill/${skill.id}`}
-                      className="view-skill-btn"
-                              >
-                            View Skill
-                    </Link>
-
-                </div>
-
-              </div>
-
-            ))}
-
-          </div>
-
-        )}
 
       </section>
 
