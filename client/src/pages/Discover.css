@@ -2,39 +2,82 @@
   padding: 60px 8%;
   background: #f8f9fc;
   min-height: 100vh;
+  color: #172554;
 }
 
 .discover h1 {
   text-align: center;
   margin-bottom: 30px;
   color: #172554;
+  font-size: 38px;
 }
+
+
+/* Search & Filters */
 
 .discover input,
 .discover select {
   width: 100%;
   padding: 12px;
+
   margin-bottom: 15px;
+
   border-radius: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #dbe2ea;
+
+  box-sizing: border-box;
+
+  outline: none;
+
+  font-size: 14px;
+  background: white;
 }
+
+.discover input:focus,
+.discover select:focus {
+  border-color: #5b2cff;
+}
+
+
+/* Skill Grid */
 
 .skill-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+
   gap: 25px;
+
   margin-top: 30px;
 }
 
+
+/* Cards */
+
 .card {
   background: white;
+
   padding: 25px;
+
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+  border: 1px solid #e2e8f0;
+
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+
+  transition: transform 0.2s ease,
+              box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+
+  box-shadow: 0 7px 20px rgba(15, 23, 42, 0.09);
 }
 
 .card h3 {
   color: #5b2cff;
+  margin-top: 0;
 }
 
 .category {
@@ -44,14 +87,81 @@
 
 .card button {
   margin-top: 15px;
+
   background: #5b2cff;
   color: white;
+
   border: none;
+
   padding: 10px 18px;
+
   border-radius: 8px;
+
   cursor: pointer;
 }
 
-.card button:hover {
-  background: #4820d6;
+
+/* =========================
+   DAY 11 RESPONSIVE DESIGN
+   ========================= */
+
+/* Tablet */
+
+@media (max-width: 1000px) {
+
+  .discover {
+    padding: 50px 6%;
+  }
+
+  .skill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+  }
+}
+
+
+/* Mobile */
+
+@media (max-width: 650px) {
+
+  .discover {
+    padding: 40px 5%;
+  }
+
+  .discover h1 {
+    font-size: 30px;
+    margin-bottom: 25px;
+  }
+
+  .skill-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .card button {
+    width: 100%;
+  }
+}
+
+
+/* Small Mobile */
+
+@media (max-width: 400px) {
+
+  .discover {
+    padding: 35px 4%;
+  }
+
+  .discover h1 {
+    font-size: 27px;
+  }
+
+  .card {
+    padding: 18px;
+  }
 }
