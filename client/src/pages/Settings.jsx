@@ -8,6 +8,13 @@ import "./Settings.css";
 function Settings() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const savedUser = JSON.parse(
+    localStorage.getItem("skillbridgeUser") || "{}"
+  );
+
+  const userName = savedUser.name || "User";
+  const userEmail = savedUser.email || "";
+
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [learningReminders, setLearningReminders] = useState(true);
   const [profileVisibility, setProfileVisibility] = useState(true);
@@ -122,13 +129,13 @@ function Settings() {
               <div className="profile-header">
 
                 <div className="profile-avatar">
-                  T
+                  {userName.charAt(0).toUpperCase()}
                 </div>
 
                 <div className="profile-user-info">
 
                   <h3>
-                    Tashu
+                    {userName}
                   </h3>
 
                   <p>
@@ -152,7 +159,7 @@ function Settings() {
                   <input
                     id="name"
                     type="text"
-                    value="Tashu"
+                    value={userName}
                     readOnly
                   />
 
@@ -168,7 +175,7 @@ function Settings() {
                   <input
                     id="email"
                     type="email"
-                    value="tashu@example.com"
+                    value={userEmail}
                     readOnly
                   />
 

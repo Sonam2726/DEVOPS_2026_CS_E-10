@@ -71,7 +71,7 @@ function Login() {
       "true"
     );
 
-    navigate("/");
+    navigate("/dashboard");
   };
 
   return (

@@ -3,6 +3,10 @@ import { NavLink } from "react-router-dom";
 import "./Topbar.css";
 
 function Topbar({ onMenuClick }) {
+  const savedUser = localStorage.getItem("skillbridgeUser");
+  const currentUser = savedUser ? JSON.parse(savedUser) : null;
+  const userName = currentUser?.name || "User";
+
   return (
     <header className="dashboard-topbar">
 
@@ -57,11 +61,11 @@ function Topbar({ onMenuClick }) {
         <div className="topbar-user">
 
           <div className="topbar-avatar">
-            T
+            {userName.charAt(0).toUpperCase()}
           </div>
 
           <span>
-            Tashu
+            {userName}
           </span>
 
         </div>

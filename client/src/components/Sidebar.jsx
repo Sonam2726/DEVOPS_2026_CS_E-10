@@ -3,6 +3,10 @@ import { NavLink } from "react-router-dom";
 import "./Sidebar.css";
 
 function Sidebar({ isOpen, onClose }) {
+  const savedUser = localStorage.getItem("skillbridgeUser");
+  const currentUser = savedUser ? JSON.parse(savedUser) : null;
+  const userName = currentUser?.name || "User";
+
   const menuItems = [
     {
       label: "Dashboard",
@@ -87,12 +91,12 @@ function Sidebar({ isOpen, onClose }) {
       <div className="sidebar-user">
 
         <div className="sidebar-avatar">
-          T
+          {userName.charAt(0).toUpperCase()}
         </div>
 
         <div className="sidebar-user-info">
           <strong>
-            Tashu
+            {userName}
           </strong>
 
           <span>

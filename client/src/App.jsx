@@ -1,5 +1,6 @@
 import {
   BrowserRouter,
+  Navigate,
   Routes,
   Route,
   useLocation,
@@ -29,6 +30,12 @@ import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
 import MatchDetails from "./pages/MatchDetails";
 
+function ProtectedRoute({ children }) {
+  const isLoggedIn =
+    localStorage.getItem("skillbridgeLoggedIn") === "true";
+
+  return isLoggedIn ? children : <Navigate to="/login" replace />;
+}
 
 function AppContent() {
   const location = useLocation();
@@ -123,7 +130,11 @@ function AppContent() {
         {/* Dashboard */}
         <Route
           path="/dashboard"
-          element={<Dashboard />}
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
         />
 
         {/* Skill Details */}
@@ -132,37 +143,44 @@ function AppContent() {
           element={<SkillDetails />}
         />
 
-        {/* Notifications */}
         <Route
-          path="/notifications"
-          element={<Notifications />}
-        />
+        path="/notifications"
+        element={
+          <ProtectedRoute>
+            <Notifications />
+          </ProtectedRoute>
+        }
+      />
 
         {/* Settings */}
         <Route
           path="/settings"
-          element={<Settings />}
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
         />
         {/* Day 4 - Match Details */}
-<Route
-  path="/match-details"
-  element={<MatchDetails />}
-/>
+      <Route
+        path="/match-details"
+        element={<MatchDetails />}
+      />
 
-      </Routes>
+            </Routes>
 
-      {/* Footer is hidden on workspace pages */}
-      {!isWorkspacePage && <Footer />}
-    </>
-  );
-}
+            {/* Footer is hidden on workspace pages */}
+            {!isWorkspacePage && <Footer />}
+          </>
+        );
+      }
 
-function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  );
-}
+      function App() {
+        return (
+          <BrowserRouter>
+            <AppContent />
+          </BrowserRouter>
+        );
+      }
 
 export default App;
