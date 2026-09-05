@@ -8,6 +8,8 @@ import "./Dashboard.css";
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const savedUser = localStorage.getItem("skillbridgeUser");
+  const currentUser = savedUser ? JSON.parse(savedUser) : null;
 
   const closeSidebar = () => {
     setSidebarOpen(false);
@@ -123,7 +125,7 @@ function Dashboard() {
               </p>
 
               <h1>
-                Welcome back, Tashu
+                Welcome back, {currentUser?.name || "there"}
               </h1>
 
               <p>

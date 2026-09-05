@@ -196,7 +196,7 @@ describe("Login Page", () => {
       localStorage.getItem("skillbridgeLoggedIn")
     ).toBe("true");
 
-    expect(mockNavigate).toHaveBeenCalledWith("/");
+    expect(mockNavigate).toHaveBeenCalledWith("/dashboard");
   });
 
   it("handles Remember Me correctly", () => {
