@@ -31,6 +31,17 @@ function OfferSkill() {
     }
   };
 
+  const resetForm = () => {
+    setSubmitted(false);
+
+    setForm({
+      skill: "",
+      category: "",
+      level: "",
+      description: "",
+    });
+  };
+
   if (submitted) {
     return (
       <main className="offer-page">
@@ -48,17 +59,7 @@ function OfferSkill() {
             learners on SkillBridge AI.
           </p>
 
-          <button
-            onClick={() => {
-              setSubmitted(false);
-              setForm({
-                skill: "",
-                category: "",
-                level: "",
-                description: "",
-              });
-            }}
-          >
+          <button onClick={resetForm}>
             Add Another Skill
           </button>
 
@@ -71,6 +72,7 @@ function OfferSkill() {
   return (
     <main className="offer-page">
 
+      {/* Header */}
       <section className="offer-header">
 
         <p>SHARE YOUR KNOWLEDGE</p>
@@ -84,8 +86,10 @@ function OfferSkill() {
       </section>
 
 
+      {/* Main Content */}
       <section className="offer-container">
 
+        {/* Form */}
         <form
           className="offer-form"
           onSubmit={handleSubmit}
@@ -93,11 +97,12 @@ function OfferSkill() {
 
           <div className="form-group">
 
-            <label>
+            <label htmlFor="skill">
               Skill Name
             </label>
 
             <input
+              id="skill"
               type="text"
               name="skill"
               placeholder="e.g. React Development"
@@ -110,11 +115,12 @@ function OfferSkill() {
 
           <div className="form-group">
 
-            <label>
+            <label htmlFor="category">
               Category
             </label>
 
             <select
+              id="category"
               name="category"
               value={form.category}
               onChange={handleChange}
@@ -151,11 +157,12 @@ function OfferSkill() {
 
           <div className="form-group">
 
-            <label>
+            <label htmlFor="level">
               Skill Level
             </label>
 
             <select
+              id="level"
               name="level"
               value={form.level}
               onChange={handleChange}
@@ -184,11 +191,12 @@ function OfferSkill() {
 
           <div className="form-group">
 
-            <label>
+            <label htmlFor="description">
               Description
             </label>
 
             <textarea
+              id="description"
               name="description"
               placeholder="Tell learners what you can teach..."
               value={form.description}
@@ -209,13 +217,13 @@ function OfferSkill() {
 
 
         {/* Tips */}
-
         <aside className="offer-tips">
 
           <h2>Tips for a great skill</h2>
 
           <div className="tip">
             <span>✓</span>
+
             <p>
               Choose a clear and specific skill name.
             </p>
@@ -223,6 +231,7 @@ function OfferSkill() {
 
           <div className="tip">
             <span>✓</span>
+
             <p>
               Select the correct difficulty level.
             </p>
@@ -230,6 +239,7 @@ function OfferSkill() {
 
           <div className="tip">
             <span>✓</span>
+
             <p>
               Explain what learners can expect.
             </p>
@@ -237,6 +247,7 @@ function OfferSkill() {
 
           <div className="tip">
             <span>✓</span>
+
             <p>
               Share skills you are confident teaching.
             </p>

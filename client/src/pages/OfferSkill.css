@@ -6,46 +6,70 @@
 }
 
 
-/* Header */
+/* =========================
+   HEADER
+   ========================= */
 
 .offer-header {
   background: white;
+
   text-align: center;
+
   padding: 60px 20px 45px;
+
+  border-bottom: 1px solid #eef2f7;
 }
 
 .offer-header p {
   color: #5b2cff;
+
   font-size: 13px;
   font-weight: 700;
+
   letter-spacing: 2px;
+
+  margin-bottom: 8px;
 }
 
 .offer-header h1 {
   font-size: 40px;
+
   margin: 10px 0;
 }
 
 .offer-header span {
   color: #64748b;
+
   font-size: 17px;
+
+  line-height: 1.6;
 }
 
 
-/* Main */
+/* =========================
+   MAIN CONTAINER
+   ========================= */
 
 .offer-container {
   max-width: 1000px;
+
   margin: 40px auto;
+
   padding: 0 30px;
 
   display: grid;
+
   grid-template-columns: 2fr 1fr;
+
   gap: 25px;
+
+  align-items: start;
 }
 
 
-/* Form */
+/* =========================
+   FORM
+   ========================= */
 
 .offer-form {
   background: white;
@@ -53,7 +77,10 @@
   padding: 30px;
 
   border-radius: 12px;
+
   border: 1px solid #e2e8f0;
+
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
 }
 
 .form-group {
@@ -66,6 +93,7 @@
   margin-bottom: 8px;
 
   font-weight: 600;
+
   font-size: 14px;
 }
 
@@ -77,29 +105,49 @@
   padding: 12px;
 
   border: 1px solid #dbe2ea;
+
   border-radius: 8px;
 
   outline: none;
 
   font-family: inherit;
+
   font-size: 14px;
 
   box-sizing: border-box;
+
+  color: #172554;
+
+  background: white;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .form-group textarea {
   min-height: 130px;
+
   resize: vertical;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #94a3b8;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   border-color: #5b2cff;
+
+  box-shadow: 0 0 0 3px rgba(91, 44, 255, 0.08);
 }
 
 
-/* Button */
+/* =========================
+   BUTTON
+   ========================= */
 
 .offer-button {
   width: 100%;
@@ -107,26 +155,36 @@
   padding: 13px;
 
   border: none;
+
   border-radius: 8px;
 
   background: #5b2cff;
+
   color: white;
 
   font-size: 15px;
+
   font-weight: 600;
 
   cursor: pointer;
+
+  transition: 0.2s ease;
 }
 
 .offer-button:hover {
   opacity: 0.9;
+
+  transform: translateY(-1px);
 }
 
 
-/* Tips */
+/* =========================
+   TIPS
+   ========================= */
 
 .offer-tips {
   background: #172554;
+
   color: white;
 
   padding: 30px;
@@ -134,32 +192,52 @@
   border-radius: 12px;
 
   height: fit-content;
+
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.08);
 }
 
 .offer-tips h2 {
   margin-top: 0;
+
   margin-bottom: 25px;
+
+  font-size: 21px;
 }
 
 .tip {
   display: flex;
+
   gap: 12px;
+
   margin-bottom: 18px;
+}
+
+.tip:last-child {
+  margin-bottom: 0;
 }
 
 .tip span {
   color: #a78bfa;
+
   font-weight: bold;
+
+  flex-shrink: 0;
 }
 
 .tip p {
   margin: 0;
+
   color: #cbd5e1;
+
   line-height: 1.5;
+
+  font-size: 14px;
 }
 
 
-/* Success */
+/* =========================
+   SUCCESS
+   ========================= */
 
 .offer-success {
   max-width: 600px;
@@ -175,6 +253,8 @@
   text-align: center;
 
   border: 1px solid #e2e8f0;
+
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
 }
 
 .success-circle {
@@ -186,13 +266,16 @@
   border-radius: 50%;
 
   background: #eee9ff;
+
   color: #5b2cff;
 
   display: flex;
+
   align-items: center;
   justify-content: center;
 
   font-size: 30px;
+
   font-weight: bold;
 }
 
@@ -202,6 +285,7 @@
 
 .offer-success p {
   color: #64748b;
+
   line-height: 1.6;
 }
 
@@ -211,26 +295,127 @@
   padding: 12px 22px;
 
   border: none;
+
   border-radius: 8px;
 
   background: #5b2cff;
+
   color: white;
 
   cursor: pointer;
+
   font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.offer-success button:hover {
+  opacity: 0.9;
 }
 
 
-/* Responsive */
+/* =========================
+   DAY 13 - TABLET
+   ========================= */
 
-@media (max-width: 750px) {
+@media (max-width: 850px) {
 
   .offer-container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1.5fr 1fr;
+
     padding: 0 5%;
+
+    gap: 20px;
+  }
+
+  .offer-form,
+  .offer-tips {
+    padding: 25px;
+  }
+}
+
+
+/* =========================
+   DAY 13 - MOBILE
+   ========================= */
+
+@media (max-width: 700px) {
+
+  .offer-header {
+    padding: 45px 5% 35px;
   }
 
   .offer-header h1 {
     font-size: 32px;
+  }
+
+  .offer-header span {
+    font-size: 15px;
+  }
+
+
+  .offer-container {
+    grid-template-columns: 1fr;
+
+    padding: 0 5%;
+
+    margin-top: 30px;
+
+    gap: 18px;
+  }
+
+
+  .offer-form {
+    padding: 22px;
+  }
+
+  .offer-tips {
+    padding: 22px;
+  }
+
+
+  .form-group {
+    margin-bottom: 18px;
+  }
+
+
+  .offer-success {
+    margin: 70px 5%;
+
+    padding: 40px 22px;
+  }
+
+  .offer-success h1 {
+    font-size: 25px;
+  }
+}
+
+
+/* =========================
+   SMALL MOBILE
+   ========================= */
+
+@media (max-width: 400px) {
+
+  .offer-header {
+    padding: 40px 4% 30px;
+  }
+
+  .offer-header h1 {
+    font-size: 28px;
+  }
+
+  .offer-container {
+    padding: 0 4%;
+  }
+
+  .offer-form,
+  .offer-tips {
+    padding: 18px;
+  }
+
+  .offer-success {
+    margin-left: 4%;
+    margin-right: 4%;
   }
 }
