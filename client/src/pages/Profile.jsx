@@ -6,6 +6,7 @@ function Profile() {
   const [editing, setEditing] = useState(false);
 
   const [name, setName] = useState("Sonam");
+
   const [bio, setBio] = useState(
     "Computer Science student passionate about technology and learning new skills."
   );
@@ -62,6 +63,7 @@ function Profile() {
             <textarea
               value={bio}
               onChange={(e) => setBio(e.target.value)}
+              placeholder="Write something about yourself..."
             />
           ) : (
             <p>{bio}</p>
