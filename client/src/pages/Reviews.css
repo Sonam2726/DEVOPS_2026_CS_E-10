@@ -30,18 +30,75 @@
   line-height: 1.6;
 }
 
-/* Overall Rating */
+/* ==========================
+   Review Form
+========================== */
+
+.review-form {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 3px 12px rgba(23, 37, 84, 0.05);
+}
+
+.review-form h2 {
+  margin-bottom: 20px;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #dbe1ea;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  transition: 0.3s;
+  box-sizing: border-box;
+}
+
+.review-form input:focus,
+.review-form select:focus,
+.review-form textarea:focus {
+  border-color: #5b2cff;
+}
+
+.review-form textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.review-form button {
+  background: #5b2cff;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.review-form button:hover {
+  background: #4a22d6;
+}
+
+/* ==========================
+   Overall Rating
+========================== */
 
 .overall-rating {
   max-width: 950px;
   margin: 0 auto 45px;
   padding: 30px;
-
   background: white;
-
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-
   display: flex;
   align-items: center;
   gap: 70px;
@@ -124,7 +181,9 @@
   width: 8%;
 }
 
-/* Reviews */
+/* ==========================
+   Reviews
+========================== */
 
 .reviews-section {
   max-width: 1100px;
@@ -145,17 +204,16 @@
 
 .review-card {
   background: white;
-
   border: 1px solid #e2e8f0;
   border-radius: 12px;
-
   padding: 22px;
-
   box-shadow: 0 3px 12px rgba(23, 37, 84, 0.05);
+  transition: 0.3s;
 }
 
 .review-card:hover {
   border-color: #5b2cff;
+  transform: translateY(-4px);
 }
 
 .review-top {
@@ -168,16 +226,12 @@
 .review-avatar {
   width: 45px;
   height: 45px;
-
   border-radius: 50%;
-
   background: #eee9ff;
   color: #5b2cff;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   font-weight: 700;
   font-size: 18px;
 }
@@ -200,10 +254,11 @@
   margin-bottom: 0;
 }
 
-/* Responsive */
+/* ==========================
+   Responsive
+========================== */
 
 @media (max-width: 700px) {
-
   .reviews-page {
     padding: 35px 5% 60px;
   }
@@ -223,5 +278,9 @@
 
   .reviews-grid {
     grid-template-columns: 1fr;
+  }
+
+  .review-form {
+    padding: 20px;
   }
 }
