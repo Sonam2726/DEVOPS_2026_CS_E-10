@@ -66,6 +66,14 @@ def get_git_metrics(interval="weekly"):
         print("[ERROR] Git command failed. Please ensure you are inside a Git repository.")
         return None, None, None, scope_title
 
+
+    author_name_map = {
+    "Tashu Gupta": "TASHU GUPTA",
+    "TASHU GUPTA": "TASHU GUPTA",
+
+    "shreya-jain03": "Shreya Jain",
+    "Shreya Jain": "Shreya Jain"
+    }
     students = defaultdict(lambda: {"commits": 0, "added": 0, "deleted": 0, "active_days": set()})
     timeline_activity = defaultdict(lambda: defaultdict(int))
     student_logs = defaultdict(list)
@@ -83,6 +91,7 @@ def get_git_metrics(interval="weekly"):
             if len(parts) >= 5:
                 sha = parts[1].strip()
                 author = parts[2].strip()
+                author = author_name_map.get(author, author)
                 date_str = parts[3].strip()
                 msg = parts[4].strip()
             else:
@@ -102,15 +111,18 @@ def get_git_metrics(interval="weekly"):
             
             try:
                 dt = datetime.datetime.strptime(current_date_str, "%Y-%m-%d").date()
+
                 if interval == "weekly":
                     period_key = dt.strftime("%a (%b %d)")
                 elif interval == "monthly":
                     period_key = f"{dt.isocalendar()[0]}-W{dt.isocalendar()[1]:02d}"
                 else:
-                    period_key = dt.strftime("%Y-%m")
+                    period_key = dt.strftime("%Y-%m-%d")
+
                 timeline_activity[period_key][current_author] += 1
+
             except Exception:
-                pass
+                pass    
 
         elif current_author and not line.startswith('COMMIT|||'):
             parts = line.split()
