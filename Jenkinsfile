@@ -267,4 +267,5 @@ This file contains the automated Jenkins feedback.
             echo 'SkillBridge AI build failed!'
         }
     }
+}
     
