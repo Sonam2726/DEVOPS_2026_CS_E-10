@@ -1,4 +1,4 @@
- // jekinsfile for SkillBridge AI project
+
  pipeline {
     agent any
 
