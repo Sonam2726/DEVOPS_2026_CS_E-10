@@ -5,10 +5,6 @@ pipeline {
         disableConcurrentBuilds()
     }
 
-    environment {
-        FEEDBACK_BRANCH = "ci-feedback"
-    }
-
     stages {
 
         stage('Checkout') {
@@ -40,12 +36,8 @@ pipeline {
                 }
             }
         }
-           
 
-     
-
-      
-                stage('Generate Feedback') {
+        stage('Generate Feedback') {
             steps {
                 powershell '''
                     New-Item -ItemType Directory -Force -Path "feedback" | Out-Null
@@ -75,6 +67,7 @@ pipeline {
                     $testRows = ""
 
                     foreach ($suite in $report.testsuites.testsuite) {
+
                         foreach ($test in $suite.testcase) {
 
                             $testName = [string]$test.name
@@ -151,24 +144,15 @@ Automated tests were executed using Vitest through Jenkins CI.
             }
         }
 
-
-                stage('Push Feedback to GitHub') {
-
-            when {
-                changeRequest()
-            }
-
+        stage('Push Feedback to GitHub') {
             steps {
-
                 withCredentials([
                     string(
                         credentialsId: 'projectSkillBridge-GitHub-PAT',
                         variable: 'GITHUB_TOKEN'
                     )
                 ]) {
-
                     powershell '''
-
                         $repo = "https://$env:GITHUB_TOKEN@github.com/Sonam2726/DEVOPS_2026_CS_E-10.git"
                         $publishDir = "feedback-publish"
 
@@ -184,29 +168,51 @@ Automated tests were executed using Vitest through Jenkins CI.
                             throw "Unable to clone ci-feedback branch."
                         }
 
-                        Set-Location $publishDir
+                        $feedbackFile = Join-Path $publishDir "feedback/test-feedback.md"
+                        $newFeedbackFile = "feedback/current-build-feedback.md"
 
-                        git pull origin ci-feedback
-
-                        $feedbackFile = "feedback/test-feedback.md"
-
-                        if (!(Test-Path "feedback")) {
-                            New-Item -ItemType Directory -Force feedback | Out-Null
+                        if (-not (Test-Path $newFeedbackFile)) {
+                            throw "Generated feedback file was not found."
                         }
 
-                        if (!(Test-Path $feedbackFile)) {
+                        $feedbackDirectory = Split-Path $feedbackFile
 
-                            @"
+                        if (-not (Test-Path $feedbackDirectory)) {
+                            New-Item `
+                                -ItemType Directory `
+                                -Force `
+                                -Path $feedbackDirectory | Out-Null
+                        }
+
+                        if (-not (Test-Path $feedbackFile)) {
+
+                            Write-Host "Creating feedback history file..."
+
+                            $header = @"
 # SkillBridge AI - Automated Test Feedback History
 
-This file contains the automated Jenkins feedback.
+This file contains the automated test results of Jenkins builds.
 
-"@ | Out-File $feedbackFile -Encoding utf8
+"@
+
+                            Set-Content `
+                                -Path $feedbackFile `
+                                -Value $header `
+                                -Encoding utf8
                         }
 
-                        $newFeedback = Get-Content "../feedback/current-build-feedback.md" -Raw
+                        Write-Host "Appending new build feedback..."
 
-                        Add-Content $feedbackFile "`n$newFeedback"
+                        $newFeedback = Get-Content `
+                            -Path $newFeedbackFile `
+                            -Raw
+
+                        Add-Content `
+                            -Path $feedbackFile `
+                            -Value $newFeedback `
+                            -Encoding utf8
+
+                        Set-Location $publishDir
 
                         git config user.name "Jenkins"
                         git config user.email "jenkins@skillbridge.local"
@@ -219,7 +225,9 @@ This file contains the automated Jenkins feedback.
 
                             git commit -m "Update automated test feedback"
 
-                            git pull --rebase origin ci-feedback
+                            if ($LASTEXITCODE -ne 0) {
+                                throw "Git commit failed."
+                            }
 
                             git push origin ci-feedback
 
@@ -227,25 +235,27 @@ This file contains the automated Jenkins feedback.
                                 throw "Git push failed."
                             }
 
-                            Write-Host "Feedback pushed successfully."
+                            Write-Host "Feedback successfully pushed to ci-feedback."
                         }
                         else {
-                            Write-Host "No changes found."
+                            Write-Host "No feedback changes to commit."
                         }
 
                         Set-Location ..
 
-                        Remove-Item -Recurse -Force $publishDir
-
+                        Remove-Item `
+                            -Recurse `
+                            -Force `
+                            $publishDir
                     '''
                 }
             }
         }
     }
+
     post {
 
         always {
-
             junit 'client/test-results.xml'
 
             archiveArtifacts artifacts: 'feedback/current-build-feedback.md',
@@ -260,7 +270,7 @@ This file contains the automated Jenkins feedback.
         }
 
         unstable {
-            echo 'SkillBridge AI build completed with test failures.'
+            echo 'SkillBridge AI build completed with test failures. Feedback was generated.'
         }
 
         failure {
@@ -268,4 +278,3 @@ This file contains the automated Jenkins feedback.
         }
     }
 }
-    
