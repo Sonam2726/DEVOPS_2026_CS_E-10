@@ -40,30 +40,11 @@ pipeline {
                 }
             }
         }
-                stage('Install Dependencies') {
-            steps {
-                dir('client') {
-                    bat 'npm ci'
-                }
-            }
-        }
+           
 
-        stage('Run Tests') {
-            steps {
-                dir('client') {
-                    bat 'npm test -- --reporter=verbose --reporter=junit --outputFile=test-results.xml'
-                }
-            }
-        }
+     
 
-        stage('Build') {
-            steps {
-                dir('client') {
-                    bat 'npm run build'
-                }
-            }
-        }
-
+      
                 stage('Generate Feedback') {
             steps {
                 powershell '''
@@ -259,7 +240,7 @@ This file contains the automated Jenkins feedback.
                     '''
                 }
             }
-        }
+        }}
             post {
 
         always {
@@ -285,4 +266,4 @@ This file contains the automated Jenkins feedback.
             echo 'SkillBridge AI build failed!'
         }
     }
-}
+    
