@@ -240,8 +240,9 @@ This file contains the automated Jenkins feedback.
                     '''
                 }
             }
-        }}
-            post {
+        }
+    }
+    post {
 
         always {
 
