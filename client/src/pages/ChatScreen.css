@@ -241,3 +241,107 @@
 .message-input-area button:not(:disabled):hover {
   transform: translateY(-1px);
 }
+/* =========================
+   DAY 14 - FINAL CHAT POLISH
+========================= */
+
+.chat-screen {
+  animation: chatPageFade 0.25s ease-in;
+}
+
+@keyframes chatPageFade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.back-button {
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.back-button:hover {
+  transform: translateX(-3px);
+  background: #f3f4f6;
+  border-radius: 50%;
+}
+
+.chat-avatar {
+  flex-shrink: 0;
+}
+
+.message-bubble {
+  animation: messageAppear 0.2s ease-in;
+}
+
+@keyframes messageAppear {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.message-input-area input:focus {
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+}
+
+.message-input-area button:not(:disabled):active {
+  transform: scale(0.96);
+}
+
+/* Better mobile chat */
+
+@media (max-width: 600px) {
+  .chat-header {
+    height: 68px;
+    gap: 10px;
+  }
+
+  .back-button {
+    font-size: 24px;
+  }
+
+  .chat-avatar {
+    width: 42px;
+    height: 42px;
+    font-size: 13px;
+  }
+
+  .chat-user-info h2 {
+    font-size: 16px;
+  }
+
+  .chat-user-info p {
+    font-size: 12px;
+  }
+
+  .messages-container {
+    padding: 18px 12px;
+  }
+
+  .message-bubble {
+    max-width: 82%;
+  }
+
+  .message-input-area {
+    padding: 10px;
+    gap: 8px;
+  }
+
+  .message-input-area input {
+    min-width: 0;
+    padding: 11px 14px;
+  }
+
+  .message-input-area button {
+    padding: 0 16px;
+  }
+}
