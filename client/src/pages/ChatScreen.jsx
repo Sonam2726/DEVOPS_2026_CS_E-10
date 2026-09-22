@@ -2,26 +2,24 @@ import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ChatScreen.css";
 
-const users = {
+const chatData = {
   1: {
     name: "Aarav Sharma",
     skill: "Java & OOP",
     avatar: "AS",
+    status: "Online",
   },
   2: {
     name: "Priya Mehta",
     skill: "UI/UX Design",
     avatar: "PM",
+    status: "Online",
   },
   3: {
     name: "Rohan Verma",
     skill: "Python & SQL",
     avatar: "RV",
-  },
-  4: {
-    name: "Sneha Patel",
-    skill: "Java Development",
-    avatar: "SP",
+    status: "Offline",
   },
 };
 
@@ -29,7 +27,7 @@ function ChatScreen() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const user = users[id] || users[1];
+  const person = chatData[id] || chatData[1];
 
   const [message, setMessage] = useState("");
 
@@ -37,20 +35,20 @@ function ChatScreen() {
     {
       id: 1,
       sender: "other",
-      text: `Hi! I'm ${user.name}. Ready for our skill exchange?`,
-      time: "10:25 AM",
+      text: `Hi! I'm happy to help you with ${person.skill}.`,
+      time: "6:10 PM",
     },
     {
       id: 2,
       sender: "me",
-      text: "Yes! I'm ready. Looking forward to learning together.",
-      time: "10:27 AM",
+      text: "Thank you! When can we start?",
+      time: "6:11 PM",
     },
     {
       id: 3,
       sender: "other",
-      text: "Great! We can start with the basics.",
-      time: "10:28 AM",
+      text: "We can start today. Does 6 PM work for you?",
+      time: "6:12 PM",
     },
   ]);
 
@@ -58,25 +56,21 @@ function ChatScreen() {
     if (!message.trim()) return;
 
     const newMessage = {
-      id: Date.now(),
+      id: messages.length + 1,
       sender: "me",
-      text: message.trim(),
+      text: message,
       time: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       }),
     };
 
-    setMessages((previousMessages) => [
-      ...previousMessages,
-      newMessage,
-    ]);
-
+    setMessages([...messages, newMessage]);
     setMessage("");
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === "Enter") {
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
       sendMessage();
     }
   };
@@ -84,80 +78,70 @@ function ChatScreen() {
   return (
     <div className="chat-screen">
 
-      {/* =========================
-          CHAT HEADER
-      ========================= */}
-
-      <div className="chat-screen-header">
+      {/* Header */}
+      <div className="chat-header">
 
         <button
-          className="chat-back-button"
+          className="back-button"
           onClick={() => navigate("/chat")}
         >
           ←
         </button>
 
-        <div className="chat-screen-avatar">
-          {user.avatar}
+        <div className="chat-avatar">
+          {person.avatar}
         </div>
 
-        <div className="chat-user-details">
-          <h2>{user.name}</h2>
-          <p>{user.skill}</p>
-        </div>
-
-        <div className="online-indicator">
-          <span>●</span> Online
+        <div className="chat-user-info">
+          <h2>{person.name}</h2>
+          <p>
+            <span className="online-dot"></span>
+            {person.status} • {person.skill}
+          </p>
         </div>
 
       </div>
 
+      {/* Messages */}
+      <div className="messages-container">
 
-      {/* =========================
-          MESSAGES
-      ========================= */}
+        <div className="chat-date">
+          Today
+        </div>
 
-      <div className="chat-messages">
-
-        {messages.map((item) => (
-
+        {messages.map((msg) => (
           <div
-            key={item.id}
-            className={
-              item.sender === "me"
-                ? "message-wrapper my-message"
-                : "message-wrapper"
-            }
+            key={msg.id}
+            className={`message-row ${
+              msg.sender === "me" ? "message-right" : "message-left"
+            }`}
           >
+            <div
+              className={`message-bubble ${
+                msg.sender === "me"
+                  ? "my-message"
+                  : "their-message"
+              }`}
+            >
+              <p>{msg.text}</p>
 
-            <div className="message-bubble">
-              <p>{item.text}</p>
-
-              <span>
-                {item.time}
+              <span className="message-time">
+                {msg.time}
               </span>
             </div>
-
           </div>
-
         ))}
 
       </div>
 
-
-      {/* =========================
-          MESSAGE INPUT
-      ========================= */}
-
-      <div className="chat-input-container">
+      {/* Input */}
+      <div className="message-input-area">
 
         <input
           type="text"
-          placeholder="Type your message..."
+          placeholder="Type a message..."
           value={message}
-          onChange={(event) =>
-            setMessage(event.target.value)
-          }
+          onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
         />
 
