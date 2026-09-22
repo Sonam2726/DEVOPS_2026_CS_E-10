@@ -32,10 +32,12 @@ import Settings from "./pages/Settings";
 import MatchDetails from "./pages/MatchDetails";
 import Exchange from "./Exchange";
 
+
 // =========================
 // DAY 7 - SESSIONS
 // =========================
 import Sessions from "./pages/Sessions";
+
 
 
 function ProtectedRoute({ children }) {
@@ -125,6 +127,7 @@ function AppContent() {
           path="/sessions"
           element={<Sessions />}
         />
+       
 
         {/* =========================
             OFFER SKILL

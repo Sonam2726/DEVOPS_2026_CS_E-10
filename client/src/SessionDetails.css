@@ -1,0 +1,160 @@
+.session-details-page {
+  min-height: 100vh;
+  padding: 50px 8%;
+  background: #f8fafc;
+}
+
+.back-session-btn {
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  cursor: pointer;
+  margin-bottom: 30px;
+  color: #475569;
+}
+
+.session-details-header {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.session-large-avatar {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e0f2fe;
+  color: #0369a1;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.session-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 1px;
+}
+
+.session-details-header h1 {
+  margin: 5px 0;
+  font-size: 30px;
+  color: #0f172a;
+}
+
+.session-details-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.status {
+  margin-left: auto;
+  padding: 9px 16px;
+  border-radius: 20px;
+  font-weight: 600;
+}
+
+.status.upcoming {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.status.completed {
+  background: #e2e8f0;
+  color: #475569;
+}
+
+.session-details-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 25px;
+  margin-top: 25px;
+}
+
+.session-main-card,
+.session-action-card {
+  background: white;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.06);
+}
+
+.session-main-card h2,
+.session-action-card h2 {
+  color: #0f172a;
+  margin-top: 0;
+}
+
+.session-detail-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 0;
+  border-bottom: 1px solid #e2e8f0;
+  color: #64748b;
+}
+
+.session-detail-row strong {
+  color: #0f172a;
+}
+
+.session-action-card {
+  text-align: center;
+}
+
+.session-icon {
+  font-size: 45px;
+  margin-bottom: 15px;
+}
+
+.session-action-card p {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.join-session-btn,
+.back-list-btn {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 12px;
+}
+
+.join-session-btn {
+  border: none;
+  background: #2563eb;
+  color: white;
+}
+
+.back-list-btn {
+  background: white;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+@media (max-width: 768px) {
+  .session-details-page {
+    padding: 30px 5%;
+  }
+
+  .session-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status {
+    margin-left: 0;
+  }
+
+  .session-details-grid {
+    grid-template-columns: 1fr;
+  }
+}
