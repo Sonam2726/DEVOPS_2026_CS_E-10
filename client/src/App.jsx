@@ -39,6 +39,7 @@ import Exchange from "./Exchange";
 import Sessions from "./pages/Sessions";
 import SessionDetails from "./SessionDetails";
 import Chat from "./pages/Chat";
+import ChatScreen from "./pages/chat";
 
 
 
@@ -141,6 +142,11 @@ function AppContent() {
 <Route
   path="/chat"
   element={<Chat />}
+/>
+
+<Route
+  path="/chat/:id"
+  element={<ChatScreen />}
 />
 
         {/* =========================
