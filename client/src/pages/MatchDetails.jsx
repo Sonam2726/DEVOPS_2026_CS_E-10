@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./MatchDetails.css";
@@ -21,14 +20,17 @@ const matchData = {
 function MatchDetails() {
   const navigate = useNavigate();
 
-  const handleRequest = () => {
-    alert(`Connection request sent to ${matchData.name}!`);
+  // Day 5 - Navigate to Skill Exchange page
+  const handleConnect = () => {
+    navigate("/exchange");
   };
 
   return (
     <div className="match-details-page">
 
-      {/* Back Button */}
+      {/* =========================
+          BACK BUTTON
+      ========================= */}
       <button
         className="back-btn"
         onClick={() => navigate("/matching")}
@@ -36,7 +38,9 @@ function MatchDetails() {
         ← Back to Matching
       </button>
 
-      {/* Profile Header */}
+      {/* =========================
+          PROFILE HEADER
+      ========================= */}
       <div className="match-profile-header">
 
         <div className="large-avatar">
@@ -49,38 +53,63 @@ function MatchDetails() {
             RECOMMENDED MATCH
           </span>
 
-          <h1>{matchData.name}</h1>
+          <h1>
+            {matchData.name}
+          </h1>
 
-          <p>{matchData.role}</p>
+          <p>
+            {matchData.role}
+          </p>
 
           <div className="profile-meta">
-            <span>⭐ {matchData.rating}</span>
-            <span>🎓 {matchData.level}</span>
+
+            <span>
+              ⭐ {matchData.rating}
+            </span>
+
+            <span>
+              🎓 {matchData.level}
+            </span>
+
             <span className="available-text">
               <span className="green-dot"></span>
               {matchData.availability}
             </span>
+
           </div>
 
         </div>
 
         <div className="big-match-badge">
-          <strong>{matchData.match}</strong>
-          <small>Compatibility</small>
+
+          <strong>
+            {matchData.match}
+          </strong>
+
+          <small>
+            Compatibility
+          </small>
+
         </div>
 
       </div>
 
-      {/* Main Content */}
+      {/* =========================
+          MAIN CONTENT
+      ========================= */}
       <div className="match-details-content">
 
-        {/* Left Section */}
+        {/* =========================
+            LEFT SECTION
+        ========================= */}
         <div className="details-left">
 
           {/* Compatibility */}
           <div className="details-card">
 
-            <h2>Compatibility</h2>
+            <h2>
+              Compatibility
+            </h2>
 
             <p className="card-description">
               Based on your skills, interests and learning goals,
@@ -90,19 +119,37 @@ function MatchDetails() {
             <div className="compatibility-box">
 
               <div className="compatibility-score">
-                <strong>{matchData.match}</strong>
-                <span>Overall Match</span>
+
+                <strong>
+                  {matchData.match}
+                </strong>
+
+                <span>
+                  Overall Match
+                </span>
+
               </div>
 
               <div className="compatibility-progress">
+
                 <div className="progress-bar">
+
                   <div className="progress-fill"></div>
+
                 </div>
 
                 <div className="progress-labels">
-                  <span>Low</span>
-                  <span>Excellent</span>
+
+                  <span>
+                    Low
+                  </span>
+
+                  <span>
+                    Excellent
+                  </span>
+
                 </div>
+
               </div>
 
             </div>
@@ -112,20 +159,33 @@ function MatchDetails() {
           {/* Common Skills */}
           <div className="details-card">
 
-            <h2>Common Skills</h2>
+            <h2>
+              Common Skills
+            </h2>
 
             <p className="card-description">
-              Skills that you and {matchData.name.split(" ")[0]} have
+              Skills that you and{" "}
+              {matchData.name.split(" ")[0]} have
               in common.
             </p>
 
             <div className="common-skills">
 
               {matchData.commonSkills.map((skill) => (
-                <div className="common-skill" key={skill}>
-                  <span>✓</span>
+
+                <div
+                  className="common-skill"
+                  key={skill}
+                >
+
+                  <span>
+                    ✓
+                  </span>
+
                   {skill}
+
                 </div>
+
               ))}
 
             </div>
@@ -135,12 +195,18 @@ function MatchDetails() {
           {/* Skills */}
           <div className="details-card">
 
-            <h2>Skills</h2>
+            <h2>
+              Skills
+            </h2>
 
             <div className="skill-tags">
 
               {matchData.skills.map((skill) => (
-                <span key={skill}>{skill}</span>
+
+                <span key={skill}>
+                  {skill}
+                </span>
+
               ))}
 
             </div>
@@ -150,7 +216,9 @@ function MatchDetails() {
           {/* About */}
           <div className="details-card">
 
-            <h2>About</h2>
+            <h2>
+              About
+            </h2>
 
             <p className="about-text">
               {matchData.about}
@@ -160,7 +228,9 @@ function MatchDetails() {
 
         </div>
 
-        {/* Right Section */}
+        {/* =========================
+            RIGHT SECTION
+        ========================= */}
         <div className="details-right">
 
           {/* Request Card */}
@@ -170,14 +240,18 @@ function MatchDetails() {
               🤝
             </div>
 
-            <h2>Connect with {matchData.name.split(" ")[0]}</h2>
+            <h2>
+              Connect with{" "}
+              {matchData.name.split(" ")[0]}
+            </h2>
 
             <p>
               Send a connection request and start learning
               together on SkillBridge.
             </p>
 
-            <button onClick={handleRequest}>
+            {/* DAY 5 BUTTON */}
+            <button onClick={handleConnect}>
               Send Connection Request
             </button>
 
@@ -190,28 +264,56 @@ function MatchDetails() {
           {/* Quick Information */}
           <div className="details-card quick-details">
 
-            <h2>Quick Information</h2>
+            <h2>
+              Quick Information
+            </h2>
 
             <div className="quick-row">
-              <span>Role</span>
-              <strong>Mentor</strong>
+
+              <span>
+                Role
+              </span>
+
+              <strong>
+                Mentor
+              </strong>
+
             </div>
 
             <div className="quick-row">
-              <span>Experience</span>
-              <strong>{matchData.experience}</strong>
+
+              <span>
+                Experience
+              </span>
+
+              <strong>
+                {matchData.experience}
+              </strong>
+
             </div>
 
             <div className="quick-row">
-              <span>Level</span>
-              <strong>{matchData.level}</strong>
+
+              <span>
+                Level
+              </span>
+
+              <strong>
+                {matchData.level}
+              </strong>
+
             </div>
 
             <div className="quick-row">
-              <span>Availability</span>
+
+              <span>
+                Availability
+              </span>
+
               <strong className="available-value">
                 {matchData.availability}
               </strong>
+
             </div>
 
           </div>
@@ -225,4 +327,3 @@ function MatchDetails() {
 }
 
 export default MatchDetails;
-

@@ -8,13 +8,13 @@ import {
 
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+
 import Search from "./pages/Search";
 import SkillPreview from "./pages/SkillPreview";
-import Requests from "./pages/Requests"; 
+import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
 import OfferSkill from "./pages/OfferSkill";
 import Reviews from "./pages/Reviews";
-
 
 import Landing from "./pages/Landing";
 import Matching from "./pages/Matching";
@@ -28,7 +28,16 @@ import Dashboard from "./pages/Dashboard";
 import SkillDetails from "./pages/SkillDetails";
 import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
+
 import MatchDetails from "./pages/MatchDetails";
+import Exchange from "./pages/Exchange";
+
+// =========================
+// DAY 7 - SESSIONS
+// =========================
+import Sessions from "./pages/Sessions";
+import SessionDetails from "./pages/SessionDetails";
+
 
 function ProtectedRoute({ children }) {
   const isLoggedIn =
@@ -36,6 +45,7 @@ function ProtectedRoute({ children }) {
 
   return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
+
 
 function AppContent() {
   const location = useLocation();
@@ -48,65 +58,136 @@ function AppContent() {
 
   return (
     <>
-      {/* Main Navbar is hidden on Dashboard, Notifications and Settings */}
+      {/* Main Navbar */}
       {!isWorkspacePage && <Navbar />}
 
       <Routes>
 
-        {/* Landing Page */}
+        {/* =========================
+            LANDING PAGE
+        ========================= */}
         <Route
           path="/"
           element={<Landing />}
         />
 
-        {/* Home Page */}
+
+        {/* =========================
+            HOME PAGE
+        ========================= */}
         <Route
           path="/home"
           element={<Home />}
+        />
 
-        />
-        {/* Reviews Page */}
-         <Route path="/reviews"
-          element={<Reviews />}
-           />
-        {/* Matching Page - Day 3 */}
+
+        {/* =========================
+            REVIEWS PAGE
+        ========================= */}
         <Route
-        path="/matching"
-        element={<Matching />}
+          path="/reviews"
+          element={<Reviews />}
         />
-        {/*Request Page */}
+
+
+        {/* =========================
+            DAY 3 - MATCHING
+        ========================= */}
+        <Route
+          path="/matching"
+          element={<Matching />}
+        />
+
+
+        {/* =========================
+            DAY 4 - MATCH DETAILS
+        ========================= */}
+        <Route
+          path="/match-details/:id"
+          element={<MatchDetails />}
+        />
+
+
+        {/* =========================
+            DAY 5 - SKILL EXCHANGE
+        ========================= */}
+        <Route
+          path="/exchange"
+          element={<Exchange />}
+        />
+
+
+        {/* =========================
+            DAY 6 - REQUESTS
+        ========================= */}
         <Route
           path="/requests"
           element={<Requests />}
         />
-        {/* Offer skill page */}
+
+
+        {/* =========================
+            DAY 7 - SESSIONS
+        ========================= */}
+        <Route
+          path="/sessions"
+          element={<Sessions />}
+        />
+
+        <Route
+          path="/session-details/:id"
+          element={<SessionDetails />}
+        />
+
+
+        {/* =========================
+            OFFER SKILL
+        ========================= */}
         <Route
           path="/offer-skill"
           element={<OfferSkill />}
         />
-        {/*Profile Page*/}
+
+
+        {/* =========================
+            PROFILE
+        ========================= */}
         <Route
           path="/profile"
           element={<Profile />}
         />
 
-        {/* Search Page */}
+
+        {/* =========================
+            SEARCH
+        ========================= */}
         <Route
           path="/search"
           element={<Search />}
         />
 
 
-          {/* Preview page */}
-        <Route path="/skill/:id" element={<SkillPreview />} />
+        {/* =========================
+            SKILL PREVIEW
+        ========================= */}
+        <Route
+          path="/skill/:id"
+          element={<SkillPreview />}
+        />
 
-        {/* Discover Page */}
+
+        {/* =========================
+            DISCOVER
+        ========================= */}
         <Route
           path="/discover"
           element={<Discover />}
         />
 
-        {/* Authentication Pages */}
+
+        {/* =========================
+            AUTHENTICATION
+        ========================= */}
         <Route
           path="/register"
           element={<Register />}
@@ -127,7 +208,10 @@ function AppContent() {
           element={<ResetPassword />}
         />
 
-        {/* Dashboard */}
+
+        {/* =========================
+            DASHBOARD
+        ========================= */}
         <Route
           path="/dashboard"
           element={
@@ -137,22 +221,33 @@ function AppContent() {
           }
         />
 
-        {/* Skill Details */}
+
+        {/* =========================
+            DAY 1 + DAY 2
+            SKILL DETAILS
+        ========================= */}
         <Route
           path="/skill-details"
           element={<SkillDetails />}
         />
 
-        <Route
-        path="/notifications"
-        element={
-          <ProtectedRoute>
-            <Notifications />
-          </ProtectedRoute>
-        }
-      />
 
-        {/* Settings */}
+        {/* =========================
+            NOTIFICATIONS
+        ========================= */}
+        <Route
+          path="/notifications"
+          element={
+            <ProtectedRoute>
+              <Notifications />
+            </ProtectedRoute>
+          }
+        />
+
+
+        {/* =========================
+            SETTINGS
+        ========================= */}
         <Route
           path="/settings"
           element={
@@ -161,26 +256,24 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-        {/* Day 4 - Match Details */}
-      <Route
-        path="/match-details"
-        element={<MatchDetails />}
-      />
 
-            </Routes>
+      </Routes>
 
-            {/* Footer is hidden on workspace pages */}
-            {!isWorkspacePage && <Footer />}
-          </>
-        );
-      }
 
-      function App() {
-        return (
-          <BrowserRouter>
-            <AppContent />
-          </BrowserRouter>
-        );
-      }
+      {/* Footer */}
+      {!isWorkspacePage && <Footer />}
+    </>
+  );
+}
+
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+}
+
 
 export default App;
