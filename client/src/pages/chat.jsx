@@ -45,9 +45,15 @@ function Chat() {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
-  const [conversations, setConversations] = useState(
-    initialConversations
-  );
+
+  // Load saved conversations
+  const [conversations, setConversations] = useState(() => {
+    const saved = localStorage.getItem("skillbridgeChats");
+
+    return saved
+      ? JSON.parse(saved)
+      : initialConversations;
+  });
 
   const filteredChats = conversations.filter((chat) => {
     const searchText = search.toLowerCase();
@@ -59,15 +65,22 @@ function Chat() {
     );
   });
 
+  // Open chat and remove unread count
   const openChat = (id) => {
-    // Clear unread messages
-    setConversations((prev) =>
-      prev.map((chat) =>
+    setConversations((prev) => {
+      const updated = prev.map((chat) =>
         chat.id === id
           ? { ...chat, unread: 0 }
           : chat
-      )
-    );
+      );
+
+      localStorage.setItem(
+        "skillbridgeChats",
+        JSON.stringify(updated)
+      );
+
+      return updated;
+    });
 
     navigate(`/chat/${id}`);
   };
@@ -174,11 +187,9 @@ function Chat() {
                 {/* UNREAD */}
 
                 {chat.unread > 0 && (
-
                   <span className="unread-badge">
                     {chat.unread}
                   </span>
-
                 )}
 
               </div>
