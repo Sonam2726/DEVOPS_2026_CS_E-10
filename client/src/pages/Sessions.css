@@ -1,0 +1,123 @@
+.sessions-page {
+  min-height: 100vh;
+  padding: 60px 8%;
+  background: #f7f9fc;
+}
+
+.sessions-header {
+  margin-bottom: 45px;
+}
+
+.sessions-header > span {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #667085;
+}
+
+.sessions-header h1 {
+  font-size: 42px;
+  color: #172033;
+  margin: 12px 0;
+}
+
+.sessions-header p {
+  color: #667085;
+}
+
+.session-section {
+  margin-bottom: 50px;
+}
+
+.session-section h2 {
+  color: #172033;
+  margin-bottom: 20px;
+}
+
+.session-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.session-card {
+  background: white;
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid #e5e7eb;
+}
+
+.session-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.session-avatar {
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: #e8edff;
+  color: #3659c9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+}
+
+.session-card h3 {
+  color: #172033;
+  margin-bottom: 5px;
+}
+
+.session-card p {
+  color: #667085;
+}
+
+.session-info {
+  margin: 10px 0;
+  color: #475467;
+}
+
+.session-card button {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  background: #3659c9;
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.upcoming-badge,
+.completed-badge {
+  padding: 7px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.upcoming-badge {
+  background: #e8edff;
+  color: #3659c9;
+}
+
+.completed-badge {
+  background: #e7f8ef;
+  color: #16834b;
+}
+
+@media (max-width: 768px) {
+  .sessions-page {
+    padding: 40px 20px;
+  }
+
+  .sessions-header h1 {
+    font-size: 30px;
+  }
+
+  .session-grid {
+    grid-template-columns: 1fr;
+  }
+}

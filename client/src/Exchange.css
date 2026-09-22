@@ -1,0 +1,200 @@
+.exchange-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+  padding: 40px;
+}
+
+.exchange-container {
+  max-width: 850px;
+  margin: auto;
+}
+
+.exchange-back-btn {
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  cursor: pointer;
+  margin-bottom: 25px;
+}
+
+.exchange-header h1 {
+  margin-bottom: 8px;
+}
+
+.exchange-header p {
+  color: #777;
+}
+
+.exchange-card {
+  background: white;
+  margin-top: 30px;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+/* Partner */
+
+.exchange-partner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #eee;
+}
+
+.exchange-avatar {
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: #e5f0ff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.exchange-partner h2 {
+  margin: 0 0 5px;
+}
+
+.exchange-partner p {
+  margin: 0;
+  color: #777;
+}
+
+/* Skills */
+
+.exchange-skills {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.skill-box {
+  flex: 1;
+  background: #f7f9fc;
+  padding: 25px;
+  border-radius: 12px;
+}
+
+.skill-box span {
+  display: block;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.skill-box h3 {
+  margin: 0 0 5px;
+}
+
+.skill-box p {
+  margin: 0;
+  color: #777;
+}
+
+.exchange-arrow {
+  font-size: 30px;
+}
+
+/* Availability */
+
+.availability-box {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.availability-box div {
+  background: #f7f9fc;
+  padding: 18px;
+  border-radius: 10px;
+}
+
+.availability-box span {
+  display: block;
+  color: #777;
+  font-size: 13px;
+  margin-bottom: 7px;
+}
+
+/* Status */
+
+.exchange-status {
+  padding: 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.exchange-status.ready {
+  background: #f7f9fc;
+}
+
+.exchange-status.pending {
+  background: #fff3cd;
+}
+
+.exchange-status strong {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.exchange-status p {
+  margin: 0;
+  color: #666;
+}
+
+/* Buttons */
+
+.exchange-request-btn,
+.exchange-view-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+
+  font-size: 16px;
+  font-weight: bold;
+
+  cursor: pointer;
+}
+
+.exchange-view-btn {
+  background: #f1f1f1;
+}
+
+/* Mobile */
+
+@media (max-width: 650px) {
+
+  .exchange-page {
+    padding: 20px;
+  }
+
+  .exchange-card {
+    padding: 20px;
+  }
+
+  .exchange-skills {
+    flex-direction: column;
+  }
+
+  .skill-box {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .exchange-arrow {
+    transform: rotate(90deg);
+  }
+
+  .availability-box {
+    grid-template-columns: 1fr;
+  }
+}

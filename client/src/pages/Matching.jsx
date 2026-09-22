@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Matching.css";
 
 const teachers = [
@@ -65,8 +66,10 @@ const learners = [
 ];
 
 function Matching() {
-  const handleConnect = (name) => {
-    alert(`Connection request sent to ${name}!`);
+  const navigate = useNavigate();
+
+  const handleConnect = (id) => {
+    navigate(`/match-details/${id}`);
   };
 
   return (
@@ -90,10 +93,12 @@ function Matching() {
         </div>
       </div>
 
-      {/* TEACHERS */}
+      {/* ================= TEACHERS ================= */}
+
       <section className="matching-section">
 
         <div className="section-heading">
+
           <div>
             <span className="section-label">
               RECOMMENDED FOR YOU
@@ -105,14 +110,20 @@ function Matching() {
           <button className="view-all-btn">
             View All
           </button>
+
         </div>
 
         <div className="cards-container">
 
           {teachers.map((teacher) => (
-            <div className="match-card" key={teacher.id}>
+
+            <div
+              className="match-card"
+              key={teacher.id}
+            >
 
               <div className="card-header">
+
                 <div className="avatar">
                   {teacher.avatar}
                 </div>
@@ -121,9 +132,11 @@ function Matching() {
                   <strong>{teacher.match}</strong>
                   <small>Match</small>
                 </div>
+
               </div>
 
               <div className="person-info">
+
                 <h3>{teacher.name}</h3>
 
                 <p className="role">
@@ -133,79 +146,122 @@ function Matching() {
                 <div className="rating">
                   ⭐ {teacher.rating}
                 </div>
+
               </div>
 
               <div className="availability">
+
                 <span className="status-dot"></span>
-                <span>{teacher.availability}</span>
+
+                <span>
+                  {teacher.availability}
+                </span>
+
               </div>
 
               <div className="skills">
+
                 {teacher.skills.map((skill) => (
+
                   <span key={skill}>
                     {skill}
                   </span>
+
                 ))}
+
               </div>
 
               <div className="card-buttons">
-                <button className="profile-btn">
+
+                <button
+                  className="profile-btn"
+                  onClick={() =>
+                    navigate(`/match-details/${teacher.id}`)
+                  }
+                >
                   View Profile
                 </button>
 
                 <button
                   className="connect-btn"
-                  onClick={() => handleConnect(teacher.name)}
+                  onClick={() =>
+                    handleConnect(teacher.id)
+                  }
                 >
                   Connect
                 </button>
+
               </div>
 
             </div>
+
           ))}
 
         </div>
+
       </section>
 
-      {/* LEARNERS */}
+      {/* ================= LEARNERS ================= */}
+
       <section className="matching-section learners-section">
 
         <div className="section-heading">
+
           <div>
+
             <span className="section-label">
               PEOPLE WHO MATCH YOUR SKILLS
             </span>
 
             <h2>Recommended Learners</h2>
+
           </div>
 
           <button className="view-all-btn">
             View All
           </button>
+
         </div>
 
         <div className="cards-container">
 
           {learners.map((learner) => (
-            <div className="match-card" key={learner.id}>
+
+            <div
+              className="match-card"
+              key={learner.id}
+            >
 
               <div className="card-header">
+
                 <div className="avatar">
                   {learner.avatar}
                 </div>
 
                 <div className="match-badge">
-                  <strong>{learner.match}</strong>
-                  <small>Match</small>
+
+                  <strong>
+                    {learner.match}
+                  </strong>
+
+                  <small>
+                    Match
+                  </small>
+
                 </div>
+
               </div>
 
               <div className="person-info">
-                <h3>{learner.name}</h3>
+
+                <h3>
+                  {learner.name}
+                </h3>
 
                 <p className="role">
                   {learner.role}
                 </p>
+
               </div>
 
               <div className="learner-level">
@@ -213,30 +269,45 @@ function Matching() {
               </div>
 
               <div className="skills">
+
                 {learner.skills.map((skill) => (
+
                   <span key={skill}>
                     {skill}
                   </span>
+
                 ))}
+
               </div>
 
               <div className="card-buttons">
-                <button className="profile-btn">
+
+                <button
+                  className="profile-btn"
+                  onClick={() =>
+                    navigate(`/match-details/${learner.id}`)
+                  }
+                >
                   View Profile
                 </button>
 
                 <button
                   className="connect-btn"
-                  onClick={() => handleConnect(learner.name)}
+                  onClick={() =>
+                    handleConnect(learner.id)
+                  }
                 >
                   Connect
                 </button>
+
               </div>
 
             </div>
+
           ))}
 
         </div>
+
       </section>
 
     </div>
@@ -244,4 +315,3 @@ function Matching() {
 }
 
 export default Matching;
-
