@@ -164,3 +164,105 @@
     margin-top: 4px;
   }
 }
+/* =========================
+   DAY 13 - CHAT LIST POLISH
+========================= */
+
+.chat-search {
+  position: relative;
+}
+
+.chat-search input {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.clear-search {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+
+  border: none;
+  background: transparent;
+
+  font-size: 22px;
+  color: #6b7280;
+
+  cursor: pointer;
+}
+
+.clear-search:hover {
+  color: #111827;
+}
+
+.chat-result-count {
+  margin: 12px 0;
+  color: #6b7280;
+  font-size: 13px;
+}
+
+.chat-card {
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.chat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.unread-badge {
+  min-width: 22px;
+  height: 22px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #4f46e5;
+  color: white;
+
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.no-chats {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.no-chat-icon {
+  font-size: 42px;
+  margin-bottom: 12px;
+}
+
+.no-chats h3 {
+  margin-bottom: 8px;
+  color: #111827;
+}
+
+.no-chats p {
+  color: #6b7280;
+  margin-bottom: 20px;
+}
+
+.no-chats button {
+  border: none;
+  background: #4f46e5;
+  color: white;
+
+  padding: 10px 20px;
+  border-radius: 20px;
+
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.no-chats button:hover {
+  opacity: 0.9;
+}
