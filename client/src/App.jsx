@@ -40,7 +40,7 @@ import Sessions from "./pages/Sessions";
 import SessionDetails from "./SessionDetails";
 import Chat from "./pages/chat";
 import ChatScreen from "./pages/ChatScreen";
-
+import About from "./pages/About";
 
 
 function ProtectedRoute({ children }) {
@@ -114,6 +114,10 @@ function AppContent() {
           path="/exchange"
           element={<Exchange />}
         />
+        <Route
+  path="/about"
+  element={<About />}
+/>
 
         {/* =========================
             DAY 6 - REQUESTS
