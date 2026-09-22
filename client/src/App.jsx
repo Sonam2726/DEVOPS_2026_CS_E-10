@@ -38,8 +38,8 @@ import Exchange from "./Exchange";
 // =========================
 import Sessions from "./pages/Sessions";
 import SessionDetails from "./SessionDetails";
-import Chat from "./pages/Chat";
-import ChatScreen from "./pages/chat";
+import Chat from "./pages/chat";
+import ChatScreen from "./pages/ChatScreen";
 
 
 
