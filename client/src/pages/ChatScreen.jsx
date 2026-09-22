@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./ChatScreen.css";
 
@@ -30,6 +30,9 @@ function ChatScreen() {
   const person = chatData[id] || chatData[1];
 
   const [message, setMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+
+  const messagesEndRef = useRef(null);
 
   const [messages, setMessages] = useState([
     {
@@ -52,25 +55,68 @@ function ChatScreen() {
     },
   ]);
 
+  // Auto scroll to latest message
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+    });
+  }, [messages, isTyping]);
+
+  // Send message
   const sendMessage = () => {
-    if (!message.trim()) return;
+    const trimmedMessage = message.trim();
+
+    if (!trimmedMessage) {
+      return;
+    }
 
     const newMessage = {
-      id: messages.length + 1,
+      id: Date.now(),
       sender: "me",
-      text: message,
+      text: trimmedMessage,
       time: new Date().toLocaleTimeString([], {
         hour: "2-digit",
         minute: "2-digit",
       }),
     };
 
-    setMessages([...messages, newMessage]);
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      newMessage,
+    ]);
+
     setMessage("");
+
+    // Demo typing response
+    if (person.status === "Online") {
+      setIsTyping(true);
+
+      setTimeout(() => {
+        setIsTyping(false);
+
+        const reply = {
+          id: Date.now() + 1,
+          sender: "other",
+          text: "Sure! That sounds great. 👍",
+          time: new Date().toLocaleTimeString([], {
+            hour: "2-digit",
+            minute: "2-digit",
+          }),
+        };
+
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          reply,
+        ]);
+      }, 1200);
+    }
   };
 
+  // Enter = send
+  // Shift + Enter = new line
   const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
       sendMessage();
     }
   };
@@ -78,12 +124,16 @@ function ChatScreen() {
   return (
     <div className="chat-screen">
 
-      {/* Header */}
+      {/* =========================
+          CHAT HEADER
+      ========================= */}
+
       <div className="chat-header">
 
         <button
           className="back-button"
           onClick={() => navigate("/chat")}
+          aria-label="Go back"
         >
           ←
         </button>
@@ -94,15 +144,22 @@ function ChatScreen() {
 
         <div className="chat-user-info">
           <h2>{person.name}</h2>
+
           <p>
-            <span className="online-dot"></span>
+            {person.status === "Online" && (
+              <span className="online-dot"></span>
+            )}
+
             {person.status} • {person.skill}
           </p>
         </div>
 
       </div>
 
-      {/* Messages */}
+      {/* =========================
+          MESSAGES
+      ========================= */}
+
       <div className="messages-container">
 
         <div className="chat-date">
@@ -113,7 +170,9 @@ function ChatScreen() {
           <div
             key={msg.id}
             className={`message-row ${
-              msg.sender === "me" ? "message-right" : "message-left"
+              msg.sender === "me"
+                ? "message-right"
+                : "message-left"
             }`}
           >
             <div
@@ -123,18 +182,41 @@ function ChatScreen() {
                   : "their-message"
               }`}
             >
+
               <p>{msg.text}</p>
 
               <span className="message-time">
                 {msg.time}
               </span>
+
             </div>
           </div>
         ))}
 
+        {/* Typing indicator */}
+
+        {isTyping && (
+          <div className="message-row message-left">
+
+            <div className="message-bubble their-message typing-bubble">
+
+              <span className="typing-dot"></span>
+              <span className="typing-dot"></span>
+              <span className="typing-dot"></span>
+
+            </div>
+
+          </div>
+        )}
+
+        <div ref={messagesEndRef}></div>
+
       </div>
 
-      {/* Input */}
+      {/* =========================
+          MESSAGE INPUT
+      ========================= */}
+
       <div className="message-input-area">
 
         <input
@@ -143,9 +225,13 @@ function ChatScreen() {
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           onKeyDown={handleKeyDown}
+          maxLength={500}
         />
 
-        <button onClick={sendMessage}>
+        <button
+          onClick={sendMessage}
+          disabled={!message.trim()}
+        >
           Send
         </button>
 
