@@ -1,166 +1,287 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "./SessionDetails.css";
 
-const sessionData = {
+const sessions = {
   1: {
     partner: "Aarav Sharma",
-    role: "Java Developer & Mentor",
     skill: "Java & OOP",
     date: "Today",
     time: "6:00 PM",
-    duration: "60 Minutes",
     type: "Online",
-    status: "Upcoming",
     avatar: "AS",
+    role: "Java Developer & Mentor",
+    status: "Upcoming",
+    description:
+      "Learn Java fundamentals, OOP concepts and practical programming techniques.",
   },
+
   2: {
     partner: "Priya Mehta",
-    role: "UI/UX Designer & Mentor",
     skill: "UI/UX Design",
     date: "Tomorrow",
     time: "5:30 PM",
-    duration: "60 Minutes",
     type: "Online",
-    status: "Upcoming",
     avatar: "PM",
+    role: "UI/UX Designer & Mentor",
+    status: "Upcoming",
+    description:
+      "Improve your UI/UX design skills through practical design discussions.",
   },
+
   3: {
     partner: "Rohan Verma",
-    role: "Python Developer & Mentor",
     skill: "Python & SQL",
     date: "18 Sep 2026",
     time: "7:00 PM",
-    duration: "60 Minutes",
     type: "Online",
-    status: "Completed",
     avatar: "RV",
+    role: "Python Developer & Mentor",
+    status: "Completed",
+    description:
+      "Practice Python, SQL and backend development concepts.",
   },
 };
 
 function SessionDetails() {
-  const navigate = useNavigate();
   const { id } = useParams();
+  const navigate = useNavigate();
 
-  const session = sessionData[id] || sessionData[1];
+  const session = sessions[id];
+
+  const [sessionStatus, setSessionStatus] = useState(
+    session?.status || "Upcoming"
+  );
+
+  const [showReschedule, setShowReschedule] = useState(false);
+  const [showFeedback, setShowFeedback] = useState(false);
+  const [feedback, setFeedback] = useState("");
+
+  if (!session) {
+    return (
+      <div className="session-details-page">
+        <div className="session-details-card">
+          <h1>Session Not Found</h1>
+
+          <button onClick={() => navigate("/sessions")}>
+            Back to Sessions
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   const handleJoin = () => {
-    alert(`Joining session with ${session.partner}`);
+    alert(`Joining ${session.partner}'s ${session.skill} session`);
+  };
+
+  const handleCancel = () => {
+    const confirmCancel = window.confirm(
+      "Are you sure you want to cancel this session?"
+    );
+
+    if (confirmCancel) {
+      setSessionStatus("Cancelled");
+      alert("Session cancelled successfully.");
+    }
+  };
+
+  const handleReschedule = () => {
+    setShowReschedule(false);
+    alert("Session reschedule request sent successfully.");
+  };
+
+  const handleFeedback = () => {
+    if (!feedback.trim()) {
+      alert("Please enter your feedback.");
+      return;
+    }
+
+    alert("Thank you for your feedback!");
+    setFeedback("");
+    setShowFeedback(false);
   };
 
   return (
     <div className="session-details-page">
 
       <button
-        className="back-session-btn"
+        className="back-button"
         onClick={() => navigate("/sessions")}
       >
         ← Back to Sessions
       </button>
 
-      <div className="session-details-header">
+      <div className="session-details-card">
 
-        <div className="session-large-avatar">
+        {/* Avatar */}
+        <div className="details-avatar">
           {session.avatar}
         </div>
 
-        <div>
-          <span className="session-label">
-            SKILLBRIDGE SESSION
-          </span>
-
-          <h1>{session.skill}</h1>
-
-          <p>{session.partner} · {session.role}</p>
-        </div>
-
+        {/* Status */}
         <span
-          className={
-            session.status === "Completed"
-              ? "status completed"
-              : "status upcoming"
-          }
+          className={`details-badge ${sessionStatus.toLowerCase()}`}
         >
-          {session.status}
+          {sessionStatus}
         </span>
 
-      </div>
+        {/* Main Details */}
+        <h1>{session.skill}</h1>
 
-      <div className="session-details-grid">
+        <h2>{session.partner}</h2>
 
-        <div className="session-main-card">
+        <p className="partner-role">
+          {session.role}
+        </p>
 
-          <h2>Session Information</h2>
+        <p className="session-description">
+          {session.description}
+        </p>
 
-          <div className="session-detail-row">
-            <span>👤 Partner</span>
-            <strong>{session.partner}</strong>
+        {/* Information */}
+        <div className="details-info">
+
+          <div>
+            <strong>📅 Date</strong>
+            <span>{session.date}</span>
           </div>
 
-          <div className="session-detail-row">
-            <span>📚 Skill</span>
-            <strong>{session.skill}</strong>
+          <div>
+            <strong>🕒 Time</strong>
+            <span>{session.time}</span>
           </div>
 
-          <div className="session-detail-row">
-            <span>📅 Date</span>
-            <strong>{session.date}</strong>
+          <div>
+            <strong>💻 Session Type</strong>
+            <span>{session.type}</span>
           </div>
 
-          <div className="session-detail-row">
-            <span>🕒 Time</span>
-            <strong>{session.time}</strong>
-          </div>
-
-          <div className="session-detail-row">
-            <span>⏱ Duration</span>
-            <strong>{session.duration}</strong>
-          </div>
-
-          <div className="session-detail-row">
-            <span>💻 Type</span>
-            <strong>{session.type}</strong>
+          <div>
+            <strong>🎯 Skill</strong>
+            <span>{session.skill}</span>
           </div>
 
         </div>
 
-        <div className="session-action-card">
+        {/* Upcoming Actions */}
+        {sessionStatus === "Upcoming" && (
+          <div className="session-actions">
 
-          <div className="session-icon">
-            💻
-          </div>
-
-          <h2>
-            {session.status === "Completed"
-              ? "Session Completed"
-              : "Ready for your session?"}
-          </h2>
-
-          <p>
-            {session.status === "Completed"
-              ? "This learning session has already been completed."
-              : "Join your scheduled SkillBridge session and start learning together."}
-          </p>
-
-          {session.status !== "Completed" && (
             <button
-              className="join-session-btn"
+              className="join-button"
               onClick={handleJoin}
             >
               Join Session
             </button>
-          )}
 
-          <button
-            className="back-list-btn"
-            onClick={() => navigate("/sessions")}
-          >
-            Back to Sessions
-          </button>
+            <button
+              className="reschedule-button"
+              onClick={() => setShowReschedule(true)}
+            >
+              Reschedule
+            </button>
 
-        </div>
+            <button
+              className="cancel-button"
+              onClick={handleCancel}
+            >
+              Cancel Session
+            </button>
+
+          </div>
+        )}
+
+        {/* Completed Actions */}
+        {sessionStatus === "Completed" && (
+          <div className="session-actions">
+
+            <button
+              className="feedback-button"
+              onClick={() => setShowFeedback(true)}
+            >
+              Give Feedback
+            </button>
+
+          </div>
+        )}
+
+        {/* Cancelled */}
+        {sessionStatus === "Cancelled" && (
+          <div className="cancelled-message">
+            This session has been cancelled.
+          </div>
+        )}
 
       </div>
+
+      {/* Reschedule Box */}
+      {showReschedule && (
+        <div className="popup-box">
+
+          <h2>Reschedule Session</h2>
+
+          <label>Select New Date</label>
+
+          <input type="date" />
+
+          <label>Select New Time</label>
+
+          <input type="time" />
+
+          <div className="popup-actions">
+
+            <button
+              className="join-button"
+              onClick={handleReschedule}
+            >
+              Confirm
+            </button>
+
+            <button
+              className="cancel-button"
+              onClick={() => setShowReschedule(false)}
+            >
+              Close
+            </button>
+
+          </div>
+
+        </div>
+      )}
+
+      {/* Feedback Box */}
+      {showFeedback && (
+        <div className="popup-box">
+
+          <h2>Session Feedback</h2>
+
+          <textarea
+            placeholder="Write your feedback..."
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+          />
+
+          <div className="popup-actions">
+
+            <button
+              className="feedback-button"
+              onClick={handleFeedback}
+            >
+              Submit Feedback
+            </button>
+
+            <button
+              className="cancel-button"
+              onClick={() => setShowFeedback(false)}
+            >
+              Close
+            </button>
+
+          </div>
+
+        </div>
+      )}
 
     </div>
   );

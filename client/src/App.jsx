@@ -37,6 +37,7 @@ import Exchange from "./Exchange";
 // DAY 7 - SESSIONS
 // =========================
 import Sessions from "./pages/Sessions";
+import SessionDetails from "./SessionDetails";
 
 
 
@@ -124,10 +125,14 @@ function AppContent() {
             DAY 7 - SESSIONS
         ========================= */}
         <Route
-          path="/sessions"
-          element={<Sessions />}
-        />
-       
+  path="/sessions"
+  element={<Sessions />}
+/>
+
+<Route
+  path="/session-details/:id"
+  element={<SessionDetails />}
+/>
 
         {/* =========================
             OFFER SKILL
