@@ -1,8 +1,10 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 import "./Sidebar.css";
 
 function Sidebar({ isOpen, onClose }) {
+  const navigate = useNavigate();
+
   const savedUser = localStorage.getItem("skillbridgeUser");
   const currentUser = savedUser ? JSON.parse(savedUser) : null;
   const userName = currentUser?.name || "User";
@@ -24,6 +26,14 @@ function Sidebar({ isOpen, onClose }) {
       icon: "⚙",
     },
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("skillbridgeLoggedIn");
+    localStorage.removeItem("skillbridgeUser");
+
+    onClose();
+    navigate("/login");
+  };
 
   return (
     <aside
@@ -105,6 +115,20 @@ function Sidebar({ isOpen, onClose }) {
         </div>
 
       </div>
+
+      {/* Logout */}
+      <button
+        className="sidebar-logout"
+        onClick={handleLogout}
+      >
+        <span className="sidebar-logout-icon">
+          ↪
+        </span>
+
+        <span>
+          Logout
+        </span>
+      </button>
 
     </aside>
   );
