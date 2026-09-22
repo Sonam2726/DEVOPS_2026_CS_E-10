@@ -38,6 +38,7 @@ import Exchange from "./Exchange";
 // =========================
 import Sessions from "./pages/Sessions";
 import SessionDetails from "./SessionDetails";
+import Chat from "./pages/Chat";
 
 
 
@@ -132,6 +133,14 @@ function AppContent() {
 <Route
   path="/session-details/:id"
   element={<SessionDetails />}
+/>
+{/* =========================
+    DAY 9 - CHAT LIST
+========================= */}
+
+<Route
+  path="/chat"
+  element={<Chat />}
 />
 
         {/* =========================
