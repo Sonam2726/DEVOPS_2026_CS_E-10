@@ -30,13 +30,12 @@ import Notifications from "./pages/Notifications";
 import Settings from "./pages/Settings";
 
 import MatchDetails from "./pages/MatchDetails";
-import Exchange from "./pages/Exchange";
+import Exchange from "./Exchange";
 
 // =========================
 // DAY 7 - SESSIONS
 // =========================
 import Sessions from "./pages/Sessions";
-import SessionDetails from "./pages/SessionDetails";
 
 
 function ProtectedRoute({ children }) {
@@ -71,7 +70,6 @@ function AppContent() {
           element={<Landing />}
         />
 
-
         {/* =========================
             HOME PAGE
         ========================= */}
@@ -79,7 +77,6 @@ function AppContent() {
           path="/home"
           element={<Home />}
         />
-
 
         {/* =========================
             REVIEWS PAGE
@@ -89,7 +86,6 @@ function AppContent() {
           element={<Reviews />}
         />
 
-
         {/* =========================
             DAY 3 - MATCHING
         ========================= */}
@@ -97,7 +93,6 @@ function AppContent() {
           path="/matching"
           element={<Matching />}
         />
-
 
         {/* =========================
             DAY 4 - MATCH DETAILS
@@ -107,7 +102,6 @@ function AppContent() {
           element={<MatchDetails />}
         />
 
-
         {/* =========================
             DAY 5 - SKILL EXCHANGE
         ========================= */}
@@ -115,7 +109,6 @@ function AppContent() {
           path="/exchange"
           element={<Exchange />}
         />
-
 
         {/* =========================
             DAY 6 - REQUESTS
@@ -125,7 +118,6 @@ function AppContent() {
           element={<Requests />}
         />
 
-
         {/* =========================
             DAY 7 - SESSIONS
         ========================= */}
@@ -133,12 +125,6 @@ function AppContent() {
           path="/sessions"
           element={<Sessions />}
         />
-
-        <Route
-          path="/session-details/:id"
-          element={<SessionDetails />}
-        />
-
 
         {/* =========================
             OFFER SKILL
@@ -148,7 +134,6 @@ function AppContent() {
           element={<OfferSkill />}
         />
 
-
         {/* =========================
             PROFILE
         ========================= */}
@@ -156,7 +141,6 @@ function AppContent() {
           path="/profile"
           element={<Profile />}
         />
-
 
         {/* =========================
             SEARCH
@@ -166,7 +150,6 @@ function AppContent() {
           element={<Search />}
         />
 
-
         {/* =========================
             SKILL PREVIEW
         ========================= */}
@@ -175,7 +158,6 @@ function AppContent() {
           element={<SkillPreview />}
         />
 
-
         {/* =========================
             DISCOVER
         ========================= */}
@@ -183,7 +165,6 @@ function AppContent() {
           path="/discover"
           element={<Discover />}
         />
-
 
         {/* =========================
             AUTHENTICATION
@@ -208,7 +189,6 @@ function AppContent() {
           element={<ResetPassword />}
         />
 
-
         {/* =========================
             DASHBOARD
         ========================= */}
@@ -221,7 +201,6 @@ function AppContent() {
           }
         />
 
-
         {/* =========================
             DAY 1 + DAY 2
             SKILL DETAILS
@@ -230,7 +209,6 @@ function AppContent() {
           path="/skill-details"
           element={<SkillDetails />}
         />
-
 
         {/* =========================
             NOTIFICATIONS
@@ -243,7 +221,6 @@ function AppContent() {
             </ProtectedRoute>
           }
         />
-
 
         {/* =========================
             SETTINGS
@@ -258,7 +235,6 @@ function AppContent() {
         />
 
       </Routes>
-
 
       {/* Footer */}
       {!isWorkspacePage && <Footer />}
