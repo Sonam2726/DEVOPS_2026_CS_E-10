@@ -41,7 +41,11 @@ function Sessions() {
   return (
     <div className="sessions-page">
 
+      {/* =========================
+          PAGE HEADER
+      ========================= */}
       <div className="sessions-header">
+
         <span>SKILLBRIDGE SESSIONS</span>
 
         <h1>Your Learning Sessions</h1>
@@ -49,8 +53,13 @@ function Sessions() {
         <p>
           Manage your upcoming and completed skill exchange sessions.
         </p>
+
       </div>
 
+
+      {/* =========================
+          UPCOMING SESSIONS
+      ========================= */}
       <section className="session-section">
 
         <h2>Upcoming Sessions</h2>
@@ -59,7 +68,10 @@ function Sessions() {
 
           {upcoming.map((session) => (
 
-            <div className="session-card" key={session.id}>
+            <div
+              className="session-card"
+              key={session.id}
+            >
 
               <div className="session-top">
 
@@ -73,21 +85,31 @@ function Sessions() {
 
               </div>
 
-              <h3>{session.partner}</h3>
 
-              <p>{session.skill}</p>
+              <h3>
+                {session.partner}
+              </h3>
+
+
+              <p>
+                {session.skill}
+              </p>
+
 
               <div className="session-info">
                 📅 {session.date}
               </div>
 
+
               <div className="session-info">
                 🕒 {session.time}
               </div>
 
+
               <div className="session-info">
                 💻 {session.type}
               </div>
+
 
               <button
                 onClick={() =>
@@ -105,6 +127,10 @@ function Sessions() {
 
       </section>
 
+
+      {/* =========================
+          COMPLETED SESSIONS
+      ========================= */}
       <section className="session-section">
 
         <h2>Completed Sessions</h2>
@@ -113,7 +139,10 @@ function Sessions() {
 
           {completed.map((session) => (
 
-            <div className="session-card completed" key={session.id}>
+            <div
+              className="session-card completed"
+              key={session.id}
+            >
 
               <div className="session-top">
 
@@ -127,17 +156,31 @@ function Sessions() {
 
               </div>
 
-              <h3>{session.partner}</h3>
 
-              <p>{session.skill}</p>
+              <h3>
+                {session.partner}
+              </h3>
+
+
+              <p>
+                {session.skill}
+              </p>
+
 
               <div className="session-info">
                 📅 {session.date}
               </div>
 
+
               <div className="session-info">
                 🕒 {session.time}
               </div>
+
+
+              <div className="session-info">
+                💻 {session.type}
+              </div>
+
 
               <button
                 onClick={() =>
