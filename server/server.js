@@ -5,12 +5,18 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 
+// Skill routes
+const skillRoutes = require("./routes/skillRoutes");
+
 const app = express();
 
 connectDB();
 
 app.use(cors());
 app.use(express.json());
+
+// Skill API routes
+app.use("/api/skills", skillRoutes);
 
 const PORT = process.env.PORT || 5000;
 
