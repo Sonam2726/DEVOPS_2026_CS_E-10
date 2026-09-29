@@ -8,6 +8,10 @@ const connectDB = require("./config/db");
 // Skill routes
 const skillRoutes = require("./routes/skillRoutes");
 
+// Auth routes
+const authRoutes = require("./routes/authRoutes");
+const protect = require("./middleware/authMiddleware");
+
 const app = express();
 
 connectDB();
@@ -17,6 +21,9 @@ app.use(express.json());
 
 // Skill API routes
 app.use("/api/skills", skillRoutes);
+
+// Auth API routes
+app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
 
@@ -36,6 +43,13 @@ app.get("/api/health", (req, res) => {
   });
 });
 
+app.get("/api/auth/protected-test", protect, (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Protected route accessed successfully",
+    user: req.user,
+  });
+});
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
