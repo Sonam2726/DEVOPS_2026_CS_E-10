@@ -10,7 +10,6 @@ const skillRoutes = require("./routes/skillRoutes");
 
 // Auth routes
 const authRoutes = require("./routes/authRoutes");
-const protect = require("./middleware/authMiddleware");
 
 const app = express();
 
@@ -46,13 +45,6 @@ app.get("/api/health", (req, res) => {
   });
 });
 
-app.get("/api/auth/protected-test", protect, (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Protected route accessed successfully",
-    user: req.user,
-  });
-});
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
