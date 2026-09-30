@@ -24,6 +24,9 @@ app.use("/api/skills", skillRoutes);
 
 // Auth API routes
 app.use("/api/auth", authRoutes);
+app.use('/api/matches', require('./routes/matchingRoutes'));
+app.use('/api/requests', require('./routes/requestRoutes'));
+app.use('/api/sessions', require('./routes/sessionRoutes'));
 
 const PORT = process.env.PORT || 5000;
 
