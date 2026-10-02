@@ -1,5 +1,7 @@
 const Skill = require("../models/Skill");
 
+
+// Create a new skill
 const createSkill = async (req, res) => {
   try {
     const { name, description, category, level } = req.body;
@@ -83,8 +85,42 @@ const getSkillById = async (req, res) => {
 };
 
 
+// Search skills
+const searchSkills = async (req, res) => {
+  try {
+    const { name } = req.query;
+
+    // Validation
+    if (!name) {
+      return res.status(400).json({
+        success: false,
+        message: "Search name is required"
+      });
+    }
+
+    // Search skill by name
+    const skills = await Skill.find({
+      name: { $regex: name, $options: "i" }
+    });
+
+    res.status(200).json({
+      success: true,
+      message: "Skills search completed successfully",
+      data: skills
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+};
+
+
 module.exports = {
   createSkill,
   getSkills,
-  getSkillById
+  getSkillById,
+  searchSkills
 };
