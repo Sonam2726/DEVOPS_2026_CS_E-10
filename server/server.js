@@ -11,6 +11,15 @@ const skillRoutes = require("./routes/skillRoutes");
 // Auth routes
 const authRoutes = require("./routes/authRoutes");
 
+// User routes
+const userRoutes = require("./routes/userRoutes");
+
+// Settings routes
+const settingsRoutes = require("./routes/settingsRoutes");
+
+// Notification routes
+const notificationRoutes = require("./routes/notificationRoutes");
+
 const app = express();
 
 connectDB();
@@ -26,6 +35,15 @@ app.use("/api/auth", authRoutes);
 app.use('/api/matches', require('./routes/matchingRoutes'));
 app.use('/api/requests', require('./routes/requestRoutes'));
 app.use('/api/sessions', require('./routes/sessionRoutes'));
+
+// User API routes
+app.use("/api/users", userRoutes);
+
+// Settings API routes
+app.use("/api/settings", settingsRoutes);
+
+// Notification API routes
+app.use("/api/notifications", notificationRoutes);
 
 const PORT = process.env.PORT || 5000;
 
