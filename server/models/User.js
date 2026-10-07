@@ -39,13 +39,49 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: true,
     },
+
+    bio: {
+      type: String,
+      trim: true,
+      maxlength: [300, "Bio cannot exceed 300 characters"],
+      default: "",
+    },
+
+    location: {
+      type: String,
+      trim: true,
+      maxlength: [100, "Location cannot exceed 100 characters"],
+      default: "",
+    },
+
+    profileImage: {
+      type: String,
+      trim: true,
+      default: "",
+    },
+
+    settings: {
+      emailNotifications: {
+        type: Boolean,
+        default: true,
+      },
+
+      pushNotifications: {
+        type: Boolean,
+        default: true,
+      },
+
+      profileVisibility: {
+        type: String,
+        enum: ["public", "private"],
+        default: "public",
+      },
+    },
   },
   {
     timestamps: true,
   }
 );
-
-
 
 const User = mongoose.model("User", userSchema);
 
