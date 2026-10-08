@@ -77,6 +77,22 @@ const userSchema = new mongoose.Schema(
         default: "public",
       },
     },
+
+    // Skills that the user can teach
+    skillsToTeach: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Skill",
+      },
+    ],
+
+    // Skills that the user wants to learn
+    skillsToLearn: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Skill",
+      },
+    ],
   },
   {
     timestamps: true,
