@@ -1,8 +1,12 @@
 const User = require("../models/User");
 
+
+// Get profile
 const getProfile = async (req, res) => {
   try {
-    const user = await User.findById(req.user.userId);
+    const user = await User.findById(req.user.userId)
+      .populate("skillsToTeach")
+      .populate("skillsToLearn");
 
     if (!user) {
       return res.status(404).json({
@@ -24,6 +28,8 @@ const getProfile = async (req, res) => {
           profileImage: user.profileImage,
           role: user.role,
           isActive: user.isActive,
+          skillsToTeach: user.skillsToTeach,
+          skillsToLearn: user.skillsToLearn,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
         },
@@ -39,6 +45,8 @@ const getProfile = async (req, res) => {
   }
 };
 
+
+// Update profile
 const updateProfile = async (req, res) => {
   try {
     const { name, bio, location, profileImage } = req.body;
@@ -135,7 +143,92 @@ const updateProfile = async (req, res) => {
   }
 };
 
+
+// Update skills to teach and learn
+const updateUserSkills = async (req, res) => {
+  try {
+    const { skillsToTeach, skillsToLearn } = req.body;
+
+    // Validation
+    if (
+      skillsToTeach !== undefined &&
+      !Array.isArray(skillsToTeach)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "skillsToTeach must be an array",
+      });
+    }
+
+    if (
+      skillsToLearn !== undefined &&
+      !Array.isArray(skillsToLearn)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "skillsToLearn must be an array",
+      });
+    }
+
+    if (
+      skillsToTeach === undefined &&
+      skillsToLearn === undefined
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Please provide skillsToTeach or skillsToLearn",
+      });
+    }
+
+    const updates = {};
+
+    if (skillsToTeach !== undefined) {
+      updates.skillsToTeach = skillsToTeach;
+    }
+
+    if (skillsToLearn !== undefined) {
+      updates.skillsToLearn = skillsToLearn;
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user.userId,
+      { $set: updates },
+      {
+        new: true,
+        runValidators: true,
+      }
+    )
+      .populate("skillsToTeach")
+      .populate("skillsToLearn");
+
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: "User skills updated successfully",
+      data: {
+        skillsToTeach: user.skillsToTeach,
+        skillsToLearn: user.skillsToLearn,
+      },
+    });
+  } catch (error) {
+    console.error("Update user skills error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Server error while updating skills",
+    });
+  }
+};
+
+
 module.exports = {
   getProfile,
   updateProfile,
+  updateUserSkills,
 };
