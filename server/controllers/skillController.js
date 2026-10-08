@@ -38,15 +38,52 @@ const createSkill = async (req, res) => {
 };
 
 
-// Get all skills
+// Get all skills with filters, pagination and sorting
 const getSkills = async (req, res) => {
   try {
-    const skills = await Skill.find();
+    const {
+      category,
+      level,
+      page = 1,
+      limit = 10,
+      sort = "name"
+    } = req.query;
+
+    // Filter object
+    const filter = {};
+
+    if (category) {
+      filter.category = category;
+    }
+
+    if (level) {
+      filter.level = level;
+    }
+
+    // Pagination
+    const pageNumber = Number(page);
+    const limitNumber = Number(limit);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    // Get skills
+    const skills = await Skill.find(filter)
+      .sort(sort)
+      .skip(skip)
+      .limit(limitNumber);
+
+    // Total skills
+    const totalSkills = await Skill.countDocuments(filter);
 
     res.status(200).json({
       success: true,
       message: "Skills fetched successfully",
-      data: skills
+      data: skills,
+      pagination: {
+        page: pageNumber,
+        limit: limitNumber,
+        total: totalSkills,
+        totalPages: Math.ceil(totalSkills / limitNumber)
+      }
     });
 
   } catch (error) {
