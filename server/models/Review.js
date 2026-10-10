@@ -38,6 +38,7 @@ const reviewSchema = new mongoose.Schema(
       default: null,
     },
 
+    // Rating between 1 and 5
     rating: {
       type: Number,
       required: true,
@@ -45,6 +46,7 @@ const reviewSchema = new mongoose.Schema(
       max: 5,
     },
 
+    // Review comment
     comment: {
       type: String,
       trim: true,
@@ -57,4 +59,9 @@ const reviewSchema = new mongoose.Schema(
   }
 );
 
+// Indexes for faster review queries
+reviewSchema.index({ reviewedUser: 1, createdAt: -1 });
+reviewSchema.index({ reviewer: 1 });
+
+// Export Review model
 module.exports = mongoose.model("Review", reviewSchema);
