@@ -1,3 +1,4 @@
+
 const express = require("express");
 const cors = require("cors");
 require("dotenv").config();
@@ -20,6 +21,9 @@ const settingsRoutes = require("./routes/settingsRoutes");
 // Notification routes
 const notificationRoutes = require("./routes/notificationRoutes");
 
+// Review routes
+const reviewRoutes = require("./routes/reviewRoutes");
+
 const app = express();
 
 connectDB();
@@ -32,9 +36,11 @@ app.use("/api/skills", skillRoutes);
 
 // Auth API routes
 app.use("/api/auth", authRoutes);
-app.use('/api/matches', require('./routes/matchingRoutes'));
-app.use('/api/requests', require('./routes/requestRoutes'));
-app.use('/api/sessions', require('./routes/sessionRoutes'));
+
+// Matching, request and session routes
+app.use("/api/matches", require("./routes/matchingRoutes"));
+app.use("/api/requests", require("./routes/requestRoutes"));
+app.use("/api/sessions", require("./routes/sessionRoutes"));
 
 // User API routes
 app.use("/api/users", userRoutes);
@@ -44,6 +50,9 @@ app.use("/api/settings", settingsRoutes);
 
 // Notification API routes
 app.use("/api/notifications", notificationRoutes);
+
+// Review API routes
+app.use("/api/reviews", reviewRoutes);
 
 const PORT = process.env.PORT || 5000;
 
