@@ -1628,3 +1628,2318 @@ Automated tests were executed using Vitest through Jenkins CI.
 ---
 
 
+---
+
+## Build #21
+
+**Date:** 2026-09-02 18:53:08  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 19345471448e8e8e347adfa9f748d858a0411e03  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #21
+
+**Date:** 2026-09-02 19:10:28  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 6bc643831e43a7dc7b5f44a0792202a98aad05f9  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-02 19:10:33  
+**Jenkins Job:** SkillBridge-AI/PR-41  
+**Branch:** PR-41  
+**Commit:** 6bc643831e43a7dc7b5f44a0792202a98aad05f9  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #22
+
+**Date:** 2026-09-02 19:12:26  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** a9ecf6f1eb87fa4e14819fd294915dd366df3b10  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #19
+
+**Date:** 2026-09-02 20:17:32  
+**Jenkins Job:** SkillBridge-AI/feature%2Ftashu  
+**Branch:** feature/tashu  
+**Commit:** c126796e483556a4ffcaa8ddd7c7060e2e333bd3  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-02 20:18:01  
+**Jenkins Job:** SkillBridge-AI/PR-42  
+**Branch:** PR-42  
+**Commit:** c126796e483556a4ffcaa8ddd7c7060e2e333bd3  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #23
+
+**Date:** 2026-09-02 20:18:43  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 1cf624209f98d2e4e72002d8a8a2fecdf5c329ed  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #22
+
+**Date:** 2026-09-03 09:27:28  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** fab4faa7d758aba9e775bfe18971dcf5d6391fc0  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #24
+
+**Date:** 2026-09-03 09:27:48  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 4b0e1935c7170c654a480a0858d597b7d6fff5b9  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #23
+
+**Date:** 2026-09-03 09:28:41  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 620945a65c27794113e83520afca3f3851c0b8a3  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #25
+
+**Date:** 2026-09-03 09:30:44  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 401e8997a0513e9fcce6a16907ca8c57f54a60ea  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #24
+
+**Date:** 2026-09-03 09:32:00  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 09e10a0cc9f3ce5fd40f802d4eb6f6c970f635ef  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-03 09:32:22  
+**Jenkins Job:** SkillBridge-AI/PR-45  
+**Branch:** PR-45  
+**Commit:** 09e10a0cc9f3ce5fd40f802d4eb6f6c970f635ef  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #26
+
+**Date:** 2026-09-03 09:33:35  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 2e691bcaece2faaaf13e675579cc6209d7ceea78  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #20
+
+**Date:** 2026-09-05 19:50:24  
+**Jenkins Job:** SkillBridge-AI/feature%2Ftashu  
+**Branch:** feature/tashu  
+**Commit:** 2e691bcaece2faaaf13e675579cc6209d7ceea78  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #21
+
+**Date:** 2026-09-05 19:54:25  
+**Jenkins Job:** SkillBridge-AI/feature%2Ftashu  
+**Branch:** feature/tashu  
+**Commit:** f1a931954ae5b08e4c74be8c4b1c09bee64c6b85  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-05 19:54:41  
+**Jenkins Job:** SkillBridge-AI/PR-46  
+**Branch:** PR-46  
+**Commit:** f1a931954ae5b08e4c74be8c4b1c09bee64c6b85  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #27
+
+**Date:** 2026-09-05 19:55:10  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** a28248afcc30d43b80e97105639fc610a345e568  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #25
+
+**Date:** 2026-09-10 18:36:56  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 805f75cb6b7be774da14ffa662a0033872a399f5  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #28
+
+**Date:** 2026-09-10 18:45:29  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 49651d25e6eecd2b6946a7a3f8eb1cc0e687d32b  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #26
+
+**Date:** 2026-09-10 18:48:03  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 4095edcc7de243d85e2825075fe17cd51607443c  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-10 18:48:55  
+**Jenkins Job:** SkillBridge-AI/PR-48  
+**Branch:** PR-48  
+**Commit:** 4095edcc7de243d85e2825075fe17cd51607443c  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #29
+
+**Date:** 2026-09-10 18:50:06  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 068165be004a8d332fa0e164dd600f1a72a07705  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #27
+
+**Date:** 2026-09-10 19:28:30  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 2ccd6c46400a64188c63dd7d2019d8c5b3ab0cc0  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-10 19:29:06  
+**Jenkins Job:** SkillBridge-AI/PR-49  
+**Branch:** PR-49  
+**Commit:** 2ccd6c46400a64188c63dd7d2019d8c5b3ab0cc0  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #30
+
+**Date:** 2026-09-10 19:30:09  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 0c6af65889e1132caeae1b7392c3e933031457d2  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #22
+
+**Date:** 2026-09-10 19:44:59  
+**Jenkins Job:** SkillBridge-AI/feature%2Ftashu  
+**Branch:** feature/tashu  
+**Commit:** 4c5ff3cd78eea1d470db5d1aa4980765b4c5dec1  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-10 19:45:08  
+**Jenkins Job:** SkillBridge-AI/PR-50  
+**Branch:** PR-50  
+**Commit:** 4c5ff3cd78eea1d470db5d1aa4980765b4c5dec1  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #31
+
+**Date:** 2026-09-10 19:45:33  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** f8dd4e18c363fcdcce7027d6cdb13434c15d7cc4  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #28
+
+**Date:** 2026-09-10 20:00:34  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 3830346db445efc60e36fb2bb1dbb573bba4a00a  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-10 20:01:00  
+**Jenkins Job:** SkillBridge-AI/PR-51  
+**Branch:** PR-51  
+**Commit:** 3830346db445efc60e36fb2bb1dbb573bba4a00a  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #32
+
+**Date:** 2026-09-10 20:02:16  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** 5e6f0d965b65080bd2672540b69e99bebd4d71f3  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #33
+
+**Date:** 2026-09-15 22:59:54  
+**Jenkins Job:** SkillBridge-AI/main  
+**Branch:** main  
+**Commit:** ba6b3f47871bd40feadde216c66299a04e17cef7  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #35
+
+**Date:** 2026-09-15 23:04:49  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 1e9b6b877bbf92f48feeb55860319a5ec7a58dd5  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #36
+
+**Date:** 2026-09-15 23:06:43  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 40d7afcee003aa5db5544107cc660c53151efa08  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #5
+
+**Date:** 2026-09-15 23:38:01  
+**Jenkins Job:** SkillBridge-AI/feature%2Fprofile  
+**Branch:** feature/profile  
+**Commit:** 496fb2d98f930293bc58ad11fefcb9e0f3256fac  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+---
+
+## Build #37
+
+**Date:** 2026-09-22 09:34:31  
+**Jenkins Job:** SkillBridge-AI/sonam  
+**Branch:** sonam  
+**Commit:** 5a10964f8a302f1d9539cae13631f738c6fc9796  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 09:37:06  
+**Jenkins Job:** SkillBridge-AI/PR-54  
+**Branch:** PR-54  
+**Commit:** 8bcab55bed3413616137836b9a4e57f50f74a971  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 11:36:21  
+**Jenkins Job:** SkillBridge-AI/PR-56  
+**Branch:** PR-56  
+**Commit:** 6e40cbd3ace720041842afe53e5d34d351e07a3d  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 11:54:25  
+**Jenkins Job:** SkillBridge-AI/PR-57  
+**Branch:** PR-57  
+**Commit:** 986f8ed527c3d6bb5d7d825b6f467fac525cf0bd  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 13:31:25  
+**Jenkins Job:** SkillBridge-AI/PR-59  
+**Branch:** PR-59  
+**Commit:** ca48b57db8523848ad681f39d78a4b3cce5d83b9  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 13:47:06  
+**Jenkins Job:** SkillBridge-AI/PR-61  
+**Branch:** PR-61  
+**Commit:** 485e067d6103c72943f0bb8eff3e547412439dcd  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 13:58:11  
+**Jenkins Job:** SkillBridge-AI/PR-62  
+**Branch:** PR-62  
+**Commit:** 59770f19f1c6398a7a128c5bfdc2bb8a2cb04bf6  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 14:07:35  
+**Jenkins Job:** SkillBridge-AI/PR-63  
+**Branch:** PR-63  
+**Commit:** a559c9fda4715e8a1f7894a9e2c5bfcc5c645d37  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-22 14:16:58  
+**Jenkins Job:** SkillBridge-AI/PR-64  
+**Branch:** PR-64  
+**Commit:** 5a1ff76ca30a888b27f78084ebca4ee522e5f8cc  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-23 08:44:51  
+**Jenkins Job:** SkillBridge-AI/PR-66  
+**Branch:** PR-66  
+**Commit:** a57c029c5605d74f0e87689922115cab3915d1f7  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-23 10:56:30  
+**Jenkins Job:** SkillBridge-AI/PR-67  
+**Branch:** PR-67  
+**Commit:** 21516febaa7ffdfeadc2203cea9a3e212086704e  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-26 10:45:05  
+**Jenkins Job:** SkillBridge-AI/PR-68  
+**Branch:** PR-68  
+**Commit:** daab70c84b37aed599a59b307563dac9475653ed  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-30 09:54:57  
+**Jenkins Job:** SkillBridge-AI/PR-71  
+**Branch:** PR-71  
+**Commit:** 72c7f9f58966acce6e238d8e69b5d17959000f56  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-09-30 09:57:35  
+**Jenkins Job:** SkillBridge-AI/PR-72  
+**Branch:** PR-72  
+**Commit:** 57b28fa55c45bbf54e3eae2c54e7e7d750c20962  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-10-02 19:43:09  
+**Jenkins Job:** SkillBridge-AI/PR-73  
+**Branch:** PR-73  
+**Commit:** 73e09e9e82ecea32ec772f1c70dc1ae202d4677b  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-10-08 09:38:07  
+**Jenkins Job:** SkillBridge-AI/PR-76  
+**Branch:** PR-76  
+**Commit:** 59de99cc18c99a0d9adf196781ba8a489a993969  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-10-08 10:01:41  
+**Jenkins Job:** SkillBridge-AI/PR-77  
+**Branch:** PR-77  
+**Commit:** 19fefcfdb65fd2fa3e0634e68fff599269e14607  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-10-10 15:34:42  
+**Jenkins Job:** SkillBridge-AI/PR-78  
+**Branch:** PR-78  
+**Commit:** f74272119d7d6b463ceae5c5c2e1205bd07c79f4  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-10-10 16:23:26  
+**Jenkins Job:** SkillBridge-AI/PR-80  
+**Branch:** PR-80  
+**Commit:** b8ad5aa86a94a32d46f0d076834421fc64d241f8  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
+
+---
+
+## Build #1
+
+**Date:** 2026-10-10 16:32:48  
+**Jenkins Job:** SkillBridge-AI/PR-81  
+**Branch:** PR-81  
+**Commit:** 7fc92edec55623aa63cb0b7f33c6142f44ad3bfe  
+**Overall Status:** **PASS**
+
+### Test Summary
+
+| Metric | Count |
+|---|---:|
+| Total Tests | 8 |
+| Passed | 8 |
+| Failed | 0 |
+| Skipped | 0 |
+| Errors | 0 |
+
+### Individual Test Cases
+
+| Test Case | Status |
+|---|---|
+| Login Page > renders the login page correctly | PASS |
+| Login Page > allows the user to enter email and password | PASS |
+| Login Page > shows an error when no account exists | PASS |
+| Login Page > shows an error for invalid email or password | PASS |
+| Login Page > logs in successfully with valid credentials | PASS |
+| Login Page > handles Remember Me correctly | PASS |
+| Login Page > contains the Forgot Password link | PASS |
+| Login Page > contains the Create Account link | PASS |
+
+
+### Test Execution
+
+Automated tests were executed using Vitest through Jenkins CI.
+
+---
+
+
