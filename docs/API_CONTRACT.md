@@ -1,408 +1,255 @@
-# SkillBridge AI - Backend API Contract
+# SkillBridge AI — Backend API Contract
 
 ## 1. Base URL
 
-Development:
+Development: `http://localhost:5000`
 
-http://localhost:5000/api
-
-All backend APIs use the `/api` prefix.
-
----
+All application APIs use the `/api` prefix, except the root and health endpoints.
 
 ## 2. Authentication
 
-SkillBridge AI will use JWT-based authentication.
-
-### Authentication Flow
-
-Register/Login  
-↓  
-Validate credentials  
-↓  
-Generate JWT  
-↓  
-Client stores token  
-↓  
-Protected API request  
-↓  
-Authorization: Bearer <token>  
-↓  
-JWT verification middleware  
-↓  
-Controller
-
-### Protected Request Header
+Protected endpoints require a JWT in the request header:
 
 ```http
 Authorization: Bearer <JWT_TOKEN>
 ```
 
-Protected endpoints must reject requests without a valid JWT.
+Authentication flow:
 
----
+1. Register or log in.
+2. Receive the JWT.
+3. Send the token in the `Authorization` header for protected endpoints.
+4. The authentication middleware verifies the token.
 
-## 3. Standard Success Response
+Missing or invalid tokens return `401 Unauthorized`.
 
-All successful API responses should follow:
+## 3. Response Format
+
+Responses use a `success` field.
+
+Example success response:
 
 ```json
 {
   "success": true,
-  "message": "Operation completed successfully",
-  "data": {}
+  "count": 1,
+  "matches": []
 }
 ```
 
----
-
-## 4. Standard Error Response
-
-All API errors should follow:
+Example validation error:
 
 ```json
 {
   "success": false,
-  "message": "Something went wrong"
+  "message": "Invalid receiver ID"
 }
 ```
 
-Validation errors may include:
+The exact response properties depend on the endpoint.
 
-```json
-{
-  "success": false,
-  "message": "Validation failed",
-  "errors": {}
-}
-```
-
----
-
-## 5. HTTP Status Codes
+## 4. HTTP Status Codes
 
 | Status | Meaning |
 |---|---|
-| 200 | Successful request |
+| 200 | Request successful |
 | 201 | Resource created |
-| 400 | Bad request / validation error |
-| 401 | Authentication required / invalid token |
+| 400 | Invalid input or validation failure |
+| 401 | Authentication required or token invalid |
 | 403 | Access denied |
-| 404 | Resource not found |
-| 409 | Conflict |
-| 500 | Internal server error |
+| 404 | Route or resource not found |
+| 409 | Resource conflict, such as duplicate registration |
+| 500 | Unexpected server error |
 
----
+## 5. Health and Root Endpoints
+
+### Root
+
+`GET /`
+
+Returns a backend-running message.
+
+### Health check
+
+`GET /api/health`
+
+Returns server and database status. Returns `200` when the database is connected and `503` otherwise.
 
 ## 6. Authentication APIs
 
-### Register
+All routes are mounted at `/api/auth`.
 
-```http
-POST /api/auth/register
-```
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/auth/register` | Register a user |
+| POST | `/api/auth/login` | Log in |
+| GET | `/api/auth/me` | Get the authenticated user |
 
-### Login
+The `/me` endpoint requires a valid JWT.
 
-```http
-POST /api/auth/login
-```
+## 7. User Profile APIs
 
-### Forgot Password
+All routes are mounted at `/api/users`.
 
-```http
-POST /api/auth/forgot-password
-```
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/users/profile` | Get profile |
+| PUT | `/api/users/profile` | Update profile |
 
-### Reset Password
+Profile updates support the allowed profile fields, including name, bio, location and profile image.
 
-```http
-POST /api/auth/reset-password
-```
+These endpoints require authentication.
 
-### Logout
+## 8. Settings APIs
 
-```http
-POST /api/auth/logout
-```
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/settings` | Get current user settings |
+| PUT | `/api/settings` | Update settings |
 
-### Current User
+Supported settings include:
 
-```http
-GET /api/auth/me
-```
+- `emailNotifications`
+- `pushNotifications`
+- `profileVisibility` (`public` or `private`)
 
----
+These endpoints require authentication.
 
-## 7. User APIs
+## 9. Skill APIs
 
-### Get Profile
+All routes are mounted at `/api/skills`.
 
-```http
-GET /api/users/profile
-```
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/skills` | Get skills |
+| GET | `/api/skills?name=Python` | Search skills by name |
+| GET | `/api/skills/:id` | Get a skill by ID |
 
-### Update Profile
-
-```http
-PUT /api/users/profile
-```
-
-### Get Settings
-
-```http
-GET /api/users/settings
-```
-
-### Update Settings
-
-```http
-PUT /api/users/settings
-```
-
----
-
-## 8. Skill APIs
-
-### Get Skills
-
-```http
-GET /api/skills
-```
-
-### Get Skill by ID
-
-```http
-GET /api/skills/:id
-```
-
-### Create Skill
-
-```http
-POST /api/skills
-```
-
-### Update Skill
-
-```http
-PUT /api/skills/:id
-```
-
-### Delete Skill
-
-```http
-DELETE /api/skills/:id
-```
-
-### Search Skills
-
-```http
-GET /api/skills/search
-```
-
----
-
-## 9. Skill Request APIs
-
-### Create Request
-
-```http
-POST /api/requests
-```
-
-### Get Requests
-
-```http
-GET /api/requests
-```
-
-### Get Request by ID
-
-```http
-GET /api/requests/:id
-```
-
-### Update Request
-
-```http
-PUT /api/requests/:id
-```
-
-### Delete Request
-
-```http
-DELETE /api/requests/:id
-```
-
----
+Skill search uses the `name` query parameter.
 
 ## 10. Matching APIs
 
-### Get Matches
+All routes are mounted at `/api/matches`.
 
-```http
-GET /api/matches
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/matches/recommendations` | Get skill-based recommendations |
+| GET | `/api/matches/:id` | Get match/user details |
+
+Both endpoints require authentication.
+
+Recommendations match users who teach a skill the authenticated user wants to learn.
+
+## 11. Skill Request APIs
+
+All routes are mounted at `/api/requests`.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/requests` | Create a request |
+| GET | `/api/requests` | Get incoming and outgoing requests |
+| PUT | `/api/requests/:id/status` | Accept or reject a request |
+
+### Create request body
+
+```json
+{
+  "receiverId": "VALID_USER_OBJECT_ID",
+  "skillToLearn": "Java",
+  "message": "I would like to learn Java."
+}
 ```
 
-### Get Match Details
+`receiverId` and `skillToLearn` are required.
 
-```http
-GET /api/matches/:id
+### Update request status body
+
+```json
+{
+  "status": "accepted"
+}
 ```
 
-### Accept Match
+Allowed statuses: `accepted`, `rejected`.
 
-```http
-POST /api/matches/:id/accept
+Only the intended receiver can update the request status.
+
+## 12. Session APIs
+
+All routes are mounted at `/api/sessions`.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/sessions` | Create a session |
+| GET | `/api/sessions` | Get the authenticated user's sessions |
+| PUT | `/api/sessions/:id` | Update or cancel a session |
+
+### Create session body
+
+```json
+{
+  "learnerId": "VALID_USER_OBJECT_ID",
+  "skill": "Java",
+  "scheduledAt": "2026-10-25T10:00:00.000Z",
+  "durationMinutes": 60,
+  "meetingLink": "https://example.com/meeting",
+  "notes": "Practice session"
+}
 ```
 
-### Reject Match
+Required fields: `learnerId`, `skill`, `scheduledAt`.
 
-```http
-POST /api/matches/:id/reject
+`durationMinutes` defaults to `60`.
+
+Allowed session statuses: `upcoming`, `completed`, `cancelled`.
+
+Session updates accept only supported fields, including scheduled time, duration, status, meeting link and notes. Mentor and learner IDs cannot be changed through the update endpoint.
+
+These endpoints require authentication.
+
+## 13. Notification APIs
+
+All routes are mounted at `/api/notifications`.
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/notifications` | Get notifications |
+| PUT | `/api/notifications/:id/read` | Mark one notification as read |
+| PUT | `/api/notifications/read-all` | Mark all notifications as read |
+
+These endpoints require authentication.
+
+## 14. Dashboard API
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| GET | `/api/dashboard` | Get dashboard summary |
+
+The endpoint returns dashboard information for the authenticated user, including relevant request, session and notification statistics.
+
+Authentication is required.
+
+## 15. API Error Handling
+
+Unknown routes return `404 Not Found` with a JSON response.
+
+Example:
+
+```json
+{
+  "success": false,
+  "message": "Route not found: GET /api/invalid-route"
+}
 ```
 
----
+Unexpected errors are handled by the centralized Express error middleware. Controllers may also handle errors locally.
 
-## 11. Session APIs
+## 16. API Design Rules
 
-### Create Session
-
-```http
-POST /api/sessions
-```
-
-### Get Sessions
-
-```http
-GET /api/sessions
-```
-
-### Get Session by ID
-
-```http
-GET /api/sessions/:id
-```
-
-### Update Session
-
-```http
-PUT /api/sessions/:id
-```
-
-### Delete Session
-
-```http
-DELETE /api/sessions/:id
-```
-
----
-
-## 12. Review APIs
-
-### Create Review
-
-```http
-POST /api/reviews
-```
-
-### Get User Reviews
-
-```http
-GET /api/reviews/user/:userId
-```
-
-### Get Session Reviews
-
-```http
-GET /api/reviews/session/:sessionId
-```
-
-### Update Review
-
-```http
-PUT /api/reviews/:id
-```
-
-### Delete Review
-
-```http
-DELETE /api/reviews/:id
-```
-
----
-
-## 13. Message APIs
-
-### Get Conversations
-
-```http
-GET /api/messages/conversations
-```
-
-### Get Messages with a User
-
-```http
-GET /api/messages/:userId
-```
-
-### Send Message
-
-```http
-POST /api/messages
-```
-
-### Mark Message as Read
-
-```http
-PUT /api/messages/:id/read
-```
-
-### Delete Message
-
-```http
-DELETE /api/messages/:id
-```
-
----
-
-## 14. Notification APIs
-
-### Get Notifications
-
-```http
-GET /api/notifications
-```
-
-### Mark Notification as Read
-
-```http
-PUT /api/notifications/:id/read
-```
-
-### Mark All Notifications as Read
-
-```http
-PUT /api/notifications/read-all
-```
-
-### Delete Notification
-
-```http
-DELETE /api/notifications/:id
-```
-
----
-
-## 15. API Naming Rules
-
-- All APIs use the `/api` prefix.
-- Resource names use plural nouns.
-- Resource IDs use MongoDB `_id`.
-- HTTP methods should represent the operation.
-- Protected APIs require JWT authentication.
-- API responses must follow the common success/error format.
-- Controllers contain business logic.
-- Routes define endpoints.
-- Models contain MongoDB/Mongoose schemas.
-- Middleware handles authentication and common errors.
+- Use `/api` for application API routes.
+- Use plural resource names where appropriate.
+- Use MongoDB document IDs for resource identifiers.
+- Validate request bodies and resource IDs.
+- Protect authenticated endpoints with JWT middleware.
+- Keep route definitions, controllers, models and middleware in their respective modules.
+- Document an endpoint as implemented only after confirming its route and behavior.

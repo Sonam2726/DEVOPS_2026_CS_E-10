@@ -6,62 +6,36 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const connectDB = require("./config/db");
 
-// Skill routes
+// Import routes
 const skillRoutes = require("./routes/skillRoutes");
-
-// Auth routes
 const authRoutes = require("./routes/authRoutes");
-
-// User routes
 const userRoutes = require("./routes/userRoutes");
-
-// Settings routes
 const settingsRoutes = require("./routes/settingsRoutes");
-
-// Notification routes
 const notificationRoutes = require("./routes/notificationRoutes");
-
-// Review routes
+const dashboardRoutes = require("./routes/dashboardRoutes");
+const matchingRoutes = require("./routes/matchingRoutes");
+const requestRoutes = require("./routes/requestRoutes");
+const sessionRoutes = require("./routes/sessionRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 
 const app = express();
 
+// Connect to MongoDB
 connectDB();
 
+// Global middleware
 app.use(cors());
 app.use(express.json());
 
-// Skill API routes
-app.use("/api/skills", skillRoutes);
-
-// Auth API routes
-app.use("/api/auth", authRoutes);
-
-// Matching, request and session routes
-app.use("/api/matches", require("./routes/matchingRoutes"));
-app.use("/api/requests", require("./routes/requestRoutes"));
-app.use("/api/sessions", require("./routes/sessionRoutes"));
-
-// User API routes
-app.use("/api/users", userRoutes);
-
-// Settings API routes
-app.use("/api/settings", settingsRoutes);
-
-// Notification API routes
-app.use("/api/notifications", notificationRoutes);
-
-// Review API routes
-app.use("/api/reviews", reviewRoutes);
-
-const PORT = process.env.PORT || 5000;
-
+// Root endpoint
 app.get("/", (req, res) => {
   res.json({
+    success: true,
     message: "SkillBridge AI Backend is running successfully!",
   });
 });
 
+// Health check endpoint
 app.get("/api/health", (req, res) => {
   const dbStatus = mongoose.connection.readyState === 1;
 
@@ -71,6 +45,46 @@ app.get("/api/health", (req, res) => {
     database: dbStatus ? "connected" : "disconnected",
   });
 });
+
+// API routes
+app.use("/api/skills", skillRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/matches", matchingRoutes);
+app.use("/api/requests", requestRoutes);
+app.use("/api/sessions", sessionRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/settings", settingsRoutes);
+app.use("/api/notifications", notificationRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/reviews", reviewRoutes);
+
+// Handle unknown routes
+app.use((req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route not found: ${req.method} ${req.originalUrl}`,
+  });
+});
+
+// Centralized error-handling middleware
+app.use((err, req, res, next) => {
+  console.error(err.stack || err.message);
+
+  if (res.headersSent) {
+    return next(err);
+  }
+
+  res.status(err.status || 500).json({
+    success: false,
+    message:
+      err.status && err.status < 500
+        ? err.message
+        : "Internal server error",
+  });
+});
+
+// Start server
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
