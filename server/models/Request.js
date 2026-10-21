@@ -26,4 +26,8 @@ const requestSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
+// Indexes for faster request queries
+requestSchema.index({ receiver: 1, createdAt: -1 });
+requestSchema.index({ sender: 1, createdAt: -1 });
+
 module.exports = mongoose.model('Request', requestSchema);
