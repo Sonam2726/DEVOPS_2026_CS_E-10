@@ -108,22 +108,46 @@ exports.updateRequestStatus = async (req, res) => {
 };
 
 // GET /api/requests
+
+ // GET /api/requests?page=1&limit=10
 exports.getMyRequests = async (req, res) => {
   try {
-    const incoming = await Request.find({
-      receiver: req.user.userId,
-    })
-      .populate("sender", "name email")
-      .sort({ createdAt: -1 });
+    const page = Math.max(1, parseInt(req.query.page, 10) || 1);
+    const limit = Math.min(
+      50,
+      Math.max(1, parseInt(req.query.limit, 10) || 10)
+    );
 
-    const outgoing = await Request.find({
-      sender: req.user.userId,
-    })
-      .populate("receiver", "name email")
-      .sort({ createdAt: -1 });
+    const skip = (page - 1) * limit;
+
+    const [incoming, outgoing, totalIncoming, totalOutgoing] =
+      await Promise.all([
+        Request.find({ receiver: req.user.userId })
+          .populate("sender", "name email")
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit),
+
+        Request.find({ sender: req.user.userId })
+          .populate("receiver", "name email")
+          .sort({ createdAt: -1 })
+          .skip(skip)
+          .limit(limit),
+
+        Request.countDocuments({ receiver: req.user.userId }),
+        Request.countDocuments({ sender: req.user.userId }),
+      ]);
 
     return res.json({
       success: true,
+      pagination: {
+        page,
+        limit,
+        totalIncoming,
+        totalOutgoing,
+        totalIncomingPages: Math.ceil(totalIncoming / limit),
+        totalOutgoingPages: Math.ceil(totalOutgoing / limit),
+      },
       incoming,
       outgoing,
     });
