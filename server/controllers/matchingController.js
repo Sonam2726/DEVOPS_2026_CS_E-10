@@ -3,20 +3,30 @@ const User = require('../models/User');
 // Recommended users based on skills (Day 4)
 exports.getRecommendations = async (req, res) => {
   try {
-    const currentUser = await User.findById(req.user.id);
+    const currentUser = await User.findById(req.user.userId);
     if (!currentUser) {
-      return res.status(404).json({ success: false, message: 'User not found' });
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
     }
 
     // Match users who teach what the current user wants to learn
     const matches = await User.find({
-      _id: { $ne: req.user.id },
+      _id: { $ne: req.user.userId },
       skillsToTeach: { $in: currentUser.skillsToLearn || [] }
     }).select('-password');
 
-    res.json({ success: true, count: matches.length, matches });
+    res.json({
+      success: true,
+      count: matches.length,
+      matches
+    });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
   }
 };
 
@@ -24,11 +34,22 @@ exports.getRecommendations = async (req, res) => {
 exports.getMatchDetails = async (req, res) => {
   try {
     const targetUser = await User.findById(req.params.id).select('-password');
+
     if (!targetUser) {
-      return res.status(404).json({ success: false, message: 'User not found' });
+      return res.status(404).json({
+        success: false,
+        message: 'User not found'
+      });
     }
-    res.json({ success: true, user: targetUser });
+
+    res.json({
+      success: true,
+      user: targetUser
+    });
   } catch (err) {
-    res.status(500).json({ success: false, message: err.message });
+    res.status(500).json({
+      success: false,
+      message: err.message
+    });
   }
 };
