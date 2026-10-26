@@ -1,3 +1,4 @@
+
 .sessions-page {
   min-height: 100vh;
   padding: 60px 8%;
@@ -36,7 +37,7 @@
 
 .session-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
 }
 
@@ -45,17 +46,32 @@
   padding: 25px;
   border-radius: 18px;
   border: 1px solid #e5e7eb;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.session-card:hover {
+  box-shadow: 0 8px 24px rgba(23, 32, 51, 0.06);
+}
+
+.session-card.completed {
+  border-color: #ccebd9;
+}
+
+.session-card.cancelled {
+  border-color: #f5d0d0;
 }
 
 .session-top {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 12px;
 }
 
 .session-avatar {
   width: 55px;
   height: 55px;
+  flex-shrink: 0;
   border-radius: 50%;
   background: #e8edff;
   color: #3659c9;
@@ -72,11 +88,13 @@
 
 .session-card p {
   color: #667085;
+  line-height: 1.5;
 }
 
 .session-info {
   margin: 10px 0;
   color: #475467;
+  overflow-wrap: anywhere;
 }
 
 .session-card button {
@@ -89,13 +107,28 @@
   color: white;
   cursor: pointer;
   font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.session-card button:hover {
+  background: #2947aa;
+}
+
+.session-card button:focus-visible {
+  outline: 3px solid #a5b4fc;
+  outline-offset: 3px;
 }
 
 .upcoming-badge,
-.completed-badge {
+.completed-badge,
+.cancelled-badge {
+  display: inline-block;
   padding: 7px 12px;
   border-radius: 20px;
   font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
 }
 
 .upcoming-badge {
@@ -106,6 +139,11 @@
 .completed-badge {
   background: #e7f8ef;
   color: #16834b;
+}
+
+.cancelled-badge {
+  background: #fee2e2;
+  color: #b42318;
 }
 
 @media (max-width: 768px) {
@@ -119,5 +157,16 @@
 
   .session-grid {
     grid-template-columns: 1fr;
+  }
+
+  .session-card {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .session-card,
+  .session-card button {
+    transition: none;
   }
 }

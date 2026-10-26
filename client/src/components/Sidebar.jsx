@@ -29,6 +29,8 @@ function Sidebar({ isOpen, onClose }) {
 
   const handleLogout = () => {
     localStorage.removeItem("skillbridgeLoggedIn");
+    localStorage.removeItem("skillbridgeToken");
+    localStorage.removeItem("skillbridgeUser");
 
     onClose();
     navigate("/login");

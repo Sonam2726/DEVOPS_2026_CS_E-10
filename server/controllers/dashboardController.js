@@ -35,7 +35,9 @@ const getDashboard = async (req, res) => {
       unreadNotifications,
       recentNotifications,
     ] = await Promise.all([
-      Skill.countDocuments(),
+      Skill.countDocuments({
+        owner: userId,
+      }),
 
       Request.countDocuments({
         sender: userId,

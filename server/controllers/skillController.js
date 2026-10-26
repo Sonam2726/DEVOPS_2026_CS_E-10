@@ -1,38 +1,83 @@
+const mongoose = require("mongoose");
 const Skill = require("../models/Skill");
 
+const buildSkillFilter = ({ name, category, level }) => {
+  const filter = {};
+
+  if (category) {
+    filter.category = category;
+  }
+
+  if (level) {
+    filter.level = level;
+  }
+
+  if (typeof name === "string" && name.trim()) {
+    const escapedName = name.trim().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    filter.$or = [
+      { name: { $regex: escapedName, $options: "i" } },
+      { description: { $regex: escapedName, $options: "i" } }
+    ];
+  }
+
+  return filter;
+};
 
 // Create a new skill
 const createSkill = async (req, res) => {
   try {
     const { name, description, category, level } = req.body;
 
-    // Validation
-    if (!name || !description || !category || !level) {
-      return res.status(400).json({
+    // JWT middleware provides userId in req.user
+    const ownerId = req.user?.userId;
+
+    if (!ownerId || !mongoose.isValidObjectId(ownerId)) {
+      return res.status(401).json({
         success: false,
-        message: "All fields are required"
+        message: "Please log in with a valid account to create a skill"
       });
     }
 
-    // Create skill
+    // Validate required fields
+    if (
+      !name?.trim() ||
+      !description?.trim() ||
+      !category ||
+      !level
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Name, description, category and level are required"
+      });
+    }
+
+    // Create skill linked to the logged-in user
     const skill = await Skill.create({
-      name,
-      description,
+      name: name.trim(),
+      description: description.trim(),
       category,
-      level
+      level,
+      owner: ownerId
     });
 
-    // Success response
-    res.status(201).json({
+    return res.status(201).json({
       success: true,
       message: "Skill created successfully",
       data: skill
     });
-
   } catch (error) {
-    res.status(500).json({
+    console.error("Create skill error:", error);
+
+    if (error.name === "ValidationError") {
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    }
+
+    return res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Failed to create skill"
     });
   }
 };
@@ -42,6 +87,7 @@ const createSkill = async (req, res) => {
 const getSkills = async (req, res) => {
   try {
     const {
+      name,
       category,
       level,
       page = 1,
@@ -49,32 +95,38 @@ const getSkills = async (req, res) => {
       sort = "name"
     } = req.query;
 
-    // Filter object
-    const filter = {};
+    const pageNumber = Math.max(1, parseInt(page, 10) || 1);
+    const limitNumber = Math.min(
+      50,
+      Math.max(1, parseInt(limit, 10) || 10)
+    );
 
-    if (category) {
-      filter.category = category;
-    }
-
-    if (level) {
-      filter.level = level;
-    }
-
-    // Pagination
-    const pageNumber = Number(page);
-    const limitNumber = Number(limit);
     const skip = (pageNumber - 1) * limitNumber;
+    const filter = buildSkillFilter({ name, category, level });
 
-    // Get skills
-    const skills = await Skill.find(filter)
-      .sort(sort)
-      .skip(skip)
-      .limit(limitNumber);
+    const allowedSortFields = [
+      "name",
+      "-name",
+      "createdAt",
+      "-createdAt",
+      "level",
+      "-level"
+    ];
 
-    // Total skills
-    const totalSkills = await Skill.countDocuments(filter);
+    const sortField = allowedSortFields.includes(sort)
+      ? sort
+      : "name";
 
-    res.status(200).json({
+    const [skills, totalSkills] = await Promise.all([
+      Skill.find(filter)
+        .populate("owner", "name")
+        .sort(sortField)
+        .skip(skip)
+        .limit(limitNumber),
+      Skill.countDocuments(filter)
+    ]);
+
+    return res.status(200).json({
       success: true,
       message: "Skills fetched successfully",
       data: skills,
@@ -85,20 +137,28 @@ const getSkills = async (req, res) => {
         totalPages: Math.ceil(totalSkills / limitNumber)
       }
     });
-
   } catch (error) {
-    res.status(500).json({
+    console.error("Get skills error:", error);
+
+    return res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Failed to fetch skills"
     });
   }
 };
 
 
-// Get skill by ID
+// Get a skill by ID
 const getSkillById = async (req, res) => {
   try {
-    const skill = await Skill.findById(req.params.id);
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid skill ID"
+      });
+    }
+
+    const skill = await Skill.findById(req.params.id).populate("owner", "name");
 
     if (!skill) {
       return res.status(404).json({
@@ -107,49 +167,49 @@ const getSkillById = async (req, res) => {
       });
     }
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Skill fetched successfully",
       data: skill
     });
-
   } catch (error) {
-    res.status(500).json({
+    console.error("Get skill by ID error:", error);
+
+    return res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Failed to fetch skill"
     });
   }
 };
 
 
-// Search skills
+// Search skills by name
 const searchSkills = async (req, res) => {
   try {
-    const { name } = req.query;
+    const { name, category, level } = req.query;
 
-    // Validation
-    if (!name) {
+    if (typeof name !== "string" || !name.trim()) {
       return res.status(400).json({
         success: false,
         message: "Search name is required"
       });
     }
 
-    // Search skill by name
-    const skills = await Skill.find({
-      name: { $regex: name, $options: "i" }
-    });
+    const skills = await Skill.find(
+      buildSkillFilter({ name, category, level })
+    ).populate("owner", "name");
 
-    res.status(200).json({
+    return res.status(200).json({
       success: true,
       message: "Skills search completed successfully",
       data: skills
     });
-
   } catch (error) {
-    res.status(500).json({
+    console.error("Search skills error:", error);
+
+    return res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Failed to search skills"
     });
   }
 };

@@ -1,6 +1,16 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Chat.css";
+import "./chat.css";
+
+const aiTutorConversation = {
+  id: "ai",
+  name: "SkillBridge AI Tutor",
+  skill: "AI-powered learning support",
+  message: "Ask a question about a skill you are learning.",
+  time: "Available now",
+  avatar: "AI",
+  unread: 0,
+};
 
 const initialConversations = [
   {
@@ -55,7 +65,7 @@ function Chat() {
       : initialConversations;
   });
 
-  const filteredChats = conversations.filter((chat) => {
+  const filteredChats = [aiTutorConversation, ...conversations].filter((chat) => {
     const searchText = search.toLowerCase();
 
     return (
@@ -151,7 +161,16 @@ function Chat() {
               <div
                 className="chat-card"
                 key={chat.id}
+                role="button"
+                tabIndex={0}
+                aria-label={`Open ${chat.name} conversation`}
                 onClick={() => openChat(chat.id)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    openChat(chat.id);
+                  }
+                }}
               >
 
                 {/* AVATAR */}

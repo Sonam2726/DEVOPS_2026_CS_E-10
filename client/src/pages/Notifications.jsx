@@ -1,101 +1,246 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 
 import "./Notifications.css";
 
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
+
+const notificationIcons = {
+  connection_request: "🤝",
+  connection_accepted: "🤝",
+  skill_request: "📚",
+  skill_request_accepted: "📚",
+  session_reminder: "🎯",
+  message: "💬",
+  system: "🔔",
+};
+
+const getTokenError = (token) => {
+  if (!token) {
+    return "Please log in to view and manage your notifications.";
+  }
+
+  if (token === "demo-token") {
+    return "Demo login is not valid for API requests. Log in with a server account.";
+  }
+
+  return "";
+};
+
+const getErrorMessage = (error, fallback) =>
+  error instanceof TypeError
+    ? "Could not connect to the server. Please try again."
+    : error.message || fallback;
+
+const formatNotificationTime = (createdAt) => {
+  const date = new Date(createdAt);
+
+  if (Number.isNaN(date.getTime())) {
+    return "Date unavailable";
+  }
+
+  return date.toLocaleString();
+};
+
 function Notifications() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+  const [reloadKey, setReloadKey] = useState(0);
+  const [updatingNotifications, setUpdatingNotifications] = useState({});
+  const [markingAll, setMarkingAll] = useState(false);
+  const [markAllError, setMarkAllError] = useState("");
+  const [actionErrors, setActionErrors] = useState({});
+  const actionsInProgress = useRef(new Set());
+  const markAllInProgress = useRef(false);
 
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
 
-  const loadNotifications = () => {
-    setLoading(true);
-    setError(false);
-
-    // Simulating notification loading
-    setTimeout(() => {
-      try {
-        const data = [
-          {
-            id: 1,
-            icon: "🤝",
-            title: "New skill connection",
-            message:
-              "You have a new connection request from another learner.",
-            time: "10 minutes ago",
-            unread: true,
-          },
-          {
-            id: 2,
-            icon: "📚",
-            title: "Learning session completed",
-            message:
-              "Your Python Basics learning session has been completed.",
-            time: "2 hours ago",
-            unread: true,
-          },
-          {
-            id: 3,
-            icon: "💡",
-            title: "New skill recommendation",
-            message:
-              "React has been recommended based on your learning interests.",
-            time: "Yesterday",
-            unread: false,
-          },
-          {
-            id: 4,
-            icon: "🎯",
-            title: "Learning session reminder",
-            message:
-              "You have an upcoming JavaScript practice session.",
-            time: "Yesterday",
-            unread: false,
-          },
-        ];
-
-        setNotifications(data);
-        setLoading(false);
-      } catch (err) {
-        setError(true);
-        setLoading(false);
-      }
-    }, 700);
-  };
-
   useEffect(() => {
-    loadNotifications();
-  }, []);
+    const controller = new AbortController();
+
+    const fetchNotifications = async () => {
+      const token = localStorage.getItem("skillbridgeToken");
+      const tokenError = getTokenError(token);
+
+      if (tokenError) {
+        setError(tokenError);
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/notifications/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: controller.signal,
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (
+          !response.ok ||
+          result.success !== true ||
+          !Array.isArray(result.data?.notifications)
+        ) {
+          throw new Error(result.message || "Failed to load notifications.");
+        }
+
+        setNotifications(result.data.notifications);
+        setError("");
+      } catch (fetchError) {
+        if (fetchError.name !== "AbortError") {
+          setError(
+            getErrorMessage(
+              fetchError,
+              "Unable to load notifications. Please try again."
+            )
+          );
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchNotifications();
+    return () => controller.abort();
+  }, [reloadKey]);
 
   const unreadCount = notifications.filter(
-    (notification) => notification.unread
+    (notification) => !notification.isRead
   ).length;
 
-  const markAsRead = (id) => {
-    setNotifications((currentNotifications) =>
-      currentNotifications.map((notification) =>
-        notification.id === id
-          ? { ...notification, unread: false }
-          : notification
-      )
-    );
+  const retryLoading = () => {
+    setLoading(true);
+    setError("");
+    setReloadKey((key) => key + 1);
   };
 
-  const markAllAsRead = () => {
-    setNotifications((currentNotifications) =>
-      currentNotifications.map((notification) => ({
-        ...notification,
-        unread: false,
-      }))
-    );
+  const markAsRead = async (notification) => {
+    const { _id: id } = notification;
+
+    if (
+      notification.isRead ||
+      !id ||
+      markAllInProgress.current ||
+      actionsInProgress.current.has(id)
+    ) {
+      return;
+    }
+
+    const token = localStorage.getItem("skillbridgeToken");
+    const tokenError = getTokenError(token);
+    if (tokenError) {
+      setActionErrors((current) => ({ ...current, [id]: tokenError }));
+      return;
+    }
+
+    actionsInProgress.current.add(id);
+    setUpdatingNotifications((current) => ({ ...current, [id]: true }));
+    setActionErrors((current) => ({ ...current, [id]: "" }));
+
+    try {
+      const response = await fetch(`${API_URL}/notifications/${id}/read`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json().catch(() => ({}));
+      const updatedNotification = result.data?.notification;
+
+      if (
+        !response.ok ||
+        result.success !== true ||
+        String(updatedNotification?._id) !== String(id) ||
+        updatedNotification.isRead !== true
+      ) {
+        throw new Error(
+          result.message || "Unable to mark this notification as read."
+        );
+      }
+
+      setNotifications((current) =>
+        current.map((item) =>
+          item._id === id ? { ...item, isRead: true } : item
+        )
+      );
+    } catch (actionError) {
+      setActionErrors((current) => ({
+        ...current,
+        [id]: getErrorMessage(
+          actionError,
+          "Unable to mark this notification as read."
+        ),
+      }));
+    } finally {
+      actionsInProgress.current.delete(id);
+      setUpdatingNotifications((current) => {
+        const next = { ...current };
+        delete next[id];
+        return next;
+      });
+    }
+  };
+
+  const markAllAsRead = async () => {
+    if (markAllInProgress.current || actionsInProgress.current.size > 0) {
+      return;
+    }
+
+    const token = localStorage.getItem("skillbridgeToken");
+    const tokenError = getTokenError(token);
+    if (tokenError) {
+      setMarkAllError(tokenError);
+      return;
+    }
+
+    markAllInProgress.current = true;
+    setMarkingAll(true);
+    setMarkAllError("");
+
+    try {
+      const response = await fetch(`${API_URL}/notifications/read-all`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (
+        !response.ok ||
+        result.success !== true ||
+        !Number.isInteger(result.data?.updatedCount)
+      ) {
+        throw new Error(
+          result.message || "Unable to mark all notifications as read."
+        );
+      }
+
+      setNotifications((current) =>
+        current.map((notification) => ({ ...notification, isRead: true }))
+      );
+    } catch (actionError) {
+      setMarkAllError(
+        getErrorMessage(
+          actionError,
+          "Unable to mark all notifications as read."
+        )
+      );
+    } finally {
+      markAllInProgress.current = false;
+      setMarkingAll(false);
+    }
   };
 
   return (
@@ -144,12 +289,19 @@ function Notifications() {
               <button
                 className="mark-all-button"
                 onClick={markAllAsRead}
+                disabled={markingAll || Object.keys(updatingNotifications).length > 0}
               >
-                Mark all as read
+                {markingAll ? "Marking as read..." : "Mark all as read"}
               </button>
             )}
 
           </div>
+
+          {markAllError && (
+            <p role="alert">
+              {markAllError}
+            </p>
+          )}
 
           {/* Loading State */}
           {loading && (
@@ -187,7 +339,7 @@ function Notifications() {
 
               <button
                 className="state-retry-button"
-                onClick={loadNotifications}
+                onClick={retryLoading}
               >
                 Try again
               </button>
@@ -240,15 +392,15 @@ function Notifications() {
                   {notifications.map((notification) => (
                     <article
                       className={`notification-card ${
-                        notification.unread
+                        !notification.isRead
                           ? "notification-unread"
                           : ""
                       }`}
-                      key={notification.id}
+                      key={notification._id}
                     >
 
                       <div className="notification-icon">
-                        {notification.icon}
+                        {notificationIcons[notification.type] || "🔔"}
                       </div>
 
                       <div className="notification-content">
@@ -259,7 +411,7 @@ function Notifications() {
                             {notification.title}
                           </h2>
 
-                          {notification.unread && (
+                          {!notification.isRead && (
                             <span className="unread-dot" />
                           )}
 
@@ -270,19 +422,26 @@ function Notifications() {
                         </p>
 
                         <span className="notification-time">
-                          {notification.time}
+                          {formatNotificationTime(notification.createdAt)}
                         </span>
+
+                        {actionErrors[notification._id] && (
+                          <p role="alert">
+                            {actionErrors[notification._id]}
+                          </p>
+                        )}
 
                       </div>
 
-                      {notification.unread && (
+                      {!notification.isRead && (
                         <button
                           className="mark-read-button"
-                          onClick={() =>
-                            markAsRead(notification.id)
-                          }
+                          onClick={() => markAsRead(notification)}
+                          disabled={updatingNotifications[notification._id] || markingAll}
                         >
-                          Mark as read
+                          {updatingNotifications[notification._id]
+                            ? "Marking as read..."
+                            : "Mark as read"}
                         </button>
                       )}
 

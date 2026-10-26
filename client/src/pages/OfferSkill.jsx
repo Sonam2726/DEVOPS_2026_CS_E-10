@@ -1,8 +1,15 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import "./OfferSkill.css";
+
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
 
 function OfferSkill() {
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const submissionInProgress = useRef(false);
 
   const [form, setForm] = useState({
     skill: "",
@@ -16,23 +23,74 @@ function OfferSkill() {
       ...form,
       [e.target.name]: e.target.value,
     });
+    setError("");
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (
-      form.skill &&
-      form.category &&
-      form.level &&
-      form.description
-    ) {
+    if (submissionInProgress.current) return;
+
+    const name = form.skill.trim();
+    const description = form.description.trim();
+    if (!name || !description || !form.category || !form.level) {
+      setError("Please complete all fields before publishing your skill.");
+      return;
+    }
+
+    const token = localStorage.getItem("skillbridgeToken");
+    if (!token) {
+      setError("Please log in to publish a skill.");
+      return;
+    }
+    if (token === "demo-token") {
+      setError("Demo login is not valid for API requests. Log in with a server account.");
+      return;
+    }
+
+    submissionInProgress.current = true;
+    setSubmitting(true);
+    setError("");
+
+    try {
+      const response = await fetch(`${API_URL}/skills`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          name,
+          description,
+          category: form.category,
+          level: form.level,
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (response.status !== 201 || !result.success || !result.data) {
+        throw new Error(
+          result.message || "The skill could not be published. Please try again."
+        );
+      }
+
       setSubmitted(true);
+    } catch (submitError) {
+      setError(
+        submitError instanceof TypeError
+          ? "Could not connect to the server. Please try again."
+          : submitError.message ||
+              "The skill could not be published. Please try again."
+      );
+    } finally {
+      submissionInProgress.current = false;
+      setSubmitting(false);
     }
   };
 
   const resetForm = () => {
     setSubmitted(false);
+    setError("");
 
     setForm({
       skill: "",
@@ -138,8 +196,16 @@ function OfferSkill() {
                 Design
               </option>
 
+              <option value="Web Development">
+                Web Development
+              </option>
+
               <option value="Data Science">
                 Data Science
+              </option>
+
+              <option value="Languages">
+                Languages
               </option>
 
               <option value="Business">
@@ -205,12 +271,14 @@ function OfferSkill() {
 
           </div>
 
+          {error && <p role="alert">{error}</p>}
 
           <button
             type="submit"
             className="offer-button"
+            disabled={submitting}
           >
-            Publish Skill
+            {submitting ? "Publishing..." : "Publish Skill"}
           </button>
 
         </form>

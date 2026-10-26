@@ -1,5 +1,11 @@
 const jwt = require("jsonwebtoken");
 
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET?.trim()) {
+  throw new Error("JWT_SECRET must be set to a non-empty value before starting the server");
+}
+
 const protect = (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -13,7 +19,7 @@ const protect = (req, res, next) => {
 
     const token = authHeader.split(" ")[1];
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, JWT_SECRET);
 
     req.user = decoded;
 
