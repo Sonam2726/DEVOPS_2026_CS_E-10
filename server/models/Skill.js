@@ -36,6 +36,12 @@ const skillSchema = new mongoose.Schema(
         "Intermediate",
         "Advanced"
       ]
+    },
+
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true
     }
   },
   {

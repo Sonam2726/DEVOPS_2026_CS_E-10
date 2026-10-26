@@ -212,6 +212,167 @@
   border-radius: 7px;
 }
 
+/* Session scheduling */
+
+.request-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.schedule-session-button,
+.schedule-session-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  border: 1px solid #5b2cff;
+  border-radius: 7px;
+  background: #5b2cff;
+  color: white;
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.schedule-session-button:hover,
+.schedule-session-submit:hover {
+  background: #4820d8;
+  border-color: #4820d8;
+}
+
+.schedule-session-button:disabled,
+.schedule-session-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.schedule-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-y: auto;
+  padding: 24px;
+  background: rgba(15, 23, 42, 0.55);
+}
+
+.schedule-modal {
+  position: relative;
+  width: min(100%, 520px);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 20px 50px rgba(15, 23, 42, 0.25);
+}
+
+.schedule-modal h2 {
+  margin: 0 36px 8px 0;
+  color: #172554;
+}
+
+.schedule-modal-description {
+  margin: 0 0 22px;
+  color: #64748b;
+}
+
+.schedule-modal-close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: 50%;
+  background: #f1efff;
+  color: #5b2cff;
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.schedule-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 16px;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.schedule-form-field span {
+  display: inline;
+  color: #64748b;
+  font-weight: 400;
+}
+
+.schedule-form-field input,
+.schedule-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: white;
+  color: #172554;
+  font: inherit;
+  font-weight: 400;
+}
+
+.schedule-form-field input:focus,
+.schedule-form-field textarea:focus {
+  outline: 2px solid rgba(91, 44, 255, 0.2);
+  border-color: #5b2cff;
+}
+
+.schedule-form-field textarea {
+  resize: vertical;
+}
+
+.schedule-form-error {
+  margin: 0 0 16px;
+  color: #b91c1c;
+}
+
+.schedule-form-error a {
+  color: #5b2cff;
+  font-weight: 600;
+}
+
+.schedule-form-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 8px;
+}
+
+.schedule-session-cancel {
+  padding: 10px 16px;
+  border: 1px solid #dbe2ea;
+  border-radius: 7px;
+  background: white;
+  color: #475569;
+  font: inherit;
+  cursor: pointer;
+}
+
+.schedule-session-cancel:hover {
+  border-color: #94a3b8;
+}
+
+.schedule-success p {
+  margin-bottom: 20px;
+  color: #64748b;
+}
+
 
 /* Responsive */
 
@@ -237,5 +398,9 @@
   .request-status {
     width: 100%;
     padding-left: 70px;
+  }
+
+  .schedule-modal {
+    padding: 24px 20px;
   }
 }

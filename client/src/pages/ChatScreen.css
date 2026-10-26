@@ -101,6 +101,72 @@
   font-size: 14px;
 }
 
+.assistant-markdown {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.assistant-markdown > :first-child {
+  margin-top: 0;
+}
+
+.assistant-markdown > :last-child {
+  margin-bottom: 0;
+}
+
+.assistant-markdown h1,
+.assistant-markdown h2,
+.assistant-markdown h3,
+.assistant-markdown h4,
+.assistant-markdown h5,
+.assistant-markdown h6 {
+  margin: 0.8em 0 0.4em;
+  line-height: 1.25;
+}
+
+.assistant-markdown p,
+.assistant-markdown ul,
+.assistant-markdown ol {
+  margin: 0 0 0.75em;
+}
+
+.assistant-markdown ul,
+.assistant-markdown ol {
+  padding-left: 1.5em;
+}
+
+.assistant-markdown li + li {
+  margin-top: 0.2em;
+}
+
+.assistant-markdown :not(pre) > code {
+  padding: 0.12em 0.35em;
+  border-radius: 4px;
+  background: #eef0f6;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+.assistant-markdown pre {
+  max-width: 100%;
+  margin: 0.75em 0;
+  padding: 12px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: #1f2937;
+  color: #f9fafb;
+  white-space: pre;
+}
+
+.assistant-markdown pre code {
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 0.9em;
+  line-height: 1.5;
+  white-space: inherit;
+}
+
 .their-message {
   background: white;
   border: 1px solid #e5e7eb;
@@ -295,6 +361,22 @@
 
 .message-input-area button:not(:disabled):active {
   transform: scale(0.96);
+}
+
+.chat-error {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 14px;
+}
+
+.chat-error a {
+  color: #4338ca;
+  font-weight: 600;
 }
 
 /* Better mobile chat */

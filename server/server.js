@@ -17,14 +17,35 @@ const matchingRoutes = require("./routes/matchingRoutes");
 const requestRoutes = require("./routes/requestRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const chatRoutes = require("./routes/chatRoutes");
 
 const app = express();
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:5173",
+  "http://127.0.0.1:5173",
+  "http://localhost:3000",
+].filter(Boolean);
 
-// Connect to MongoDB
-connectDB();
+// Start listening independently of database availability; /api/health reports readiness.
+void connectDB().catch((error) => {
+  console.error("Unexpected database startup failure:", error?.name || "Unknown error");
+});
 
 // Global middleware
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+        return;
+      }
+
+      callback(new Error("Not allowed by CORS"));
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Root endpoint
@@ -52,6 +73,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/matches", matchingRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/sessions", sessionRoutes);
+app.use("/api/chat", chatRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/notifications", notificationRoutes);

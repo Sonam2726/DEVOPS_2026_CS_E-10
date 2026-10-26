@@ -2,6 +2,12 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 
+const JWT_SECRET = process.env.JWT_SECRET;
+
+if (!JWT_SECRET?.trim()) {
+  throw new Error("JWT_SECRET must be set to a non-empty value before starting the server");
+}
+
 const registerUser = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -99,7 +105,7 @@ const loginUser = async (req, res) => {
         userId: user._id,
         role: user.role,
       },
-      process.env.JWT_SECRET,
+      JWT_SECRET,
       {
         expiresIn: "1d",
       }

@@ -15,6 +15,7 @@ const notificationSchema = new mongoose.Schema(
         "connection_accepted",
         "skill_request",
         "skill_request_accepted",
+        "skill_request_rejected",
         "session_reminder",
         "message",
         "system",

@@ -11,6 +11,10 @@ const sessionSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
+  request: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Request'
+  },
   skill: {
     type: String,
     required: true
@@ -37,5 +41,7 @@ const sessionSchema = new mongoose.Schema({
     default: ''
   }
 }, { timestamps: true });
+
+sessionSchema.index({ request: 1 }, { unique: true, sparse: true });
 
 module.exports = mongoose.model('Session', sessionSchema);

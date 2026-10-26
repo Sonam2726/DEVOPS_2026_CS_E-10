@@ -6,6 +6,10 @@ import Button from "../components/Button";
 
 import "./Register.css";
 
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
+
 function Register() {
   const navigate = useNavigate();
 
@@ -17,6 +21,7 @@ function Register() {
   });
 
   const [errors, setErrors] = useState({});
+  const [submitting, setSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -41,82 +46,85 @@ function Register() {
 
     if (!formData.email.trim()) {
       newErrors.email = "Email is required.";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = "Please enter a valid email.";
     }
 
     if (!formData.password) {
       newErrors.password = "Password is required.";
     } else if (formData.password.length < 6) {
-      newErrors.password =
-        "Password must be at least 6 characters.";
+      newErrors.password = "Password must be at least 6 characters.";
     }
 
     if (!formData.confirmPassword) {
-      newErrors.confirmPassword =
-        "Please confirm your password.";
-    } else if (
-      formData.password !== formData.confirmPassword
-    ) {
-      newErrors.confirmPassword =
-        "Passwords do not match.";
+      newErrors.confirmPassword = "Please confirm your password.";
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match.";
     }
 
     return newErrors;
   };
 
-const handleSubmit = (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const validationErrors = validateForm();
+    const validationErrors = validateForm();
 
-  if (Object.keys(validationErrors).length > 0) {
-    setErrors(validationErrors);
-    return;
-  }
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-  const user = {
-    name: formData.name,
-    email: formData.email,
-    password: formData.password,
+    setSubmitting(true);
+    setErrors({});
+
+    try {
+      const response = await fetch(`${API_URL}/auth/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          password: formData.password,
+        }),
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        setErrors({
+          form: result.message || "Registration failed. Please try again.",
+        });
+        return;
+      }
+
+      navigate("/login", {
+        state: { registrationMessage: "Account created successfully. Please log in." },
+      });
+    } catch {
+      setErrors({
+        form: "Could not connect to the server. Please try again.",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
-
-  localStorage.setItem(
-    "skillbridgeUser",
-    JSON.stringify(user)
-  );
-
-  alert("Account created successfully!");
-
-  navigate("/login");
-};
 
   return (
     <main className="register-page">
       <div className="register-container">
-
         <div className="register-card">
-
           <div className="register-header">
-            <p className="register-tagline">
-              Join SkillBridge AI
-            </p>
-
-            <h1 className="register-title">
-              Create your account
-            </h1>
-
+            <p className="register-tagline">Join SkillBridge AI</p>
+            <h1 className="register-title">Create your account</h1>
             <p className="register-description">
-              Start learning, teaching and connecting
-              with people through SkillBridge AI.
+              Start learning, teaching and connecting with people through SkillBridge AI.
             </p>
           </div>
 
-          <form
-            className="register-form"
-            onSubmit={handleSubmit}
-            noValidate
-          >
+          <form className="register-form" onSubmit={handleSubmit} noValidate>
             <Input
               label="Full Name"
               name="name"
@@ -161,26 +169,24 @@ const handleSubmit = (e) => {
               required
             />
 
+            {errors.form && <p className="form-error">{errors.form}</p>}
+
             <Button
               type="submit"
               variant="primary"
               className="register-submit"
+              disabled={submitting}
             >
-              Create Account
+              {submitting ? "Creating account..." : "Create Account"}
             </Button>
           </form>
 
           <div className="register-footer">
             <p>
-              Already have an account?{" "}
-              <Link to="/login">
-                Login
-              </Link>
+              Already have an account? <Link to="/login">Login</Link>
             </p>
           </div>
-
         </div>
-
       </div>
     </main>
   );

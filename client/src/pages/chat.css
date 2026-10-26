@@ -214,6 +214,11 @@
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
 }
 
+.chat-card:focus-visible {
+  outline: 3px solid rgba(79, 70, 229, 0.45);
+  outline-offset: 2px;
+}
+
 .unread-badge {
   min-width: 22px;
   height: 22px;

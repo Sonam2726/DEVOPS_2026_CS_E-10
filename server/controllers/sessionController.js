@@ -1,52 +1,72 @@
 
 const mongoose = require("mongoose");
 const Session = require("../models/Session");
-const User = require("../models/User");
+const Request = require("../models/Request");
+const Skill = require("../models/Skill");
 
 // Create session
 exports.createSession = async (req, res) => {
   try {
     const {
-      learnerId,
-      skill,
+      requestId,
       scheduledAt,
       durationMinutes,
       meetingLink,
       notes,
     } = req.body;
 
-    if (
-      !learnerId ||
-      typeof skill !== "string" ||
-      !skill.trim() ||
-      !scheduledAt
-    ) {
+    if (typeof requestId !== "string" || !mongoose.isValidObjectId(requestId)) {
       return res.status(400).json({
         success: false,
-        message: "Learner, skill, and scheduled time are required",
+        message: "Valid request ID is required",
       });
     }
 
-    if (!mongoose.isValidObjectId(learnerId)) {
+    if (!scheduledAt) {
       return res.status(400).json({
         success: false,
-        message: "Invalid learner ID",
+        message: "Scheduled time is required",
       });
     }
 
-    if (learnerId === req.user.userId) {
-      return res.status(400).json({
-        success: false,
-        message: "You cannot schedule a session with yourself",
-      });
-    }
+    const request = await Request.findOne({
+      _id: requestId,
+      $or: [
+        { sender: req.user.userId },
+        { receiver: req.user.userId },
+      ],
+    });
 
-    const learnerExists = await User.exists({ _id: learnerId });
-
-    if (!learnerExists) {
+    if (!request) {
       return res.status(404).json({
         success: false,
-        message: "Learner not found",
+        message: "Request not found or not authorized",
+      });
+    }
+
+    if (request.status !== "accepted") {
+      return res.status(409).json({
+        success: false,
+        message: "Only accepted requests can be scheduled",
+      });
+    }
+
+    const skill = await Skill.findOne({
+      name: request.skillToLearn,
+      owner: request.receiver,
+    }).select("_id name owner");
+
+    if (!skill) {
+      return res.status(404).json({
+        success: false,
+        message: "The requested skill is no longer available",
+      });
+    }
+
+    if (await Session.exists({ request: request._id })) {
+      return res.status(409).json({
+        success: false,
+        message: "A session already exists for this request",
       });
     }
 
@@ -56,6 +76,13 @@ exports.createSession = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Invalid scheduled date",
+      });
+    }
+
+    if (parsedDate.getTime() <= Date.now()) {
+      return res.status(400).json({
+        success: false,
+        message: "Scheduled time must be in the future",
       });
     }
 
@@ -86,15 +113,29 @@ exports.createSession = async (req, res) => {
       });
     }
 
-    const session = await Session.create({
-      mentor: req.user.userId,
-      learner: learnerId,
-      skill: skill.trim(),
-      scheduledAt: parsedDate,
-      durationMinutes: duration,
-      meetingLink: meetingLink?.trim() || "",
-      notes: notes?.trim() || "",
-    });
+    let session;
+
+    try {
+      session = await Session.create({
+        request: request._id,
+        mentor: request.receiver,
+        learner: request.sender,
+        skill: skill.name,
+        scheduledAt: parsedDate,
+        durationMinutes: duration,
+        meetingLink: meetingLink?.trim() || "",
+        notes: notes?.trim() || "",
+      });
+    } catch (err) {
+      if (err.code === 11000) {
+        return res.status(409).json({
+          success: false,
+          message: "A session already exists for this request",
+        });
+      }
+
+      throw err;
+    }
 
     return res.status(201).json({
       success: true,
@@ -220,6 +261,29 @@ exports.updateSession = async (req, res) => {
           success: false,
           message: "Invalid session status",
         });
+      }
+
+      if (session.status !== "upcoming" && req.body.status !== session.status) {
+        return res.status(409).json({
+          success: false,
+          message: "Completed or cancelled sessions cannot be reopened",
+        });
+      }
+
+      if (session.status === "upcoming" && req.body.status === "completed") {
+        if (session.mentor.toString() !== req.user.userId) {
+          return res.status(403).json({
+            success: false,
+            message: "Only the session mentor can mark it as completed",
+          });
+        }
+
+        if (Date.now() < session.scheduledAt.getTime()) {
+          return res.status(400).json({
+            success: false,
+            message: "A session cannot be completed before its scheduled time",
+          });
+        }
       }
 
       updates.status = req.body.status;

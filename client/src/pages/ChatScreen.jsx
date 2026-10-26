@@ -1,8 +1,19 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 import "./ChatScreen.css";
 
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
+
 const chatData = {
+  ai: {
+    name: "SkillBridge AI Tutor",
+    skill: "AI-powered learning support",
+    avatar: "AI",
+    status: "Ready",
+  },
   1: {
     name: "Aarav Sharma",
     skill: "Java & OOP",
@@ -28,31 +39,48 @@ function ChatScreen() {
   const navigate = useNavigate();
 
   const person = chatData[id] || chatData[1];
+  const isAiTutor = id === "ai";
 
   const [message, setMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
+  const [error, setError] = useState("");
+  const [requiresLogin, setRequiresLogin] = useState(false);
 
   const messagesEndRef = useRef(null);
 
   const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: "other",
-      text: `Hi! I'm happy to help you with ${person.skill}.`,
-      time: "6:10 PM",
-    },
-    {
-      id: 2,
-      sender: "me",
-      text: "Thank you! When can we start?",
-      time: "6:11 PM",
-    },
-    {
-      id: 3,
-      sender: "other",
-      text: "We can start today. Does 6 PM work for you?",
-      time: "6:12 PM",
-    },
+    ...(isAiTutor
+      ? [
+          {
+            id: 1,
+            sender: "other",
+            text: "Hi! I’m your SkillBridge AI Tutor. What would you like to learn?",
+            time: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          },
+        ]
+      : [
+          {
+            id: 1,
+            sender: "other",
+            text: `Hi! I'm happy to help you with ${person.skill}.`,
+            time: "6:10 PM",
+          },
+          {
+            id: 2,
+            sender: "me",
+            text: "Thank you! When can we start?",
+            time: "6:11 PM",
+          },
+          {
+            id: 3,
+            sender: "other",
+            text: "We can start today. Does 6 PM work for you?",
+            time: "6:12 PM",
+          },
+        ]),
   ]);
 
   // Auto scroll to latest message
@@ -62,12 +90,26 @@ function ChatScreen() {
     });
   }, [messages, isTyping]);
 
-  // Send message
-  const sendMessage = () => {
+  const sendMessage = async (event) => {
+    event?.preventDefault();
+
     const trimmedMessage = message.trim();
 
-    if (!trimmedMessage) {
+    if (!trimmedMessage || isTyping) {
       return;
+    }
+
+    if (isAiTutor) {
+      const token = localStorage.getItem("skillbridgeToken");
+      if (!token || token === "demo-token") {
+        setRequiresLogin(true);
+        setError(
+          token
+            ? "Demo login cannot access the AI Tutor. Log in with a server account."
+            : "Please log in to use the AI Tutor."
+        );
+        return;
+      }
     }
 
     const newMessage = {
@@ -80,14 +122,68 @@ function ChatScreen() {
       }),
     };
 
-    setMessages((prevMessages) => [
-      ...prevMessages,
-      newMessage,
-    ]);
-
+    setMessages((prevMessages) => [...prevMessages, newMessage]);
     setMessage("");
+    setError("");
+    setRequiresLogin(false);
 
-    // Demo typing response
+    if (isAiTutor) {
+      setIsTyping(true);
+
+      try {
+        const token = localStorage.getItem("skillbridgeToken");
+        const conversation = [...messages, newMessage]
+          .slice(-20)
+          .map((item) => ({
+            role: item.sender === "me" ? "user" : "assistant",
+            content: item.text,
+          }));
+        const response = await fetch(`${API_URL}/chat`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ messages: conversation }),
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok || !result.success || typeof result.reply !== "string") {
+          const unauthenticated = response.status === 401 || response.status === 403;
+          setRequiresLogin(unauthenticated);
+          setError(
+            unauthenticated
+              ? "Your login is invalid or expired. Please log in again."
+              : result.message || "The AI Tutor could not respond. Please try again."
+          );
+          return;
+        }
+
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          {
+            id: Date.now() + 1,
+            sender: "other",
+            text: result.reply,
+            time: new Date().toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+          },
+        ]);
+      } catch (requestError) {
+        setError(
+          requestError instanceof TypeError
+            ? "Could not connect to the server. Please try again."
+            : "The AI Tutor could not respond. Please try again."
+        );
+      } finally {
+        setIsTyping(false);
+      }
+
+      return;
+    }
+
     if (person.status === "Online") {
       setIsTyping(true);
 
@@ -109,15 +205,6 @@ function ChatScreen() {
           reply,
         ]);
       }, 1200);
-    }
-  };
-
-  // Enter = send
-  // Shift + Enter = new line
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
     }
   };
 
@@ -160,7 +247,13 @@ function ChatScreen() {
           MESSAGES
       ========================= */}
 
-      <div className="messages-container">
+      <div
+        className="messages-container"
+        role="log"
+        aria-label="Conversation messages"
+        aria-live="polite"
+        aria-relevant="additions"
+      >
 
         <div className="chat-date">
           Today
@@ -183,7 +276,13 @@ function ChatScreen() {
               }`}
             >
 
-              <p>{msg.text}</p>
+              {isAiTutor && msg.sender === "other" ? (
+                <div className="assistant-markdown">
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                </div>
+              ) : (
+                <p>{msg.text}</p>
+              )}
 
               <span className="message-time">
                 {msg.time}
@@ -196,13 +295,17 @@ function ChatScreen() {
         {/* Typing indicator */}
 
         {isTyping && (
-          <div className="message-row message-left">
+          <div
+            className="message-row message-left"
+            role="status"
+            aria-label={isAiTutor ? "AI Tutor is responding" : "User is typing"}
+          >
 
             <div className="message-bubble their-message typing-bubble">
 
-              <span className="typing-dot"></span>
-              <span className="typing-dot"></span>
-              <span className="typing-dot"></span>
+              <span className="typing-dot" aria-hidden="true"></span>
+              <span className="typing-dot" aria-hidden="true"></span>
+              <span className="typing-dot" aria-hidden="true"></span>
 
             </div>
 
@@ -217,25 +320,31 @@ function ChatScreen() {
           MESSAGE INPUT
       ========================= */}
 
-      <div className="message-input-area">
+      {error && (
+        <div className="chat-error" role="alert">
+          <span>{error}</span>
+          {requiresLogin && <Link to="/login">Log in</Link>}
+        </div>
+      )}
 
+      <form className="message-input-area" onSubmit={sendMessage}>
         <input
           type="text"
-          placeholder="Type a message..."
+          aria-label={isAiTutor ? "Message the AI Tutor" : "Type a message"}
+          placeholder={isAiTutor ? "Ask the AI Tutor..." : "Type a message..."}
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKeyDown}
-          maxLength={500}
+          maxLength={isAiTutor ? 2000 : 500}
+          disabled={isTyping}
         />
 
         <button
-          onClick={sendMessage}
-          disabled={!message.trim()}
+          type="submit"
+          disabled={!message.trim() || isTyping}
         >
-          Send
+          {isTyping ? "Thinking..." : "Send"}
         </button>
-
-      </div>
+      </form>
 
     </div>
   );

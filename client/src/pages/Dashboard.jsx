@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
@@ -6,33 +6,115 @@ import Topbar from "../components/Topbar";
 
 import "./Dashboard.css";
 
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
+
+const getActivityIcon = (type) => {
+  switch (type) {
+    case "connection_request":
+    case "connection_accepted":
+    case "skill_request":
+    case "skill_request_accepted":
+      return "🤝";
+    case "session_reminder":
+      return "📚";
+    case "message":
+      return "💬";
+    default:
+      return "🔔";
+  }
+};
+
+const formatActivityTime = (createdAt) => {
+  if (!createdAt) return "Date unavailable";
+
+  const date = new Date(createdAt);
+  if (Number.isNaN(date.getTime())) return "Date unavailable";
+
+  return date.toLocaleString();
+};
+
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const savedUser = localStorage.getItem("skillbridgeUser");
-  const currentUser = savedUser ? JSON.parse(savedUser) : null;
+  const [token] = useState(() => localStorage.getItem("skillbridgeToken"));
+  const [dashboardData, setDashboardData] = useState(null);
+  const [loading, setLoading] = useState(Boolean(token));
+  const [error, setError] = useState(
+    token ? "" : "Please log in to view your dashboard."
+  );
+  const [requiresLogin, setRequiresLogin] = useState(!token);
+
+  useEffect(() => {
+    if (!token) return undefined;
+
+    const controller = new AbortController();
+
+    const fetchDashboard = async () => {
+      try {
+        const response = await fetch(`${API_URL}/dashboard`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: controller.signal,
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          setError(
+            response.status === 401 || response.status === 403
+              ? "Your session is invalid or expired. Please log in again."
+              : result.message || "Failed to load your dashboard."
+          );
+          setRequiresLogin(response.status === 401 || response.status === 403);
+          return;
+        }
+
+        if (!result.success || !result.data) {
+          setError("The server returned incomplete dashboard data.");
+          return;
+        }
+
+        setDashboardData(result.data);
+      } catch (fetchError) {
+        if (fetchError.name !== "AbortError") {
+          setError("Could not connect to the server. Please try again.");
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchDashboard();
+
+    return () => controller.abort();
+  }, [token]);
 
   const closeSidebar = () => {
     setSidebarOpen(false);
   };
 
+  const statistics = dashboardData?.statistics;
   const overviewCards = [
     {
       icon: "📚",
       title: "Learning Sessions",
-      value: "12",
+      value: statistics?.sessions?.completed,
       description: "Sessions completed",
     },
     {
       icon: "🤝",
-      title: "Skill Connections",
-      value: "8",
-      description: "People connected",
+      title: "Accepted Requests",
+      value: statistics?.requests?.accepted,
+      description: "Requests accepted",
     },
     {
       icon: "💡",
       title: "Skills Shared",
-      value: "5",
-      description: "Skills added",
+      value: statistics?.totalSkills,
+      description: "Skills you own",
     },
   ];
 
@@ -63,32 +145,9 @@ function Dashboard() {
     },
   ];
 
-  const recentActivities = [
-    {
-      icon: "📚",
-      title: "Completed Python Basics",
-      description: "You completed a learning session.",
-      time: "2 hours ago",
-    },
-    {
-      icon: "🤝",
-      title: "New skill connection",
-      description: "You connected with a new learner.",
-      time: "Yesterday",
-    },
-    {
-      icon: "💡",
-      title: "Added React skill",
-      description: "React was added to your shared skills.",
-      time: "2 days ago",
-    },
-    {
-      icon: "🎯",
-      title: "Joined a learning session",
-      description: "You joined a JavaScript practice session.",
-      time: "3 days ago",
-    },
-  ];
+  const recentActivities = Array.isArray(dashboardData?.recentActivity)
+    ? dashboardData.recentActivity
+    : [];
 
   return (
     <main className="dashboard-page">
@@ -125,7 +184,9 @@ function Dashboard() {
               </p>
 
               <h1>
-                Welcome back, {currentUser?.name || "there"}
+                {dashboardData?.user?.name
+                  ? `Welcome back, ${dashboardData.user.name}`
+                  : "Welcome back"}
               </h1>
 
               <p>
@@ -136,57 +197,70 @@ function Dashboard() {
 
           </div>
 
-          {/* Overview */}
-          <div className="dashboard-section-header">
+          {loading && <p role="status">Loading your dashboard...</p>}
 
-            <div>
-              <p className="dashboard-section-eyebrow">
-                Overview
-              </p>
-
-              <h2>
-                Your progress
-              </h2>
+          {!loading && error && (
+            <div className="dashboard-intro" role="alert">
+              <p>{error}</p>
+              {requiresLogin && <NavLink to="/login">Log in</NavLink>}
             </div>
+          )}
 
-          </div>
+          {/* Overview */}
+          {!loading && !error && (
+            <>
+              <div className="dashboard-section-header">
 
-          <div className="dashboard-overview-grid">
-
-            {overviewCards.map((card) => (
-              <div
-                className="dashboard-stat-card"
-                key={card.title}
-              >
-
-                <div className="stat-card-top">
-
-                  <span className="stat-card-icon">
-                    {card.icon}
-                  </span>
-
-                </div>
-
-                <div className="stat-card-content">
-
-                  <p className="stat-card-title">
-                    {card.title}
+                <div>
+                  <p className="dashboard-section-eyebrow">
+                    Overview
                   </p>
 
-                  <h3 className="stat-card-value">
-                    {card.value}
-                  </h3>
-
-                  <p className="stat-card-description">
-                    {card.description}
-                  </p>
-
+                  <h2>
+                    Your progress
+                  </h2>
                 </div>
 
               </div>
-            ))}
 
-          </div>
+              <div className="dashboard-overview-grid">
+
+                {overviewCards.map((card) => (
+                  <div
+                    className="dashboard-stat-card"
+                    key={card.title}
+                  >
+
+                    <div className="stat-card-top">
+
+                      <span className="stat-card-icon">
+                        {card.icon}
+                      </span>
+
+                    </div>
+
+                    <div className="stat-card-content">
+
+                      <p className="stat-card-title">
+                        {card.title}
+                      </p>
+
+                      <h3 className="stat-card-value">
+                        {typeof card.value === "number" ? card.value : "—"}
+                      </h3>
+
+                      <p className="stat-card-description">
+                        {card.description}
+                      </p>
+
+                    </div>
+
+                  </div>
+                ))}
+
+              </div>
+            </>
+          )}
 
           {/* Quick Actions */}
           <section className="quick-actions">
@@ -258,38 +332,35 @@ function Dashboard() {
 
             </div>
 
-            <div className="activity-list">
+            {loading ? (
+              <p role="status">Loading recent activity...</p>
+            ) : error ? (
+              <p>Recent activity is unavailable.</p>
+            ) : recentActivities.length === 0 ? (
+              <p>No recent activity yet.</p>
+            ) : (
+              <div className="activity-list">
+                {recentActivities.map((activity, index) => (
+                  <div
+                    className="activity-item"
+                    key={activity._id || `${activity.createdAt}-${index}`}
+                  >
+                    <div className="activity-icon">
+                      {getActivityIcon(activity.type)}
+                    </div>
 
-              {recentActivities.map((activity) => (
-                <div
-                  className="activity-item"
-                  key={activity.title}
-                >
+                    <div className="activity-content">
+                      <h3>{activity.title || "Notification"}</h3>
+                      <p>{activity.message}</p>
+                    </div>
 
-                  <div className="activity-icon">
-                    {activity.icon}
+                    <span className="activity-time">
+                      {formatActivityTime(activity.createdAt)}
+                    </span>
                   </div>
-
-                  <div className="activity-content">
-
-                    <h3>
-                      {activity.title}
-                    </h3>
-
-                    <p>
-                      {activity.description}
-                    </p>
-
-                  </div>
-
-                  <span className="activity-time">
-                    {activity.time}
-                  </span>
-
-                </div>
-              ))}
-
-            </div>
+                ))}
+              </div>
+            )}
 
           </section>
 

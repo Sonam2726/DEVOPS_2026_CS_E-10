@@ -7,18 +7,20 @@ const {
   searchSkills
 } = require("../controllers/skillController");
 
+const protect = require("../middleware/authMiddleware");
+
 const router = express.Router();
 
-// Create a new skill
-router.post("/", createSkill);
+// Create a skill: login required
+router.post("/", protect, createSkill);
 
-// Get all skills
+// Get all skills: public
 router.get("/", getSkills);
 
-// Search skills
+// Search skills: public
 router.get("/search", searchSkills);
 
-// Get skill by ID
+// Get a skill by ID: public
 router.get("/:id", getSkillById);
 
 module.exports = router;

@@ -44,8 +44,9 @@ import About from "./pages/About";
 
 
 function ProtectedRoute({ children }) {
+  const token = localStorage.getItem("skillbridgeToken");
   const isLoggedIn =
-    localStorage.getItem("skillbridgeLoggedIn") === "true";
+    localStorage.getItem("skillbridgeLoggedIn") === "true" && Boolean(token);
 
   return isLoggedIn ? children : <Navigate to="/login" replace />;
 }
@@ -232,6 +233,11 @@ function AppContent() {
             DAY 1 + DAY 2
             SKILL DETAILS
         ========================= */}
+        <Route
+          path="/skill-details/:id"
+          element={<SkillDetails />}
+        />
+
         <Route
           path="/skill-details"
           element={<SkillDetails />}
