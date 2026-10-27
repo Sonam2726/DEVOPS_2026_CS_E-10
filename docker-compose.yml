@@ -26,6 +26,18 @@
 # volumes:
 #   mongo-data:
 services:
+  frontend:
+    build:
+      context: ./client
+      args:
+        VITE_API_URL: http://localhost:5001/api
+    container_name: skillbridge_frontend
+    restart: always
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
   backend:
     build: ./server
     container_name: skillbridge_backend
