@@ -50,6 +50,18 @@ The Compose frontend build receives the browser-reachable API URL
 argument. The backend and MongoDB service definitions retain their existing
 container ports and volume configuration.
 
+The AI Tutor expects Ollama to run on the host at
+`http://localhost:11434`. Compose exposes that host endpoint to the backend
+container as `http://host.docker.internal:11434` through `OLLAMA_URL`. Install
+Ollama, start it, and pull the configured model before using the AI Tutor:
+
+```powershell
+ollama pull llama3.2:1b
+```
+
+For local non-Docker backend development, `OLLAMA_URL` defaults to
+`http://localhost:11434`.
+
 To stop the stack without removing the MongoDB volume:
 
 ```powershell
