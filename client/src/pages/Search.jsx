@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import "./Search.css";
 
 const API_URL =
@@ -18,6 +18,7 @@ const categories = [
 ];
 
 function Search() {
+  const location = useLocation();
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [level, setLevel] = useState("All");
@@ -248,6 +249,17 @@ function Search() {
                 className="skill-card"
                 key={skill._id || skill.id || skill.name}
                 to={skill._id ? `/skill/${skill._id}` : "#"}
+                state={
+                  skill._id
+                    ? {
+                        from: {
+                          pathname: location.pathname,
+                          search: location.search,
+                          label: "Search Skills",
+                        },
+                      }
+                    : undefined
+                }
                 aria-disabled={!skill._id}
                 onClick={(event) => {
                   if (!skill._id) event.preventDefault();

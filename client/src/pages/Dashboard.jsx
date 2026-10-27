@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
-
 import "./Dashboard.css";
 
 const API_URL =
@@ -36,7 +33,6 @@ const formatActivityTime = (createdAt) => {
 };
 
 function Dashboard() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [token] = useState(() => localStorage.getItem("skillbridgeToken"));
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(Boolean(token));
@@ -91,10 +87,6 @@ function Dashboard() {
 
     return () => controller.abort();
   }, [token]);
-
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
 
   const statistics = dashboardData?.statistics;
   const overviewCards = [
@@ -151,29 +143,7 @@ function Dashboard() {
 
   return (
     <main className="dashboard-page">
-
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={closeSidebar}
-        />
-      )}
-
-      {/* Sidebar */}
-      <Sidebar
-        isOpen={sidebarOpen}
-        onClose={closeSidebar}
-      />
-
-      {/* Main area */}
-      <div className="dashboard-main">
-
-        <Topbar
-          onMenuClick={() => setSidebarOpen(true)}
-        />
-
-        <section className="dashboard-content">
+      <section className="dashboard-content">
 
           {/* Welcome section */}
           <div className="dashboard-intro">
@@ -364,10 +334,7 @@ function Dashboard() {
 
           </section>
 
-        </section>
-
-      </div>
-
+      </section>
     </main>
   );
 }

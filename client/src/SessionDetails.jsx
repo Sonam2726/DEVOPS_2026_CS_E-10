@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import ContextualNavigation from "./components/ContextualNavigation";
 import "./SessionDetails.css";
 
 const API_URL =
@@ -187,13 +188,11 @@ const SessionDetails = () => {
 
   return (
     <div className="session-details-page">
-      <button
-        type="button"
-        className="back-button"
-        onClick={() => navigate("/sessions")}
-      >
-        ← Back to Sessions
-      </button>
+      <ContextualNavigation
+        label="Session Details"
+        fallbackPath="/sessions"
+        fallbackLabel="Sessions"
+      />
 
       <div className="session-details-card">
         <span className={`details-badge ${status}`}>

@@ -7,11 +7,6 @@
    MAIN
 ========================= */
 
-.notifications-main {
-  min-height: 100vh;
-  margin-left: 250px;
-}
-
 .notifications-content {
   width: 100%;
   max-width: 1100px;
@@ -397,10 +392,6 @@
 ========================= */
 
 @media (max-width: 900px) {
-  .notifications-main {
-    margin-left: 0;
-  }
-
   .notifications-content {
     padding: 28px 24px 40px;
   }

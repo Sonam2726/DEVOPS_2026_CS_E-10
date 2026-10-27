@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./SkillPreview.css";
+import ContextualNavigation from "../components/ContextualNavigation";
 
 const API_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
@@ -228,9 +229,12 @@ function SkillPreview() {
 
   return (
     <main className="skill-details">
+      <ContextualNavigation
+        label="Skill Details"
+        fallbackPath="/discover"
+        fallbackLabel="Discover Skills"
+      />
       <div className="details-container">
-        <Link to="/search" className="back-link">← Back to Search</Link>
-
         <section className="skill-main">
           <div className="skill-main-content">
             <span className="skill-category">{skill.category}</span>

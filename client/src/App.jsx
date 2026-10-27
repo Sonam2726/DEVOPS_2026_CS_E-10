@@ -42,6 +42,7 @@ import SessionDetails from "./SessionDetails";
 import Chat from "./pages/chat";
 import ChatScreen from "./pages/ChatScreen";
 import About from "./pages/About";
+import AuthenticatedLayout from "./components/AuthenticatedLayout";
 
 
 function ProtectedRoute({ children }) {
@@ -56,11 +57,18 @@ function ProtectedRoute({ children }) {
 function AppContent() {
   const location = useLocation();
 
-  const isWorkspacePage = [
-    "/dashboard",
-    "/notifications",
-    "/settings",
-  ].includes(location.pathname.toLowerCase());
+  const publicRoutes = [
+    "/",
+    "/home",
+    "/about",
+    "/login",
+    "/register",
+    "/forgot-password",
+    "/reset-password",
+  ];
+  const isWorkspacePage = !publicRoutes.includes(
+    location.pathname.toLowerCase()
+  );
 
   return (
     <>
@@ -85,135 +93,9 @@ function AppContent() {
           element={<Home />}
         />
 
-        {/* =========================
-            REVIEWS PAGE
-        ========================= */}
         <Route
-          path="/reviews"
-          element={<Reviews />}
-        />
-
-        {/* =========================
-            DAY 3 - MATCHING
-        ========================= */}
-        <Route
-          path="/matching"
-          element={<Matching />}
-        />
-
-        {/* =========================
-            DAY 4 - MATCH DETAILS
-        ========================= */}
-        <Route
-          path="/match-details/:id"
-          element={<MatchDetails />}
-        />
-
-        {/* =========================
-            DAY 5 - SKILL EXCHANGE
-        ========================= */}
-        <Route
-          path="/exchange"
-          element={<Exchange />}
-        />
-        <Route
-  path="/about"
-  element={<About />}
-/>
-
-        {/* =========================
-            DAY 6 - REQUESTS
-        ========================= */}
-        <Route
-          path="/requests"
-          element={<Requests />}
-        />
-
-        {/* =========================
-            DAY 7 - SESSIONS
-        ========================= */}
-        <Route
-  path="/sessions"
-  element={<Sessions />}
-/>
-
-<Route
-  path="/session-details/:id"
-  element={<SessionDetails />}
-/>
-{/* =========================
-    DAY 9 - CHAT LIST
-========================= */}
-
-<Route
-  path="/chat"
-  element={
-    <ProtectedRoute>
-      <Chat />
-    </ProtectedRoute>
-  }
-/>
-
-<Route
-  path="/chat/:id"
-  element={
-    <ProtectedRoute>
-      <ChatScreen />
-    </ProtectedRoute>
-  }
-/>
-
-        {/* =========================
-            OFFER SKILL
-        ========================= */}
-        <Route
-          path="/offer-skill"
-          element={
-            <ProtectedRoute>
-              <OfferSkill />
-            </ProtectedRoute>
-          }
-        />
-
-        <Route
-          path="/my-skills"
-          element={
-            <ProtectedRoute>
-              <MySkills />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* =========================
-            PROFILE
-        ========================= */}
-        <Route
-          path="/profile"
-          element={<Profile />}
-        />
-
-        {/* =========================
-            SEARCH
-        ========================= */}
-        <Route
-          path="/search"
-          element={<Search />}
-        />
-
-        {/* =========================
-            SKILL PREVIEW
-        ========================= */}
-        <Route
-          path="/skill/:id"
-          element={<SkillPreview />}
-        />
-
-        {/* =========================
-            DISCOVER
-        ========================= */}
-        <Route
-          path="/discover"
-          element={<Discover />}
+          path="/about"
+          element={<About />}
         />
 
         {/* =========================
@@ -239,55 +121,34 @@ function AppContent() {
           element={<ResetPassword />}
         />
 
-        {/* =========================
-            DASHBOARD
-        ========================= */}
         <Route
-          path="/dashboard"
           element={
             <ProtectedRoute>
-              <Dashboard />
+              <AuthenticatedLayout />
             </ProtectedRoute>
           }
-        />
-
-        {/* =========================
-            DAY 1 + DAY 2
-            SKILL DETAILS
-        ========================= */}
-        <Route
-          path="/skill-details/:id"
-          element={<SkillDetails />}
-        />
-
-        <Route
-          path="/skill-details"
-          element={<SkillDetails />}
-        />
-
-        {/* =========================
-            NOTIFICATIONS
-        ========================= */}
-        <Route
-          path="/notifications"
-          element={
-            <ProtectedRoute>
-              <Notifications />
-            </ProtectedRoute>
-          }
-        />
-
-        {/* =========================
-            SETTINGS
-        ========================= */}
-        <Route
-          path="/settings"
-          element={
-            <ProtectedRoute>
-              <Settings />
-            </ProtectedRoute>
-          }
-        />
+        >
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/chat" element={<Chat />} />
+          <Route path="/chat/:id" element={<ChatScreen />} />
+          <Route path="/my-skills" element={<MySkills />} />
+          <Route path="/offer-skill" element={<OfferSkill />} />
+          <Route path="/search" element={<Search />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/skill/:id" element={<SkillPreview />} />
+          <Route path="/skill-details/:id" element={<SkillDetails />} />
+          <Route path="/skill-details" element={<SkillDetails />} />
+          <Route path="/requests" element={<Requests />} />
+          <Route path="/matching" element={<Matching />} />
+          <Route path="/match-details/:id" element={<MatchDetails />} />
+          <Route path="/sessions" element={<Sessions />} />
+          <Route path="/session-details/:id" element={<SessionDetails />} />
+          <Route path="/exchange" element={<Exchange />} />
+          <Route path="/reviews" element={<Reviews />} />
+        </Route>
 
       </Routes>
 

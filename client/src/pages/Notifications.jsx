@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
-
 import "./Notifications.css";
 
 const API_URL =
@@ -49,7 +46,6 @@ const formatNotificationTime = (createdAt) => {
 
 function Notifications() {
   const navigate = useNavigate();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -60,10 +56,6 @@ function Notifications() {
   const [actionErrors, setActionErrors] = useState({});
   const actionsInProgress = useRef(new Set());
   const markAllInProgress = useRef(false);
-
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
 
   useEffect(() => {
     const controller = new AbortController();
@@ -268,27 +260,7 @@ function Notifications() {
 
   return (
     <main className="notifications-page">
-
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="notifications-sidebar-overlay"
-          onClick={closeSidebar}
-        />
-      )}
-
-      <Sidebar
-        isOpen={sidebarOpen}
-        onClose={closeSidebar}
-      />
-
-      <div className="notifications-main">
-
-        <Topbar
-          onMenuClick={() => setSidebarOpen(true)}
-        />
-
-        <section className="notifications-content">
+      <section className="notifications-content">
 
           {/* Header */}
           <div className="notifications-header">
@@ -488,10 +460,7 @@ function Notifications() {
             </>
           )}
 
-        </section>
-
-      </div>
-
+      </section>
     </main>
   );
 }

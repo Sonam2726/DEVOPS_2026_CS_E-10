@@ -156,8 +156,20 @@
    EDIT BIO
    ========================= */
 
-.profile-card textarea {
-  width: 100%;
+   .profile-card form {
+     display: grid;
+     gap: 10px;
+   }
+
+   .profile-card form label {
+     color: #334155;
+     font-size: 13px;
+     font-weight: 600;
+   }
+
+   .profile-card form input,
+   .profile-card textarea {
+     width: 100%;
 
   min-height: 100px;
 
@@ -180,6 +192,7 @@
   color: #172554;
 }
 
+.profile-card form input:focus,
 .profile-card textarea:focus {
   border-color: #5b2cff;
 

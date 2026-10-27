@@ -91,9 +91,12 @@ All listed routes require authentication.
 | PUT | `/api/users/profile` | Update supported profile fields |
 | PUT | `/api/users/skills` | Update `skillsToTeach` and/or `skillsToLearn` |
 
-Profile update fields are `name`, `bio`, `location`, and `profileImage`.
-Successful updates return `data.profile`. The skills update accepts arrays of
-skill IDs and returns `data.skillsToTeach` and `data.skillsToLearn`.
+Profile update fields are `name`, `email`, `bio`, `location`, and
+`profileImage`. Names and emails are validated; email changes must remain
+unique. Role, password, user ID, and account activation state are not
+profile-update fields. Successful updates return `data.profile`. The skills
+update accepts arrays of skill IDs and returns `data.skillsToTeach` and
+`data.skillsToLearn`.
 
 ## Settings — `/api/settings`
 

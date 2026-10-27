@@ -7,11 +7,6 @@
    MAIN CONTENT
 ========================= */
 
-.settings-main {
-  min-height: 100vh;
-  margin-left: 250px;
-}
-
 .settings-content {
   width: 100%;
   max-width: 1200px;
@@ -596,10 +591,6 @@
 ========================= */
 
 @media (max-width: 900px) {
-
-  .settings-main {
-    margin-left: 0;
-  }
 
   .settings-content {
     padding: 28px 24px 40px;

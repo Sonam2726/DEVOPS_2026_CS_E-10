@@ -1,9 +1,10 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import "./Sidebar.css";
 
 function Sidebar({ isOpen, onClose }) {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const savedUser = localStorage.getItem("skillbridgeUser");
   const currentUser = savedUser ? JSON.parse(savedUser) : null;
@@ -29,6 +30,21 @@ function Sidebar({ isOpen, onClose }) {
       label: "My Skills",
       path: "/my-skills",
       icon: "📚",
+    },
+    {
+      label: "Explore Skills",
+      path: "/discover",
+      icon: "🔎",
+    },
+    {
+      label: "Requests",
+      path: "/requests",
+      icon: "🤝",
+    },
+    {
+      label: "Profile",
+      path: "/profile",
+      icon: "👤",
     },
     {
       label: "Settings",
@@ -88,11 +104,14 @@ function Sidebar({ isOpen, onClose }) {
               key={item.path}
               to={item.path}
               onClick={onClose}
-              className={({ isActive }) =>
-                `sidebar-link ${
-                  isActive ? "active" : ""
-                }`
-              }
+              className={({ isActive }) => {
+                const isMySkillsWorkflow =
+                  item.path === "/my-skills" &&
+                  location.pathname === "/offer-skill";
+                return `sidebar-link ${
+                  isActive || isMySkillsWorkflow ? "active" : ""
+                }`;
+              }}
             >
               <span className="sidebar-icon">
                 {item.icon}

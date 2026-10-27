@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import "./MatchDetails.css";
+import ContextualNavigation from "../components/ContextualNavigation";
 
 const API_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
@@ -13,7 +14,6 @@ const getObjectId = (value) =>
 function MatchDetails() {
   const { id } = useParams();
   const location = useLocation();
-  const navigate = useNavigate();
   const shouldFocusRequestForm = location.state?.focusRequestForm === true;
   const [user, setUser] = useState(null);
   const [skills, setSkills] = useState([]);
@@ -220,9 +220,11 @@ function MatchDetails() {
   if (error || !user) {
     return (
       <main className="match-details-page">
-        <button className="back-btn" type="button" onClick={() => navigate("/matching")}>
-          ← Back to Matching
-        </button>
+        <ContextualNavigation
+          label="Match Details"
+          fallbackPath="/matching"
+          fallbackLabel="Matching"
+        />
         <div className="details-card match-details-state" role="alert">
           <h1>{unauthorized ? "Login Required" : "Unable to Load Match"}</h1>
           <p>{error || "Match details are not available."}</p>
@@ -246,10 +248,6 @@ function MatchDetails() {
 
   return (
     <main className="match-details-page">
-      <button className="back-btn" type="button" onClick={() => navigate("/matching")}>
-        ← Back to Matching
-      </button>
-
       <section className="match-profile-header">
         <div className="large-avatar">
           {user.profileImage ? (

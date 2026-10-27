@@ -15,7 +15,12 @@ function Profile() {
   const [error, setError] = useState("");
   const [unauthorized, setUnauthorized] = useState(false);
   const [editing, setEditing] = useState(false);
-  const [bioDraft, setBioDraft] = useState("");
+  const [profileDraft, setProfileDraft] = useState({
+    name: "",
+    email: "",
+    bio: "",
+    location: "",
+  });
   const [saving, setSaving] = useState(false);
   const [saveMessage, setSaveMessage] = useState("");
   const [saveError, setSaveError] = useState("");
@@ -59,7 +64,12 @@ function Profile() {
         }
 
         setProfile(result.data.profile);
-        setBioDraft(result.data.profile.bio || "");
+        setProfileDraft({
+          name: result.data.profile.name || "",
+          email: result.data.profile.email || "",
+          bio: result.data.profile.bio || "",
+          location: result.data.profile.location || "",
+        });
       } catch (fetchError) {
         if (fetchError.name !== "AbortError") {
           setError("Could not connect to the server. Please try again.");
@@ -76,14 +86,24 @@ function Profile() {
   }, []);
 
   const startEditing = () => {
-    setBioDraft(profile?.bio || "");
+    setProfileDraft({
+      name: profile?.name || "",
+      email: profile?.email || "",
+      bio: profile?.bio || "",
+      location: profile?.location || "",
+    });
     setSaveMessage("");
     setSaveError("");
     setEditing(true);
   };
 
   const cancelEditing = () => {
-    setBioDraft(profile?.bio || "");
+    setProfileDraft({
+      name: profile?.name || "",
+      email: profile?.email || "",
+      bio: profile?.bio || "",
+      location: profile?.location || "",
+    });
     setSaveMessage("");
     setSaveError("");
     setEditing(false);
@@ -99,6 +119,18 @@ function Profile() {
       return;
     }
 
+    if (
+      profileDraft.name.trim().length < 2 ||
+      profileDraft.name.trim().length > 50
+    ) {
+      setSaveError("Name must be between 2 and 50 characters long.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profileDraft.email.trim())) {
+      setSaveError("Please provide a valid email address.");
+      return;
+    }
+
     setSaving(true);
     setSaveError("");
     setSaveMessage("");
@@ -110,7 +142,12 @@ function Profile() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify({ bio: bioDraft }),
+        body: JSON.stringify({
+          name: profileDraft.name.trim(),
+          email: profileDraft.email.trim(),
+          bio: profileDraft.bio.trim(),
+          location: profileDraft.location.trim(),
+        }),
       });
       const result = await response.json().catch(() => ({}));
 
@@ -136,7 +173,24 @@ function Profile() {
         skillsToTeach: currentProfile.skillsToTeach,
         skillsToLearn: currentProfile.skillsToLearn,
       }));
-      setBioDraft(result.data.profile.bio || "");
+      setProfileDraft({
+        name: result.data.profile.name || "",
+        email: result.data.profile.email || "",
+        bio: result.data.profile.bio || "",
+        location: result.data.profile.location || "",
+      });
+      const savedUser = JSON.parse(
+        localStorage.getItem("skillbridgeUser") || "{}"
+      );
+      localStorage.setItem(
+        "skillbridgeUser",
+        JSON.stringify({
+          ...savedUser,
+          name: result.data.profile.name,
+          email: result.data.profile.email,
+          role: result.data.profile.role,
+        })
+      );
       setEditing(false);
       setSaveMessage("Profile updated successfully.");
     } catch {
@@ -221,18 +275,69 @@ function Profile() {
 
       <section className="profile-content">
         <div className="profile-card">
-          <h2>About Me</h2>
+          <div className="card-heading">
+            <h2>Edit Profile</h2>
+            <span>Public information</span>
+          </div>
 
           {editing ? (
             <form onSubmit={saveProfile}>
+              <label htmlFor="profile-name">Full name</label>
+              <input
+                id="profile-name"
+                type="text"
+                value={profileDraft.name}
+                onChange={(event) =>
+                  setProfileDraft((current) => ({
+                    ...current,
+                    name: event.target.value,
+                  }))
+                }
+                minLength={2}
+                maxLength={50}
+                required
+              />
+              <label htmlFor="profile-email">Email address</label>
+              <input
+                id="profile-email"
+                type="email"
+                value={profileDraft.email}
+                onChange={(event) =>
+                  setProfileDraft((current) => ({
+                    ...current,
+                    email: event.target.value,
+                  }))
+                }
+                required
+              />
+              <label htmlFor="profile-location">Location</label>
+              <input
+                id="profile-location"
+                type="text"
+                value={profileDraft.location}
+                onChange={(event) =>
+                  setProfileDraft((current) => ({
+                    ...current,
+                    location: event.target.value,
+                  }))
+                }
+                maxLength={100}
+              />
+              <label htmlFor="profile-bio">About Me</label>
               <textarea
-                value={bioDraft}
-                onChange={(event) => setBioDraft(event.target.value)}
+                value={profileDraft.bio}
+                onChange={(event) =>
+                  setProfileDraft((current) => ({
+                    ...current,
+                    bio: event.target.value,
+                  }))
+                }
                 placeholder="Write something about yourself..."
                 maxLength={300}
+                id="profile-bio"
                 aria-label="Profile bio"
               />
-              <p>{bioDraft.length}/300 characters</p>
+              <p>{profileDraft.bio.length}/300 characters</p>
               {saveError && <p role="alert">{saveError}</p>}
               {unauthorized && (
                 <Link to="/login" className="profile-action-button">
@@ -244,11 +349,20 @@ function Profile() {
                 type="submit"
                 disabled={saving}
               >
-                {saving ? "Saving..." : "Save Profile"}
+                {saving ? "Saving..." : "Save Changes"}
+              </button>
+              <button
+                className="profile-action-button outline"
+                type="button"
+                onClick={cancelEditing}
+                disabled={saving}
+              >
+                Cancel
               </button>
             </form>
           ) : (
             <>
+              <h2>About Me</h2>
               <p>{profile.bio || "No bio has been added yet."}</p>
               {saveMessage && <p role="status">{saveMessage}</p>}
               {saveError && <p role="alert">{saveError}</p>}

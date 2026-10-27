@@ -1,7 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import "./ChatScreen.css";
+import ContextualNavigation from "../components/ContextualNavigation";
 
 const API_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
@@ -18,7 +19,6 @@ const formatTime = (value) => {
 
 function ChatScreen() {
   const { id } = useParams();
-  const navigate = useNavigate();
   const isAiTutor = id === "ai";
   const token = localStorage.getItem("skillbridgeToken");
   const currentUser = JSON.parse(localStorage.getItem("skillbridgeUser") || "null");
@@ -217,10 +217,12 @@ function ChatScreen() {
 
   return (
     <main className="chat-screen">
+      <ContextualNavigation
+        label={isAiTutor ? "AI Tutor" : `Chat with ${personName}`}
+        fallbackPath="/chat"
+        fallbackLabel="Conversations"
+      />
       <header className="chat-header">
-        <button className="back-button" onClick={() => navigate("/chat")} aria-label="Go back">
-          ←
-        </button>
         <div className="chat-avatar">{personAvatar || "?"}</div>
         <div className="chat-user-info">
           <h2>{personName}</h2>
