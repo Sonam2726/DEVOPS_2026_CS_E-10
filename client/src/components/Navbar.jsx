@@ -6,13 +6,14 @@ const Navbar = () => {
     <nav className="navbar">
       <div className="navbar-container">
 
-        <Link to="/" className="navbar-logo">
-          SkillBridge AI
+        <Link to="/" className="navbar-logo" aria-label="SkillBridge AI home">
+          <span className="navbar-logo-mark">S</span>
+          <span>SkillBridge <em>AI</em></span>
         </Link>
 
         <div className="navbar-links">
 
-          <Link to="/home" className="navbar-link">
+          <Link to="/" className="navbar-link">
             Home
           </Link>
 
