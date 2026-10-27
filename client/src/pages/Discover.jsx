@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import "./Discover.css";
 
 const API_URL =
@@ -29,6 +29,7 @@ function Discover() {
   const [reloadKey, setReloadKey] = useState(0);
 
   const navigate = useNavigate();
+  const location = useLocation();
   const isAuthenticated = Boolean(localStorage.getItem("skillbridgeToken"));
 
   useEffect(() => {
@@ -182,7 +183,17 @@ function Discover() {
               <p className="category">{skill.category}</p>
               <button
                 type="button"
-                onClick={() => navigate(`/skill/${skill._id}`)}
+                onClick={() =>
+                  navigate(`/skill/${skill._id}`, {
+                    state: {
+                      from: {
+                        pathname: location.pathname,
+                        search: location.search,
+                        label: "Discover Skills",
+                      },
+                    },
+                  })
+                }
                 disabled={!skill._id}
               >
                 View Details

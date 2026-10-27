@@ -1,13 +1,13 @@
-import { useState } from "react";
-
-import Sidebar from "../components/Sidebar";
-import Topbar from "../components/Topbar";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 import "./Settings.css";
 
-function Settings() {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
 
+function Settings() {
   const savedUser = JSON.parse(
     localStorage.getItem("skillbridgeUser") || "{}"
   );
@@ -16,27 +16,92 @@ function Settings() {
   const userEmail = savedUser.email || "";
 
   const [emailNotifications, setEmailNotifications] = useState(true);
-  const [learningReminders, setLearningReminders] = useState(true);
-  const [profileVisibility, setProfileVisibility] = useState(true);
+  const [pushNotifications, setPushNotifications] = useState(true);
+  const [profileVisibility, setProfileVisibility] = useState("public");
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
 
   const [isSaving, setIsSaving] = useState(false);
   const [saveStatus, setSaveStatus] = useState("");
+  const [saveError, setSaveError] = useState("");
 
   const [passwordStatus, setPasswordStatus] = useState("");
 
-  const closeSidebar = () => {
-    setSidebarOpen(false);
-  };
+  useEffect(() => {
+    const controller = new AbortController();
+    const fetchSettings = async () => {
+      const token = localStorage.getItem("skillbridgeToken");
+      if (!token) {
+        setLoadError("Please log in to view your settings.");
+        setLoading(false);
+        return;
+      }
 
-  // Save profile
-  const handleSaveProfile = () => {
+      try {
+        const response = await fetch(`${API_URL}/settings`, {
+          headers: { Authorization: `Bearer ${token}` },
+          signal: controller.signal,
+        });
+        const result = await response.json().catch(() => ({}));
+        if (!response.ok || !result.success || !result.data?.settings) {
+          throw new Error(result.message || "Unable to load your settings.");
+        }
+        setEmailNotifications(result.data.settings.emailNotifications);
+        setPushNotifications(result.data.settings.pushNotifications);
+        setProfileVisibility(result.data.settings.profileVisibility);
+      } catch (fetchError) {
+        if (fetchError.name !== "AbortError") {
+          setLoadError(fetchError.message || "Could not connect to the server.");
+        }
+      } finally {
+        if (!controller.signal.aborted) setLoading(false);
+      }
+    };
+
+    fetchSettings();
+    return () => controller.abort();
+  }, []);
+
+  const handleSavePreferences = async () => {
+    const token = localStorage.getItem("skillbridgeToken");
+    if (!token) {
+      setSaveError("Please log in again to update your settings.");
+      return;
+    }
+
     setIsSaving(true);
     setSaveStatus("");
+    setSaveError("");
 
-    setTimeout(() => {
-      setIsSaving(false);
+    try {
+      const response = await fetch(`${API_URL}/settings`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          emailNotifications,
+          pushNotifications,
+          profileVisibility,
+        }),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || !result.success || !result.data?.settings) {
+        throw new Error(result.message || "Unable to save your preferences.");
+      }
+
+      setEmailNotifications(result.data.settings.emailNotifications);
+      setPushNotifications(result.data.settings.pushNotifications);
+      setProfileVisibility(result.data.settings.profileVisibility);
       setSaveStatus("success");
-    }, 1000);
+    } catch (saveRequestError) {
+      setSaveError(
+        saveRequestError.message || "Could not connect to the server."
+      );
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Password action
@@ -50,29 +115,7 @@ function Settings() {
 
   return (
     <main className="settings-page">
-
-      {/* Mobile overlay */}
-      {sidebarOpen && (
-        <div
-          className="sidebar-overlay"
-          onClick={closeSidebar}
-        />
-      )}
-
-      {/* Sidebar */}
-      <Sidebar
-        isOpen={sidebarOpen}
-        onClose={closeSidebar}
-      />
-
-      {/* Main area */}
-      <div className="settings-main">
-
-        <Topbar
-          onMenuClick={() => setSidebarOpen(true)}
-        />
-
-        <section className="settings-content">
+      <section className="settings-content">
 
           {/* =========================
               PAGE INTRO
@@ -97,9 +140,10 @@ function Settings() {
           </div>
 
 
-          {/* =========================
-              PROFILE SECTION
-          ========================= */}
+          {loadError && <p role="alert">{loadError}</p>}
+          {loading && <p role="status">Loading your settings...</p>}
+
+          {/* Account information is displayed here; public profile editing lives on Profile. */}
 
           <section className="settings-section">
 
@@ -115,8 +159,8 @@ function Settings() {
                 </h2>
 
                 <p>
-                  Manage the information associated with your SkillBridge AI
-                  profile.
+                  Account details are read-only here. Use Profile to edit your
+                  public information.
                 </p>
               </div>
 
@@ -138,9 +182,7 @@ function Settings() {
                     {userName}
                   </h3>
 
-                  <p>
-                    Student
-                  </p>
+                  <p>{savedUser.role === "admin" ? "Administrator" : "Student"}</p>
 
                 </div>
 
@@ -191,7 +233,7 @@ function Settings() {
                   <input
                     id="role"
                     type="text"
-                    value="Student"
+                    value={savedUser.role === "admin" ? "Administrator" : "Student"}
                     readOnly
                   />
 
@@ -203,31 +245,9 @@ function Settings() {
               {/* Save footer */}
               <div className="settings-card-footer">
 
-                {saveStatus === "success" && (
-                  <span className="settings-success-message">
-                    ✓ Profile saved successfully
-                  </span>
-                )}
-
-                <button
-                  type="button"
-                  className={`settings-primary-button ${
-                    isSaving ? "button-loading" : ""
-                  }`}
-                  onClick={handleSaveProfile}
-                  disabled={isSaving}
-                >
-
-                  {isSaving ? (
-                    <>
-                      <span className="button-spinner" />
-                      Saving...
-                    </>
-                  ) : (
-                    "Save profile"
-                  )}
-
-                </button>
+                <Link to="/profile" className="settings-secondary-button">
+                  Edit public profile
+                </Link>
 
               </div>
 
@@ -302,41 +322,6 @@ function Settings() {
               </div>
 
 
-              {/* Learning reminders */}
-              <div className="settings-option">
-
-                <div className="settings-option-icon">
-                  📚
-                </div>
-
-                <div className="settings-option-content">
-
-                  <h3>
-                    Learning reminders
-                  </h3>
-
-                  <p>
-                    Get reminders for upcoming learning sessions.
-                  </p>
-
-                </div>
-
-                <button
-                  type="button"
-                  className={`settings-toggle ${
-                    learningReminders ? "active" : ""
-                  }`}
-                  onClick={() =>
-                    setLearningReminders(!learningReminders)
-                  }
-                  aria-label="Toggle learning reminders"
-                  aria-pressed={learningReminders}
-                >
-                  <span />
-                </button>
-
-              </div>
-
 
               {/* Profile visibility */}
               <div className="settings-option">
@@ -360,13 +345,15 @@ function Settings() {
                 <button
                   type="button"
                   className={`settings-toggle ${
-                    profileVisibility ? "active" : ""
+                    profileVisibility === "public" ? "active" : ""
                   }`}
                   onClick={() =>
-                    setProfileVisibility(!profileVisibility)
+                    setProfileVisibility((current) =>
+                      current === "public" ? "private" : "public"
+                    )
                   }
                   aria-label="Toggle profile visibility"
-                  aria-pressed={profileVisibility}
+                  aria-pressed={profileVisibility === "public"}
                 >
                   <span />
                 </button>
@@ -374,6 +361,21 @@ function Settings() {
               </div>
 
             </div>
+
+            {saveError && <p role="alert">{saveError}</p>}
+            {saveStatus === "success" && (
+              <p className="settings-success-message" role="status">
+                ✓ Preferences saved successfully
+              </p>
+            )}
+            <button
+              type="button"
+              className="settings-primary-button"
+              onClick={handleSavePreferences}
+              disabled={loading || isSaving || Boolean(loadError)}
+            >
+              {isSaving ? "Saving..." : "Save preferences"}
+            </button>
 
           </section>
 
@@ -518,10 +520,7 @@ function Settings() {
 
           </section>
 
-        </section>
-
-      </div>
-
+      </section>
     </main>
   );
 }

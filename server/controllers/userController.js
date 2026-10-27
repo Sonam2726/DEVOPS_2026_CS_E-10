@@ -49,11 +49,17 @@ const getProfile = async (req, res) => {
 // Update profile
 const updateProfile = async (req, res) => {
   try {
-    const { name, bio, location, profileImage } = req.body;
+    const { name, email, bio, location, profileImage } = req.body;
 
     const updates = {};
 
     if (name !== undefined) {
+      if (typeof name !== "string") {
+        return res.status(400).json({
+          success: false,
+          message: "Name must be a string",
+        });
+      }
       const trimmedName = name.trim();
 
       if (trimmedName.length < 2 || trimmedName.length > 50) {
@@ -64,6 +70,20 @@ const updateProfile = async (req, res) => {
       }
 
       updates.name = trimmedName;
+    }
+
+    if (email !== undefined) {
+      if (
+        typeof email !== "string" ||
+        !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim())
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Please provide a valid email address",
+        });
+      }
+
+      updates.email = email.trim().toLowerCase();
     }
 
     if (bio !== undefined) {
@@ -135,6 +155,13 @@ const updateProfile = async (req, res) => {
     });
   } catch (error) {
     console.error("Update profile error:", error);
+
+    if (error?.code === 11000 && error?.keyPattern?.email) {
+      return res.status(409).json({
+        success: false,
+        message: "An account with this email already exists",
+      });
+    }
 
     return res.status(500).json({
       success: false,

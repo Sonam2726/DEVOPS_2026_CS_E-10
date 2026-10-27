@@ -1,11 +1,24 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 
 import "./Topbar.css";
 
 function Topbar({ onMenuClick }) {
+  const location = useLocation();
   const savedUser = localStorage.getItem("skillbridgeUser");
   const currentUser = savedUser ? JSON.parse(savedUser) : null;
   const userName = currentUser?.name || "User";
+  const pageTitles = {
+    "/dashboard": "Dashboard",
+    "/notifications": "Notifications",
+    "/chat": "Conversations",
+    "/my-skills": "My Skills",
+    "/profile": "Profile",
+    "/settings": "Settings",
+    "/offer-skill": "Add Skill",
+  };
+  const pageTitle =
+    pageTitles[location.pathname] ||
+    (location.pathname.startsWith("/chat/") ? "Conversation" : "SkillBridge");
 
   return (
     <header className="dashboard-topbar">
@@ -21,7 +34,7 @@ function Topbar({ onMenuClick }) {
 
       {/* Page title */}
       <div className="topbar-brand">
-        Dashboard
+        {pageTitle}
       </div>
 
       {/* Right section */}

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import "./SkillDetails.css";
+import ContextualNavigation from "../components/ContextualNavigation";
 
 const API_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
@@ -226,6 +227,11 @@ function SkillDetails() {
 
   return (
     <main className="skill-details-page">
+      <ContextualNavigation
+        label="Skill Details"
+        fallbackPath="/discover"
+        fallbackLabel="Discover Skills"
+      />
       <header className="skill-header">
         <div className="skill-icon">💻</div>
         <div className="skill-title">

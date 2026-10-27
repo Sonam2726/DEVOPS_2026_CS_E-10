@@ -107,7 +107,7 @@ describe("Profile page", () => {
     fireEvent.change(screen.getByRole("textbox", { name: "Profile bio" }), {
       target: { value: "Updated bio." },
     });
-    fireEvent.click(screen.getByRole("button", { name: "Save Profile" }));
+    fireEvent.click(screen.getByRole("button", { name: "Save Changes" }));
 
     await waitFor(() =>
       expect(screen.getByRole("status")).toHaveTextContent(
@@ -123,7 +123,12 @@ describe("Profile page", () => {
           "Content-Type": "application/json",
           Authorization: "Bearer test-jwt",
         },
-        body: JSON.stringify({ bio: "Updated bio." }),
+        body: JSON.stringify({
+          name: "Test User",
+          email: "test@example.com",
+          bio: "Updated bio.",
+          location: "Test City",
+        }),
       })
     );
   });

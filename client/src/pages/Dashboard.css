@@ -7,11 +7,6 @@
    MAIN CONTENT
 ========================= */
 
-.dashboard-main {
-  min-height: 100vh;
-  margin-left: 250px;
-}
-
 .dashboard-content {
   width: 100%;
   max-width: 1500px;
@@ -424,10 +419,6 @@
 ========================= */
 
 @media (max-width: 900px) {
-  .dashboard-main {
-    margin-left: 0;
-  }
-
   .dashboard-content {
     padding: 28px 24px 40px;
   }

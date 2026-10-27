@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./OfferSkill.css";
+import ContextualNavigation from "../components/ContextualNavigation";
 
 const API_URL =
   (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
@@ -133,6 +134,11 @@ function OfferSkill() {
 
   return (
     <main className="offer-page">
+      <ContextualNavigation
+        label="Add Skill"
+        fallbackPath="/my-skills"
+        fallbackLabel="My Skills"
+      />
 
       {/* Header */}
       <section className="offer-header">
