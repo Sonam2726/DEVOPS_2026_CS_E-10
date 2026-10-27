@@ -21,6 +21,16 @@ function Sidebar({ isOpen, onClose }) {
       icon: "🔔",
     },
     {
+      label: "Conversations",
+      path: "/chat",
+      icon: "💬",
+    },
+    {
+      label: "My Skills",
+      path: "/my-skills",
+      icon: "📚",
+    },
+    {
       label: "Settings",
       path: "/settings",
       icon: "⚙",

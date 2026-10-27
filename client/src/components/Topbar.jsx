@@ -58,6 +58,14 @@ function Topbar({ onMenuClick }) {
           🔔
         </NavLink>
 
+        <NavLink
+          to="/chat"
+          className="topbar-notification"
+          aria-label="Conversations"
+        >
+          💬
+        </NavLink>
+
         <div className="topbar-user">
 
           <div className="topbar-avatar">

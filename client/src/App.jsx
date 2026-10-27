@@ -14,6 +14,7 @@ import SkillPreview from "./pages/SkillPreview";
 import Requests from "./pages/Requests";
 import Profile from "./pages/Profile";
 import OfferSkill from "./pages/OfferSkill";
+import MySkills from "./pages/MySkills";
 import Reviews from "./pages/Reviews";
 
 import Landing from "./pages/Landing";
@@ -146,12 +147,20 @@ function AppContent() {
 
 <Route
   path="/chat"
-  element={<Chat />}
+  element={
+    <ProtectedRoute>
+      <Chat />
+    </ProtectedRoute>
+  }
 />
 
 <Route
   path="/chat/:id"
-  element={<ChatScreen />}
+  element={
+    <ProtectedRoute>
+      <ChatScreen />
+    </ProtectedRoute>
+  }
 />
 
         {/* =========================
@@ -159,7 +168,20 @@ function AppContent() {
         ========================= */}
         <Route
           path="/offer-skill"
-          element={<OfferSkill />}
+          element={
+            <ProtectedRoute>
+              <OfferSkill />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/my-skills"
+          element={
+            <ProtectedRoute>
+              <MySkills />
+            </ProtectedRoute>
+          }
         />
 
         {/* =========================

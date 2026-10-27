@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
@@ -47,6 +48,7 @@ const formatNotificationTime = (createdAt) => {
 };
 
 function Notifications() {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -243,6 +245,27 @@ function Notifications() {
     }
   };
 
+  const getRequestTarget = (notification) => {
+    const requestId = notification.request?._id || notification.request;
+    const incoming = notification.type === "skill_request";
+    const outgoing = [
+      "skill_request_accepted",
+      "skill_request_rejected",
+    ].includes(notification.type);
+
+    if (!incoming && !outgoing) return null;
+
+    const params = new URLSearchParams({
+      type: incoming ? "incoming" : "outgoing",
+    });
+
+    if (requestId) {
+      params.set("requestId", requestId);
+    }
+
+    return `/requests?${params.toString()}`;
+  };
+
   return (
     <main className="notifications-page">
 
@@ -424,6 +447,18 @@ function Notifications() {
                         <span className="notification-time">
                           {formatNotificationTime(notification.createdAt)}
                         </span>
+
+                        {getRequestTarget(notification) && (
+                          <button
+                            type="button"
+                            className="view-request-button"
+                            onClick={() =>
+                              navigate(getRequestTarget(notification))
+                            }
+                          >
+                            View Request
+                          </button>
+                        )}
 
                         {actionErrors[notification._id] && (
                           <p role="alert">

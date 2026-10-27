@@ -3,6 +3,7 @@ const express = require("express");
 const {
   createSkill,
   getSkills,
+  getMySkills,
   getSkillById,
   searchSkills
 } = require("../controllers/skillController");
@@ -16,6 +17,9 @@ router.post("/", protect, createSkill);
 
 // Get all skills: public
 router.get("/", getSkills);
+
+// Get skills owned by the authenticated user
+router.get("/mine", protect, getMySkills);
 
 // Search skills: public
 router.get("/search", searchSkills);

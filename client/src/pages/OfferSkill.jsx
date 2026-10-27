@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./OfferSkill.css";
 
 const API_URL =
@@ -120,6 +121,9 @@ function OfferSkill() {
           <button onClick={resetForm}>
             Add Another Skill
           </button>
+          <Link className="offer-view-skills" to="/my-skills">
+            View My Skills
+          </Link>
 
         </div>
 

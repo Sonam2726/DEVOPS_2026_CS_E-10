@@ -27,4 +27,7 @@ The backend exposes `GET /api/health` to report whether the server is running an
 ## Notes
 
 - Do not commit real credentials or tokens.
-- Use local development data only; never run seed or reset scripts against shared or production databases.
+- `server/seed/skills.js` currently provides only an exported skills data
+  module. No executable seed or reset workflow is currently provided.
+- Use local development data only if a seed or reset workflow is added later;
+  never run such operations against shared or production databases.

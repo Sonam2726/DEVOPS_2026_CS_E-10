@@ -98,6 +98,11 @@
   box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
 }
 
+.request-card-highlighted {
+  border-color: #6d28d9;
+  box-shadow: 0 0 0 3px rgba(109, 40, 217, 0.14);
+}
+
 .request-icon {
   width: 50px;
   height: 50px;
@@ -373,6 +378,35 @@
   color: #64748b;
 }
 
+.requests-pagination {
+  margin-top: 22px;
+  text-align: center;
+}
+
+.requests-pagination-error {
+  color: #b91c1c;
+}
+
+.requests-pagination-error a {
+  color: #5b2cff;
+  font-weight: 600;
+}
+
+.requests-load-more {
+  padding: 11px 22px;
+  border: 1px solid #5b2cff;
+  border-radius: 7px;
+  background: white;
+  color: #5b2cff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.requests-load-more:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
 
 /* Responsive */
 

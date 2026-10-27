@@ -1,0 +1,105 @@
+.my-skills-page {
+  min-height: 100vh;
+  padding: 64px 6%;
+  background: #f8f9fc;
+  color: #172554;
+}
+
+.my-skills-header {
+  max-width: 1100px;
+  margin: 0 auto 36px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.my-skills-header span,
+.my-skill-category {
+  color: #5b2cff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.my-skills-header h1 {
+  margin: 8px 0;
+  font-size: 42px;
+}
+
+.my-skills-header p {
+  margin: 0;
+  color: #64748b;
+}
+
+.my-skills-primary-action {
+  display: inline-block;
+  padding: 12px 18px;
+  border-radius: 8px;
+  background: #5b2cff;
+  color: #fff;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.my-skills-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.my-skill-card,
+.my-skills-empty {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.04);
+}
+
+.my-skill-card h2 {
+  margin: 10px 0;
+}
+
+.my-skill-card p {
+  min-height: 70px;
+  color: #64748b;
+  line-height: 1.5;
+}
+
+.my-skill-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #eef2f7;
+}
+
+.my-skill-footer a {
+  color: #5b2cff;
+  font-weight: 700;
+}
+
+.my-skills-empty {
+  max-width: 600px;
+  margin: 80px auto;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .my-skills-page {
+    padding: 40px 5%;
+  }
+
+  .my-skills-header {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .my-skills-header h1 {
+    font-size: 34px;
+  }
+}

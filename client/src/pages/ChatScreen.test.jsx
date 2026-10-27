@@ -19,15 +19,10 @@ describe("AI Tutor chat", () => {
     localStorage.clear();
     localStorage.setItem("skillbridgeToken", "test-jwt");
     vi.stubGlobal("fetch", vi.fn());
-    Object.defineProperty(HTMLElement.prototype, "scrollIntoView", {
-      configurable: true,
-      value: vi.fn(),
-    });
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
-    delete HTMLElement.prototype.scrollIntoView;
   });
 
   it("sends authenticated conversation history and renders the AI reply", async () => {

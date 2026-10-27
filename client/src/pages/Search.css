@@ -308,6 +308,32 @@
   color: #172554;
 }
 
+.skills-pagination {
+  max-width: 1040px;
+  margin: 20px auto 0;
+  text-align: center;
+}
+
+.skills-load-more {
+  padding: 11px 22px;
+  border: 1px solid #5b2cff;
+  border-radius: 8px;
+  background: white;
+  color: #5b2cff;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.skills-load-more:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.search-error {
+  color: #b91c1c;
+}
+
 
 /* =========================
    DAY 12 - TABLET

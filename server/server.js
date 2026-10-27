@@ -18,6 +18,7 @@ const requestRoutes = require("./routes/requestRoutes");
 const sessionRoutes = require("./routes/sessionRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const chatRoutes = require("./routes/chatRoutes");
+const conversationRoutes = require("./routes/conversationRoutes");
 
 const app = express();
 const allowedOrigins = [
@@ -74,6 +75,7 @@ app.use("/api/matches", matchingRoutes);
 app.use("/api/requests", requestRoutes);
 app.use("/api/sessions", sessionRoutes);
 app.use("/api/chat", chatRoutes);
+app.use("/api/conversations", conversationRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/settings", settingsRoutes);
 app.use("/api/notifications", notificationRoutes);

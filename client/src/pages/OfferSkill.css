@@ -313,6 +313,13 @@
   opacity: 0.9;
 }
 
+.offer-view-skills {
+  display: inline-block;
+  margin: 20px 0 0 12px;
+  color: #5b2cff;
+  font-weight: 600;
+}
+
 
 /* =========================
    DAY 13 - TABLET

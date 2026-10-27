@@ -26,6 +26,13 @@ const buildSkillFilter = ({ name, category, level }) => {
 // Create a new skill
 const createSkill = async (req, res) => {
   try {
+    if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body must be a JSON object"
+      });
+    }
+
     const { name, description, category, level } = req.body;
 
     // JWT middleware provides userId in req.user
@@ -40,9 +47,13 @@ const createSkill = async (req, res) => {
 
     // Validate required fields
     if (
-      !name?.trim() ||
-      !description?.trim() ||
+      typeof name !== "string" ||
+      !name.trim() ||
+      typeof description !== "string" ||
+      !description.trim() ||
+      typeof category !== "string" ||
       !category ||
+      typeof level !== "string" ||
       !level
     ) {
       return res.status(400).json({
@@ -147,6 +158,28 @@ const getSkills = async (req, res) => {
   }
 };
 
+// Get skills published by the authenticated user
+const getMySkills = async (req, res) => {
+  try {
+    const skills = await Skill.find({ owner: req.user.userId })
+      .populate("owner", "name")
+      .sort({ createdAt: -1 });
+
+    return res.status(200).json({
+      success: true,
+      message: "Your skills fetched successfully",
+      data: skills,
+    });
+  } catch (error) {
+    console.error("Get my skills error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to fetch your skills",
+    });
+  }
+};
+
 
 // Get a skill by ID
 const getSkillById = async (req, res) => {
@@ -218,6 +251,7 @@ const searchSkills = async (req, res) => {
 module.exports = {
   createSkill,
   getSkills,
+  getMySkills,
   getSkillById,
   searchSkills
 };
