@@ -1,6 +1,9 @@
 
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 2000;
+const OLLAMA_BASE_URL = (
+  process.env.OLLAMA_URL || "http://localhost:11434"
+).replace(/\/$/, "");
 
 exports.sendChatMessage = async (req, res) => {
   const { messages } = req.body || {};
@@ -37,7 +40,7 @@ exports.sendChatMessage = async (req, res) => {
 
     const startTime = Date.now();
 
-    const ollamaResponse = await fetch("http://localhost:11434/api/chat", {
+    const ollamaResponse = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
