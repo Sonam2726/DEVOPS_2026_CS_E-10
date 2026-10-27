@@ -21,7 +21,6 @@ import Landing from "./pages/Landing";
 import Matching from "./pages/Matching";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Home from "./pages/Home";
 import Discover from "./pages/Discover";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
@@ -85,13 +84,8 @@ function AppContent() {
           element={<Landing />}
         />
 
-        {/* =========================
-            HOME PAGE
-        ========================= */}
-        <Route
-          path="/home"
-          element={<Home />}
-        />
+        {/* Keep the legacy public URL compatible without maintaining a second page. */}
+        <Route path="/home" element={<Navigate to="/" replace />} />
 
         <Route
           path="/about"

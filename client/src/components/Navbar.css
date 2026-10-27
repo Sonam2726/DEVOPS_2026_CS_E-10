@@ -1,96 +1,124 @@
 .navbar {
   width: 100%;
-
   background: #ffffff;
-
-  border-bottom: 1px solid #e5e7eb;
-
+  border-bottom: 1px solid #e9e7f2;
   position: relative;
   z-index: 10;
 }
 
 .navbar-container {
-  max-width: 900px;
-
+  max-width: 1240px;
   margin: 0 auto;
-
-  height: 72px;
-
-  padding: 0 20px;
-
+  min-height: 76px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   box-sizing: border-box;
 }
 
 .navbar-logo {
-  color: #6d28d9;
-
-  font-size: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #171536;
+  font-size: 19px;
   font-weight: 700;
-
   text-decoration: none;
+  letter-spacing: -0.5px;
+}
+
+.navbar-logo em {
+  color: #7657e8;
+  font-style: normal;
+}
+
+.navbar-logo-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #7657e8;
+  color: #ffffff;
+  font-size: 16px;
+  box-shadow: 0 6px 16px rgba(118, 87, 232, 0.24);
 }
 
 .navbar-links {
   display: flex;
   align-items: center;
-  gap: 26px;
+  gap: 30px;
 }
 
 .navbar-link {
-  color: #111827;
-
-  font-size: 13px;
+  color: #62617a;
+  font-size: 14px;
   font-weight: 500;
-
   text-decoration: none;
-
-  transition: color 0.2s ease;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .navbar-link:hover {
-  color: #6d28d9;
+  color: #7657e8;
+  transform: translateY(-1px);
 }
 
 .navbar-button {
-  padding: 9px 16px;
-
-  border-radius: 6px;
-
-  background: #6d28d9;
+  padding: 11px 18px;
+  border-radius: 9px;
+  background: #7657e8;
   color: #ffffff;
-
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 600;
-
   text-decoration: none;
-
-  transition: background 0.2s ease;
+  box-shadow: 0 7px 16px rgba(118, 87, 232, 0.18);
+  transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .navbar-button:hover {
-  background: #5b21b6;
+  background: #6142cf;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(118, 87, 232, 0.26);
+}
+
+.navbar-link:focus-visible,
+.navbar-button:focus-visible,
+.navbar-logo:focus-visible {
+  outline: 3px solid rgba(118, 87, 232, 0.25);
+  outline-offset: 4px;
 }
 
 @media (max-width: 600px) {
   .navbar-container {
-    height: auto;
-    min-height: 68px;
+    min-height: 70px;
+    padding: 0 18px;
   }
 
   .navbar-links {
-    gap: 12px;
+    gap: 14px;
   }
 
   .navbar-link {
-    font-size: 12px;
+    font-size: 13px;
+  }
+
+  .navbar-links .navbar-link:first-child {
+    display: none;
   }
 
   .navbar-button {
-    padding: 8px 12px;
+    padding: 9px 13px;
     font-size: 12px;
+  }
+
+  .navbar-logo {
+    font-size: 16px;
+  }
+
+  .navbar-logo-mark {
+    width: 29px;
+    height: 29px;
   }
 }
