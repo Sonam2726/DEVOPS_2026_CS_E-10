@@ -1,3 +1,4 @@
+const mongoose = require("mongoose");
 const User = require('../models/User');
 
 // Recommended users based on skills (Day 4)
@@ -23,9 +24,13 @@ exports.getRecommendations = async (req, res) => {
       matches
     });
   } catch (err) {
+    console.error("Get recommendations error:", {
+      name: err?.name || "UnknownError",
+      code: err?.code,
+    });
     res.status(500).json({
       success: false,
-      message: err.message
+      message: "Failed to fetch recommendations"
     });
   }
 };
@@ -33,6 +38,13 @@ exports.getRecommendations = async (req, res) => {
 // Match details API (Day 5)
 exports.getMatchDetails = async (req, res) => {
   try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(400).json({
+        success: false,
+        message: 'Invalid user ID'
+      });
+    }
+
     const targetUser = await User.findById(req.params.id).select('-password');
 
     if (!targetUser) {
@@ -47,9 +59,13 @@ exports.getMatchDetails = async (req, res) => {
       user: targetUser
     });
   } catch (err) {
+    console.error("Get match details error:", {
+      name: err?.name || "UnknownError",
+      code: err?.code,
+    });
     res.status(500).json({
       success: false,
-      message: err.message
+      message: "Failed to fetch match details"
     });
   }
 };

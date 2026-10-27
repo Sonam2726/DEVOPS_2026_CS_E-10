@@ -113,6 +113,30 @@
     gap: 22px;
 }
 
+.matching-state {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    color: #4b5563;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+.matching-login-link {
+    color: #4f46e5;
+    font-weight: 600;
+}
+
+.match-card .role {
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+.match-card button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
 
 /* =========================================
    MATCH CARD
@@ -364,4 +388,3 @@
     }
 
 }
-

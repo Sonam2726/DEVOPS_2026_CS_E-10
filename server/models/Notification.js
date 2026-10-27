@@ -8,6 +8,11 @@ const notificationSchema = new mongoose.Schema(
       required: [true, "User is required"],
     },
 
+    request: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Request",
+    },
+
     type: {
       type: String,
       enum: [

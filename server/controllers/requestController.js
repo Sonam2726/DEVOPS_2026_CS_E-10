@@ -8,9 +8,21 @@ const Notification = require("../models/Notification");
 // POST /api/requests
 exports.sendRequest = async (req, res) => {
   try {
+    if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body must be a JSON object",
+      });
+    }
+
     const { receiverId, skillToLearn, message } = req.body;
 
-    if (!receiverId || !skillToLearn?.trim()) {
+    if (
+      typeof receiverId !== "string" ||
+      !receiverId ||
+      typeof skillToLearn !== "string" ||
+      !skillToLearn.trim()
+    ) {
       return res.status(400).json({
         success: false,
         message: "Receiver ID and skill are required",
@@ -24,7 +36,14 @@ exports.sendRequest = async (req, res) => {
       });
     }
 
-    if (receiverId === req.user.userId) {
+    if (message !== undefined && typeof message !== "string") {
+      return res.status(400).json({
+        success: false,
+        message: "Message must be a string",
+      });
+    }
+
+    if (receiverId.toLowerCase() === String(req.user.userId).toLowerCase()) {
       return res.status(400).json({
         success: false,
         message: "You cannot send a request to yourself",
@@ -76,6 +95,7 @@ exports.sendRequest = async (req, res) => {
 
     const notification = new Notification({
       user: request.receiver,
+      request: request._id,
       type: "skill_request",
       title: "New learning request",
       message: `You received a request to learn ${request.skillToLearn}.`,
@@ -138,6 +158,13 @@ exports.sendRequest = async (req, res) => {
 // PUT /api/requests/:id/status
 exports.updateRequestStatus = async (req, res) => {
   try {
+    if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body must be a JSON object",
+      });
+    }
+
     const { status } = req.body;
 
     if (!mongoose.isValidObjectId(req.params.id)) {
@@ -147,7 +174,7 @@ exports.updateRequestStatus = async (req, res) => {
       });
     }
 
-    if (!["accepted", "rejected"].includes(status)) {
+    if (typeof status !== "string" || !["accepted", "rejected"].includes(status)) {
       return res.status(400).json({
         success: false,
         message: "Status must be accepted or rejected",
@@ -187,6 +214,7 @@ exports.updateRequestStatus = async (req, res) => {
 
     const notification = new Notification({
       user: request.sender,
+      request: request._id,
       type:
         status === "accepted"
           ? "skill_request_accepted"

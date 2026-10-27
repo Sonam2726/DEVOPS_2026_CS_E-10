@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import "./Requests.css";
 
 const API_URL =
@@ -13,12 +13,27 @@ const getLocalDateInputValue = () => {
 };
 
 function Requests() {
+  const [searchParams] = useSearchParams();
+  const requestIdFromUrl = searchParams.get("requestId");
+  const requestTypeFromUrl = searchParams.get("type")?.toLowerCase();
+  const initialRequestType =
+    requestTypeFromUrl === "incoming" ||
+    (!requestTypeFromUrl && requestIdFromUrl)
+      ? "Incoming"
+      : "Outgoing";
+
   const [filter, setFilter] = useState("All");
-  const [requestType, setRequestType] = useState("Outgoing");
+  const [requestType, setRequestType] = useState(initialRequestType);
   const [incoming, setIncoming] = useState([]);
   const [outgoing, setOutgoing] = useState([]);
+  const [page, setPage] = useState(1);
+  const [pagination, setPagination] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
   const [error, setError] = useState("");
+  const [loadMoreError, setLoadMoreError] = useState("");
+  const [loadMoreRequiresLogin, setLoadMoreRequiresLogin] = useState(false);
+  const [reloadKey, setReloadKey] = useState(0);
   const [updatingRequests, setUpdatingRequests] = useState({});
   const [actionErrors, setActionErrors] = useState({});
   const [schedulingRequest, setSchedulingRequest] = useState(null);
@@ -34,43 +49,100 @@ function Requests() {
   const requestsInProgress = useRef(new Set());
 
   useEffect(() => {
+    if (!requestIdFromUrl || incoming.length === 0) return;
+
+    const requestElement = document.getElementById(
+      `request-${requestIdFromUrl}`
+    );
+
+    if (requestElement && typeof requestElement.scrollIntoView === "function") {
+      requestElement.scrollIntoView({ block: "center" });
+    }
+  }, [incoming, requestIdFromUrl]);
+
+  useEffect(() => {
+    const controller = new AbortController();
+
     const fetchRequests = async () => {
       const token = localStorage.getItem("skillbridgeToken");
 
       if (!token) {
-        setError("Please log in to view your requests.");
+        if (page === 1) setError("Please log in to view your requests.");
+        else setLoadMoreError("Please log in to load more requests.");
         setLoading(false);
+        setLoadingMore(false);
         return;
+      }
+
+      if (page === 1) {
+        setLoading(true);
+        setError("");
+      } else {
+        setLoadingMore(true);
+        setLoadMoreError("");
+        setLoadMoreRequiresLogin(false);
       }
 
       try {
         const response = await fetch(
-          `${API_URL}/requests?page=1&limit=10`,
+          `${API_URL}/requests?page=${page}&limit=10`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
             },
+            signal: controller.signal,
           }
         );
 
-        const result = await response.json();
+        const result = await response.json().catch(() => ({}));
 
-        if (!response.ok) {
-          setError(result.message || "Failed to load requests.");
+        if (
+          !response.ok ||
+          result.success !== true ||
+          !Array.isArray(result.incoming) ||
+          !Array.isArray(result.outgoing) ||
+          !result.pagination
+        ) {
+          const message =
+            result.message || "The server returned incomplete request data.";
+          if (page === 1) setError(message);
+          else {
+            setLoadMoreError(message);
+            setLoadMoreRequiresLogin(
+              response.status === 401 || response.status === 403
+            );
+          }
           return;
         }
 
-        setIncoming(Array.isArray(result.incoming) ? result.incoming : []);
-        setOutgoing(Array.isArray(result.outgoing) ? result.outgoing : []);
-      } catch {
-        setError("Could not connect to the server. Please try again.");
+        setIncoming((current) =>
+          page === 1 ? result.incoming : [...current, ...result.incoming]
+        );
+        setOutgoing((current) =>
+          page === 1 ? result.outgoing : [...current, ...result.outgoing]
+        );
+        setPagination(result.pagination);
+        setLoadMoreError("");
+      } catch (fetchError) {
+        if (fetchError.name !== "AbortError") {
+          const message = "Could not connect to the server. Please try again.";
+          if (page === 1) setError(message);
+          else {
+            setLoadMoreError(message);
+            setLoadMoreRequiresLogin(false);
+          }
+        }
       } finally {
-        setLoading(false);
+        if (!controller.signal.aborted) {
+          setLoading(false);
+          setLoadingMore(false);
+        }
       }
     };
 
     fetchRequests();
-  }, []);
+    return () => controller.abort();
+  }, [page, reloadKey]);
 
   const handleStatusUpdate = async (request, status) => {
     if (
@@ -254,6 +326,19 @@ function Requests() {
             request.status?.toLowerCase() === filter.toLowerCase()
         );
 
+  const currentTotalPages =
+    requestType === "Incoming"
+      ? pagination?.totalIncomingPages || 0
+      : pagination?.totalOutgoingPages || 0;
+  const hasMoreRequests =
+    pagination && pagination.page < currentTotalPages;
+
+  const loadMoreRequests = () => {
+    if (loadingMore || !hasMoreRequests) return;
+    if (page > pagination.page) setReloadKey((key) => key + 1);
+    else setPage(pagination.page + 1);
+  };
+
   const getPersonName = (request) => {
     const person =
       requestType === "Incoming" ? request.sender : request.receiver;
@@ -293,7 +378,10 @@ function Requests() {
                   ? "request-filter active"
                   : "request-filter"
               }
-              onClick={() => setRequestType(item)}
+              onClick={() => {
+                setRequestType(item);
+                if (page !== 1) setPage(1);
+              }}
             >
               {item}
             </button>
@@ -329,7 +417,15 @@ function Requests() {
             </div>
           ) : filteredRequests.length > 0 ? (
             filteredRequests.map((request) => (
-              <div className="request-card" key={request._id}>
+              <div
+                className={`request-card ${
+                  request._id === requestIdFromUrl
+                    ? "request-card-highlighted"
+                    : ""
+                }`}
+                id={`request-${request._id}`}
+                key={request._id}
+              >
                 <div className="request-icon">
                   {(request.skillToLearn || "?").charAt(0)}
                 </div>
@@ -385,13 +481,30 @@ function Requests() {
                     )}
                   {requestType === "Incoming" &&
                     request.status?.toLowerCase() === "accepted" && (
-                      <button
-                        type="button"
+                      <>
+                        <Link
+                          className="schedule-session-button"
+                          to={`/chat?participantId=${request.sender?._id || request.sender?.id || ""}`}
+                        >
+                          Message
+                        </Link>
+                        <button
+                          type="button"
+                          className="schedule-session-button"
+                          onClick={() => openSchedulingForm(request)}
+                        >
+                          Schedule Session
+                        </button>
+                      </>
+                    )}
+                  {requestType === "Outgoing" &&
+                    request.status?.toLowerCase() === "accepted" && (
+                      <Link
                         className="schedule-session-button"
-                        onClick={() => openSchedulingForm(request)}
+                        to={`/chat?participantId=${request.receiver?._id || request.receiver?.id || ""}`}
                       >
-                        Schedule Session
-                      </button>
+                        Message
+                      </Link>
                     )}
                   {actionErrors[request._id] && (
                     <p role="alert">{actionErrors[request._id]}</p>
@@ -412,6 +525,33 @@ function Requests() {
             </div>
           )}
         </div>
+        {!loading && !error && hasMoreRequests && (
+          <div className="requests-pagination">
+            {loadMoreError && (
+              <p role="alert" className="requests-pagination-error">
+                {loadMoreError}
+                {loadMoreRequiresLogin && (
+                  <>
+                    {" "}
+                    <Link to="/login">Log in</Link>
+                  </>
+                )}
+              </p>
+            )}
+            <button
+              type="button"
+              className="requests-load-more"
+              onClick={loadMoreRequests}
+              disabled={loadingMore}
+            >
+              {loadingMore
+                ? "Loading more requests..."
+                : loadMoreError || page > pagination.page
+                  ? "Retry loading more"
+                  : "Load more requests"}
+            </button>
+          </div>
+        )}
       </section>
 
       {schedulingRequest && (

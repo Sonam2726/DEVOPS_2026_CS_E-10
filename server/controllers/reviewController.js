@@ -7,12 +7,31 @@ const User = require("../models/User");
 // DAY 10: Submit a review
 const submitReview = async (req, res) => {
   try {
+    if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body must be a JSON object",
+      });
+    }
+
     const { reviewedUser, skill, rating, comment } = req.body;
 
     if (!reviewedUser || !skill || rating === undefined) {
       return res.status(400).json({
         success: false,
         message: "reviewedUser, skill and rating are required",
+      });
+    }
+
+    if (
+      typeof reviewedUser !== "string" ||
+      !mongoose.isValidObjectId(reviewedUser) ||
+      typeof skill !== "string" ||
+      !mongoose.isValidObjectId(skill)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid user or skill ID",
       });
     }
 
@@ -25,6 +44,13 @@ const submitReview = async (req, res) => {
       return res.status(400).json({
         success: false,
         message: "Rating must be an integer between 1 and 5",
+      });
+    }
+
+    if (comment !== undefined && typeof comment !== "string") {
+      return res.status(400).json({
+        success: false,
+        message: "Comment must be a string",
       });
     }
 

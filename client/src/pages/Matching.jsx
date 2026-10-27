@@ -1,316 +1,207 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./Matching.css";
 
-const teachers = [
-  {
-    id: 1,
-    name: "Aarav Sharma",
-    role: "Java Developer & Mentor",
-    skills: ["Java", "OOP", "Spring Boot"],
-    rating: "4.8",
-    match: "95%",
-    availability: "Available",
-    avatar: "AS",
-  },
-  {
-    id: 2,
-    name: "Priya Mehta",
-    role: "UI/UX Designer & Mentor",
-    skills: ["Figma", "UI Design", "UX"],
-    rating: "4.7",
-    match: "91%",
-    availability: "Available",
-    avatar: "PM",
-  },
-  {
-    id: 3,
-    name: "Rohan Verma",
-    role: "Python Developer & Mentor",
-    skills: ["Python", "FastAPI", "SQL"],
-    rating: "4.9",
-    match: "89%",
-    availability: "Available",
-    avatar: "RV",
-  },
-];
-
-const learners = [
-  {
-    id: 1,
-    name: "Sneha Patel",
-    role: "Java Learner",
-    skills: ["Java", "OOP", "DSA"],
-    level: "Beginner",
-    match: "93%",
-    avatar: "SP",
-  },
-  {
-    id: 2,
-    name: "Rahul Singh",
-    role: "Frontend Learner",
-    skills: ["React", "JavaScript", "CSS"],
-    level: "Intermediate",
-    match: "88%",
-    avatar: "RS",
-  },
-  {
-    id: 3,
-    name: "Ananya Sharma",
-    role: "Python Learner",
-    skills: ["Python", "Machine Learning", "Pandas"],
-    level: "Beginner",
-    match: "86%",
-    avatar: "AS",
-  },
-];
+const API_URL =
+  (typeof import.meta !== "undefined" && import.meta.env?.VITE_API_URL) ||
+  "http://localhost:5000/api";
 
 function Matching() {
   const navigate = useNavigate();
+  const [matches, setMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [unauthorized, setUnauthorized] = useState(false);
 
-  const handleConnect = (id) => {
-    navigate(`/match-details/${id}`);
+  useEffect(() => {
+    const controller = new AbortController();
+
+    const fetchMatches = async () => {
+      const token = localStorage.getItem("skillbridgeToken");
+
+      if (!token) {
+        setUnauthorized(true);
+        setError("Please log in to see recommended matches.");
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const response = await fetch(`${API_URL}/matches/recommendations`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          signal: controller.signal,
+        });
+        const result = await response.json().catch(() => ({}));
+
+        if (!response.ok) {
+          const requiresLogin = response.status === 401 || response.status === 403;
+          setUnauthorized(requiresLogin);
+          setError(
+            requiresLogin
+              ? "Your session is invalid or expired. Please log in again."
+              : result.message || "Unable to load recommended matches."
+          );
+          return;
+        }
+
+        if (result.success !== true || !Array.isArray(result.matches)) {
+          setError("The server returned incomplete match data.");
+          return;
+        }
+
+        setMatches(result.matches);
+      } catch (fetchError) {
+        if (fetchError.name !== "AbortError") {
+          setError("Could not connect to the server. Please try again.");
+        }
+      } finally {
+        if (!controller.signal.aborted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchMatches();
+    return () => controller.abort();
+  }, []);
+
+  const openDetails = (match) => {
+    const id = match._id || match.id;
+    if (id) navigate(`/match-details/${id}`);
+  };
+
+  const openRequestForm = (match) => {
+    const id = match._id || match.id;
+    if (id) {
+      navigate(`/match-details/${id}`, {
+        state: { focusRequestForm: true },
+      });
+    }
   };
 
   return (
-    <div className="matching-page">
-
-      {/* PAGE HEADER */}
-      <div className="matching-header">
+    <main className="matching-page">
+      <header className="matching-header">
         <div>
-          <span className="page-label">
-            SKILLBRIDGE MATCHING
-          </span>
-
+          <span className="page-label">SKILLBRIDGE MATCHING</span>
           <h1>
             Find Your Perfect <span>Skill Match</span>
           </h1>
-
           <p>
-            Connect with teachers and learners who share
-            your skills, interests and learning goals.
+            Connect with people who can teach skills you want to learn.
           </p>
         </div>
-      </div>
-
-      {/* ================= TEACHERS ================= */}
+      </header>
 
       <section className="matching-section">
-
         <div className="section-heading">
-
           <div>
-            <span className="section-label">
-              RECOMMENDED FOR YOU
-            </span>
-
+            <span className="section-label">RECOMMENDED FOR YOU</span>
             <h2>Recommended Teachers</h2>
           </div>
-
-          <button className="view-all-btn">
-            View All
-          </button>
-
         </div>
 
-        <div className="cards-container">
+        {loading && (
+          <p className="matching-state" role="status">
+            Loading recommended matches...
+          </p>
+        )}
 
-          {teachers.map((teacher) => (
+        {!loading && error && (
+          <div className="matching-state" role="alert">
+            <p>{error}</p>
+            {unauthorized && (
+              <Link to="/login" className="matching-login-link">
+                Log in
+              </Link>
+            )}
+          </div>
+        )}
 
-            <div
-              className="match-card"
-              key={teacher.id}
-            >
+        {!loading && !error && matches.length === 0 && (
+          <p className="matching-state">
+            No recommended teachers found yet. Add skills you want to learn to
+            your profile to get recommendations.
+          </p>
+        )}
 
-              <div className="card-header">
+        {!loading && !error && matches.length > 0 && (
+          <div className="cards-container">
+            {matches.map((match) => {
+              const id = match._id || match.id;
+              const name = match.name || "SkillBridge member";
+              const initials = name
+                .split(/\s+/)
+                .filter(Boolean)
+                .slice(0, 2)
+                .map((part) => part.charAt(0).toUpperCase())
+                .join("");
 
-                <div className="avatar">
-                  {teacher.avatar}
-                </div>
+              return (
+                <article className="match-card" key={id || name}>
+                  <div className="card-header">
+                    <div className="avatar">{initials || "?"}</div>
+                    <div className="match-badge">
+                      <strong>Skill</strong>
+                      <small>Match</small>
+                    </div>
+                  </div>
 
-                <div className="match-badge">
-                  <strong>{teacher.match}</strong>
-                  <small>Match</small>
-                </div>
+                  <div className="person-info">
+                    <h3>{name}</h3>
+                    <p className="role">
+                      {match.bio || "Recommended because they teach a skill you want to learn."}
+                    </p>
+                  </div>
 
-              </div>
+                  <div className="availability">
+                    <span className="status-dot"></span>
+                    <span>Recommended teacher</span>
+                  </div>
 
-              <div className="person-info">
+                  {match.location && (
+                    <div className="learner-level">{match.location}</div>
+                  )}
 
-                <h3>{teacher.name}</h3>
-
-                <p className="role">
-                  {teacher.role}
-                </p>
-
-                <div className="rating">
-                  ⭐ {teacher.rating}
-                </div>
-
-              </div>
-
-              <div className="availability">
-
-                <span className="status-dot"></span>
-
-                <span>
-                  {teacher.availability}
-                </span>
-
-              </div>
-
-              <div className="skills">
-
-                {teacher.skills.map((skill) => (
-
-                  <span key={skill}>
-                    {skill}
-                  </span>
-
-                ))}
-
-              </div>
-
-              <div className="card-buttons">
-
-                <button
-                  className="profile-btn"
-                  onClick={() =>
-                    navigate(`/match-details/${teacher.id}`)
-                  }
-                >
-                  View Profile
-                </button>
-
-                <button
-                  className="connect-btn"
-                  onClick={() =>
-                    handleConnect(teacher.id)
-                  }
-                >
-                  Connect
-                </button>
-
-              </div>
-
-            </div>
-
-          ))}
-
-        </div>
-
+                  <div className="card-buttons">
+                    <button
+                      className="profile-btn"
+                      type="button"
+                      onClick={() => openDetails(match)}
+                      disabled={!id}
+                    >
+                      View Profile
+                    </button>
+                    <button
+                      className="connect-btn"
+                      type="button"
+                      onClick={() => openRequestForm(match)}
+                      disabled={!id}
+                    >
+                      Connect
+                    </button>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        )}
       </section>
-
-      {/* ================= LEARNERS ================= */}
 
       <section className="matching-section learners-section">
-
         <div className="section-heading">
-
           <div>
-
-            <span className="section-label">
-              PEOPLE WHO MATCH YOUR SKILLS
-            </span>
-
+            <span className="section-label">MORE WAYS TO CONNECT</span>
             <h2>Recommended Learners</h2>
-
           </div>
-
-          <button className="view-all-btn">
-            View All
-          </button>
-
         </div>
-
-        <div className="cards-container">
-
-          {learners.map((learner) => (
-
-            <div
-              className="match-card"
-              key={learner.id}
-            >
-
-              <div className="card-header">
-
-                <div className="avatar">
-                  {learner.avatar}
-                </div>
-
-                <div className="match-badge">
-
-                  <strong>
-                    {learner.match}
-                  </strong>
-
-                  <small>
-                    Match
-                  </small>
-
-                </div>
-
-              </div>
-
-              <div className="person-info">
-
-                <h3>
-                  {learner.name}
-                </h3>
-
-                <p className="role">
-                  {learner.role}
-                </p>
-
-              </div>
-
-              <div className="learner-level">
-                🎓 {learner.level}
-              </div>
-
-              <div className="skills">
-
-                {learner.skills.map((skill) => (
-
-                  <span key={skill}>
-                    {skill}
-                  </span>
-
-                ))}
-
-              </div>
-
-              <div className="card-buttons">
-
-                <button
-                  className="profile-btn"
-                  onClick={() =>
-                    navigate(`/match-details/${learner.id}`)
-                  }
-                >
-                  View Profile
-                </button>
-
-                <button
-                  className="connect-btn"
-                  onClick={() =>
-                    handleConnect(learner.id)
-                  }
-                >
-                  Connect
-                </button>
-
-              </div>
-
-            </div>
-
-          ))}
-
-        </div>
-
+        <p className="matching-state">
+          Learner recommendations are not provided by the current matching API.
+        </p>
       </section>
-
-    </div>
+    </main>
   );
 }
 

@@ -7,6 +7,13 @@ const Skill = require("../models/Skill");
 // Create session
 exports.createSession = async (req, res) => {
   try {
+    if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body must be a JSON object",
+      });
+    }
+
     const {
       requestId,
       scheduledAt,
@@ -22,10 +29,14 @@ exports.createSession = async (req, res) => {
       });
     }
 
-    if (!scheduledAt) {
+    if (
+      scheduledAt === undefined ||
+      scheduledAt === null ||
+      (typeof scheduledAt !== "string" && typeof scheduledAt !== "number")
+    ) {
       return res.status(400).json({
         success: false,
-        message: "Scheduled time is required",
+        message: "A valid scheduled time is required",
       });
     }
 
@@ -86,8 +97,18 @@ exports.createSession = async (req, res) => {
       });
     }
 
-    const duration =
-      durationMinutes === undefined ? 60 : Number(durationMinutes);
+    if (
+      durationMinutes !== undefined &&
+      typeof durationMinutes !== "number" &&
+      typeof durationMinutes !== "string"
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "Duration must be a positive number",
+      });
+    }
+
+    const duration = durationMinutes === undefined ? 60 : Number(durationMinutes);
 
     if (!Number.isFinite(duration) || duration <= 0) {
       return res.status(400).json({
@@ -189,6 +210,13 @@ exports.updateSession = async (req, res) => {
       });
     }
 
+    if (!req.body || typeof req.body !== "object" || Array.isArray(req.body)) {
+      return res.status(400).json({
+        success: false,
+        message: "Request body must be a JSON object",
+      });
+    }
+
     const session = await Session.findOne({
       _id: req.params.id,
       $or: [
@@ -226,6 +254,16 @@ exports.updateSession = async (req, res) => {
     }
 
     if (req.body.scheduledAt !== undefined) {
+      if (
+        typeof req.body.scheduledAt !== "string" &&
+        typeof req.body.scheduledAt !== "number"
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Invalid scheduled date",
+        });
+      }
+
       const date = new Date(req.body.scheduledAt);
 
       if (Number.isNaN(date.getTime())) {
@@ -239,6 +277,16 @@ exports.updateSession = async (req, res) => {
     }
 
     if (req.body.durationMinutes !== undefined) {
+      if (
+        typeof req.body.durationMinutes !== "number" &&
+        typeof req.body.durationMinutes !== "string"
+      ) {
+        return res.status(400).json({
+          success: false,
+          message: "Duration must be a positive number",
+        });
+      }
+
       const duration = Number(req.body.durationMinutes);
 
       if (!Number.isFinite(duration) || duration <= 0) {
