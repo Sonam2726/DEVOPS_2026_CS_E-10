@@ -1,3 +1,4 @@
+
 const MAX_MESSAGES = 20;
 const MAX_MESSAGE_LENGTH = 2000;
 
@@ -32,6 +33,10 @@ exports.sendChatMessage = async (req, res) => {
   }
 
   try {
+    console.log("Chat API: Sending request to Ollama...");
+
+    const startTime = Date.now();
+
     const ollamaResponse = await fetch("http://localhost:11434/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -58,13 +63,17 @@ exports.sendChatMessage = async (req, res) => {
           })),
         ],
       }),
-      signal: AbortSignal.timeout(30_000),
+      signal: AbortSignal.timeout(120_000),
     });
+
+    console.log("Chat API: Ollama responded with status:", ollamaResponse.status);
+    console.log("Chat API: Ollama response time:", Date.now() - startTime, "ms");
 
     if (!ollamaResponse.ok) {
       console.error("Ollama chat request failed:", {
         status: ollamaResponse.status,
       });
+
       return res.status(502).json({
         success: false,
         message: "The AI service is temporarily unavailable. Please try again.",
@@ -73,12 +82,17 @@ exports.sendChatMessage = async (req, res) => {
 
     const completion = await ollamaResponse.json();
     const reply = completion.message?.content?.trim();
+
     if (!reply) {
+      console.error("Chat API: Ollama returned an empty response.");
+
       return res.status(502).json({
         success: false,
         message: "The AI Tutor returned an empty response. Please try again.",
       });
     }
+
+    console.log("Chat API: Reply generated successfully.");
 
     return res.json({
       success: true,
@@ -88,6 +102,7 @@ exports.sendChatMessage = async (req, res) => {
     console.error("AI chat request failed:", {
       name: error?.name,
       message: error?.message,
+      cause: error?.cause?.message,
     });
 
     return res.status(502).json({
