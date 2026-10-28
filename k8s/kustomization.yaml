@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: skillbridge
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - mongodb.yaml
+  - backend.yaml
+  - frontend.yaml
+images:
+  - name: skillbridge-backend
+    newName: skillbridge-backend
+    newTag: local
+  - name: skillbridge-frontend
+    newName: skillbridge-frontend
+    newTag: local
